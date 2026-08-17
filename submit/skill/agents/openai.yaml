@@ -1,0 +1,7 @@
+interface:
+  display_name: "HW04 AI Audit"
+  short_description: "Ghi AI Audit HW04 tự động"
+  default_prompt: "Dùng $skill để ghi tương tác AI này vào submit/skill/ai-audit-report.md."
+
+policy:
+  allow_implicit_invocation: true
