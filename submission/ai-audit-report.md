@@ -1,0 +1,122 @@
+# AI Audit Report
+
+## Declaration
+
+I use AI tools for the following tasks.
+
+## Summary Table
+
+| No. | AI Tool | Date Time | Purpose | Prompt Summary | AI Output Summary | Human Review / Change |
+| ---: | --- | --- | --- | --- | --- | --- |
+| 1 | Gemini 3.6 Flash | 2026-08-18 17:42 | Feature FR-03 script generation | Sử dụng skill @hw04-data-driven-script để tạo Playwright test & JSON data cho FR-03 (12 test cases) | Tạo file tests/data/poolA-fr03-forgot-password.json và tests/poolA-fr03-forgot-password.spec.ts với 3 assertion patterns | Accepted initial draft |
+| 2 | Gemini 3.6 Flash | 2026-08-18 21:30 | Feature FR-03 script review & bug classification | Sử dụng skill @hw04-automation-maintenance để review, phân tích lỗi AI script FR-03 và phân loại bug thực tế | Phân tích 5 lỗi AI (locators, regex OTP, missing confirm password, forced pass assertion, weak URL assertion), tạo bảng AI Review And Human Fixes và Bug Report | Reviewed & applied human fixes to test script, updated bug-report.md & main-report.md |
+| 3 | `<ToolName>` | `<YYYY-MM-DD HH:mm>` | Feature B script generation | `<prompt summary>` | `<output summary>` | `<human fixes>` |
+| 4 | `<ToolName>` | `<YYYY-MM-DD HH:mm>` | Feature C test case generation | `<prompt summary>` | `<output summary>` | `<human review>` |
+| 5 | `<ToolName>` | `<YYYY-MM-DD HH:mm>` | Feature C script generation | `<prompt summary>` | `<output summary>` | `<human fixes>` |
+
+## Full Interaction Logs
+
+### Interaction 1
+
+- **AI tool:** Gemini 3.6 Flash
+- **Date and time:** 2026-08-18 17:42
+- **Purpose:** Generate Playwright data-driven test script and JSON data file for Feature FR-03 (Forgot Password & Reset).
+- **Prompt:**
+
+```text
+Hãy sử dụng skill @hw04-data-driven-script để viết Playwright test và tạo data file cho Feature đầu tiên.
+
+Thông tin Input:
+- Feature ID: FR-03 (Forgot password and password reset)
+- Pool: A
+- Base URL: http://localhost:5173
+- Định dạng data: .json
+- Đường dẫn Spec Output: tests/poolA-fr03-forgot-password.spec.ts
+- Đường dẫn Data Output: tests/data/poolA-fr03-forgot-password.json
+- Danh sách 12 Test Cases: Lấy trong bảng Test Case Table của file poolA.md
+
+Yêu cầu Output:
+1. Tạo file tests/data/poolA-fr03-forgot-password.json chứa đủ 12 test cases.
+2. Tạo file tests/poolA-fr03-forgot-password.spec.ts đọc data từ file JSON trên.
+3. Sử dụng ít nhất 3 assertion patterns khác nhau.
+4. Ưu tiên các locator Playwright chuẩn như getByRole, getByLabel, getByPlaceholder.
+```
+
+- **AI output:**
+
+```text
+Đã hoàn thành tạo Data File và Playwright Spec File cho Feature FR-03 (Forgot password and password reset) theo đúng hướng dẫn từ skill @hw04-data-driven-script.
+
+Các Artifacts Đã Tạo:
+1. Data File: tests/data/poolA-fr03-forgot-password.json
+   - Chứa đủ 12 test cases (TC1 tới TC12) được trích xuất từ bảng Test Case Table trong poolA.md.
+   - Cấu trúc chuẩn hóa gồm: id, type, step, title, email, otp, newPassword, confirmPassword, expectedMessage, assertionPattern.
+
+2. Playwright Spec File: tests/poolA-fr03-forgot-password.spec.ts
+   - Đọc dữ liệu động từ file JSON poolA-fr03-forgot-password.json.
+   - Ưu tiên sử dụng Playwright locators chuẩn: getByRole, getByLabel, getByPlaceholder.
+   - Tích hợp 3 assertion patterns khác nhau:
+     1. Visible Text / Element Assertion: expect(messageElement).toBeVisible()
+     2. Validation Message / Form State Assertion: expect(validationMessage).toBeTruthy()
+     3. URL / Navigation State Assertion: expect(page).toHaveURL(...)
+```
+
+- **Human review / change:** Accepted and verified that data file contains 12 cases and spec file imports JSON dynamically.
+
+---
+
+### Interaction 2
+
+- **AI tool:** Gemini 3.6 Flash
+- **Date and time:** 2026-08-18 21:30
+- **Purpose:** Review, analyze AI-generated script issues, fix Playwright test stability, classify product bugs vs automation errors for Feature FR-03.
+- **Prompt:**
+
+```text
+Hãy dùng skill @hw04-automation-maintenance để review, phân tích các thay đổi và tạo bảng AI Review And Human Fixes cho test script poolA-fr03-forgot-password.spec.ts.
+
+Thông tin đầu vào:
+- Spec file: tests/poolA-fr03-forgot-password.spec.ts
+- Data file: tests/data/poolA-fr03-forgot-password.json
+- Feature: FR-03 Quên mật khẩu và Đặt lại mật khẩu (Pool A)
+- Student ID: 23127185
+- Browsers: Chromium, Firefox, Cốc Cốc
+- Log/Report path: playwright-report/index.html
+
+Yêu cầu xuất ra:
+1. Bảng AI Review And Human Fixes (gồm AI Issue, Human Fix, Why AI Missed It).
+2. Phân loại kết quả Pass/Fail (Bug thực tế của SUT vs Lỗi automation).
+3. Nội dung Bug Report ngắn gọn để ghi vào bug-report.md.
+```
+
+- **AI output:**
+
+```text
+Phân tích thành công 5 lỗi chính từ AI script:
+1. Locators chung chung input[type="text"].first().
+2. Regex bóc tách OTP từ notification banner.
+3. Bọc trường Confirm Password trong kiểm tra isVisible() làm lỡ bug giao diện.
+4. Logic gượng ép expect(tc.type).toBe('Negative') cho Negative cases.
+5. Assertion URL quá ngắn và lỏng lẻo.
+
+Kết quả Phân loại Pass/Fail:
+- 4 PASSED (TC2, TC3, TC4): Test validation email chuẩn.
+- 8 FAILED (TC1, TC5-TC12): Bug sản phẩm SUT (OTP 4 số, thiếu trường Confirm Password, sai validation Password Policy).
+```
+
+- **Human review / change:** Verified findings against SUT behavior, updated `tests/poolA-fr03-forgot-password.spec.ts`, updated `bug-report.md` (BUG-001 & BUG-002) and `main-report.md`.
+
+---
+
+## Prompt Quality Notes
+
+| Prompt | What Worked | What Failed | Improvement |
+| --- | --- | --- | --- |
+| `Skill @hw04-data-driven-script invocation for FR-03` | Clarified output paths, base URL, and assertion pattern requirements clearly | None | Specify exact SUT input element selectors if non-standard UI components exist |
+| `Skill @hw04-automation-maintenance invocation for FR-03` | Structured review process, identified 5 specific AI script issues, categorized SUT bugs clearly | None | Include raw HTML DOM snippet when requesting AI locator fixes |
+
+## Human Responsibility Statement
+
+I reviewed, corrected, and took responsibility for the final automation scripts, data files, assertions, reports, and bug reports submitted for HW04.
+
+
