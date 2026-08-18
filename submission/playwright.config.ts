@@ -22,14 +22,20 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
-    // baseURL: 'http://localhost:3000',
+    baseURL: process.env.BASE_URL || 'http://localhost:5173',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+  },
+  reporter: [
+    ['html', { outputFolder: 'playwright-report', open: 'never' }]
+  ],
+  metadata: {
+    'Run by': process.env.STUDENT_ID || '23127185',
+    'Timestamp': new Date().toISOString(),
   },
 
   /* Configure projects for major browsers */
@@ -45,8 +51,11 @@ export default defineConfig({
     },
 
     {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      name: 'coccoc',
+      use: {
+        ...devices['Desktop Chrome'],
+        executablePath: '/usr/bin/coccoc-browser',
+      },
     },
 
     /* Test against mobile viewports. */
@@ -61,8 +70,8 @@ export default defineConfig({
 
     /* Test against branded browsers. */
     // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
+    //   name: 'Microsoft Coc Coc',
+    //   use: { ...devices['Desktop Coc Coc'], channel: 'msCoc Coc' },
     // },
     // {
     //   name: 'Google Chrome',
