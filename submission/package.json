@@ -1,0 +1,14 @@
+{
+  "name": "submission",
+  "version": "1.0.0",
+  "description": "- **MSSV:** `23127185` - **Họ tên:** `Mai Thị Kim Duyên` - **Repository GitHub:** `<PublicGitHubRepositoryURL>` - **Demo video YouTube unlisted:** `<YouTubeUnlistedURL>` - **SUT:** EShop - <https://github.com/ttbhanh/eshop-sut>",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^26.2.0"
+  }
+}
