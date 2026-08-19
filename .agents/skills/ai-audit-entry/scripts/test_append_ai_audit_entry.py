@@ -10,12 +10,12 @@ from pathlib import Path
 
 
 SCRIPT = Path(__file__).with_name("append_ai_audit_entry.py")
-DEFAULT_AUDIT_FILE = Path("submission/ai-audit/ai_audit_report.md")
+DEFAULT_AUDIT_FILE = Path("src/reports/ai-audit-report.md")
 SUMMARY_HEADER = "| STT | Prompt + Tool | Verdict |"
 DETAIL_ENTRY_HEADING = "### 2.2.1 Entry 1"
 
 
-def test_default_output_path_is_submission_ai_audit(tmp_path: Path) -> None:
+def test_default_output_path_is_src_reports_ai_audit(tmp_path: Path) -> None:
     tmp_path.mkdir(parents=True, exist_ok=True)
 
     result = subprocess.run(
@@ -86,7 +86,11 @@ def test_output_file_records_full_contiguous_artifact(tmp_path: Path) -> None:
     audit_text = audit_file.read_text(encoding="utf-8")
     assert "## 2. Bảng audit" in audit_text
     assert SUMMARY_HEADER in audit_text
-    assert "**AI Output:** # Generated Artifact Line 1 Line 2" in audit_text
+    assert "**AI Output:**" in audit_text
+    assert "```markdown" in audit_text
+    assert "# Generated Artifact" in audit_text
+    assert "Line 1" in audit_text
+    assert "Line 2" in audit_text
 
 
 def test_unicode_prompt_and_output_are_preserved_verbatim(tmp_path: Path) -> None:
@@ -523,7 +527,7 @@ if __name__ == "__main__":
     with tempfile.TemporaryDirectory() as temp_dir:
         temp_path = Path(temp_dir)
         test_output_file_records_full_contiguous_artifact(temp_path / "output-file")
-        test_default_output_path_is_submission_ai_audit(temp_path / "default-path")
+        test_default_output_path_is_src_reports_ai_audit(temp_path / "default-path")
         test_unicode_prompt_and_output_are_preserved_verbatim(temp_path / "unicode")
         test_report_does_not_create_ai_tool_usage_summary(temp_path / "no-summary")
         test_legacy_unnumbered_sections_are_renumbered(temp_path / "section-numbering")

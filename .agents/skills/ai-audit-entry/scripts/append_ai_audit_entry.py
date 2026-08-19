@@ -11,7 +11,7 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 
-DEFAULT_AUDIT_FILE = Path("submission/ai-audit/ai_audit_report.md")
+DEFAULT_AUDIT_FILE = Path("src/reports/ai-audit-report.md")
 DEFAULT_TOOL_MODEL = "Codex / GPT-5"
 MANUAL_PLACEHOLDER = "[Manual by user]"
 SUMMARY_TABLE_HEADER = (

@@ -1,14 +1,20 @@
 ---
 name: ai-audit-entry
-description: Offer to append an AI audit entry for software testing homework work. Use for every user prompt session in this repository before finishing the response, especially when Codex plans, edits files, generates reports/templates, reviews requirements, executes commands, or summarizes AI-assisted work for `submission/ai-audit/ai_audit_report.md`; ask the user whether to add the entry before writing.
+description: Offer to append an AI audit entry for software testing homework work. Use for every user prompt session in this repository before finishing the response, especially when Codex plans, edits files, generates reports/templates, reviews requirements, executes commands, or summarizes AI-assisted work for `src/reports/ai-audit-report.md`; ask the user whether to add the entry before writing.
 ---
 # AI Audit Entry
 
 ## Workflow
 
+Homework implementation lives under `src/`. Keep this skill at repo root, but write the audit report to:
+
+`src/reports/ai-audit-report.md`
+
+Do not use the old root path `submission/ai-audit/ai_audit_report.md`.
+
 Ask the user whether they want to append an audit entry before writing to:
 
-`submission/ai-audit/ai_audit_report.md`
+`src/reports/ai-audit-report.md`
 
 If the user says no, do not run the append script. If the user says yes, run the bundled script before the final response whenever meaningful work was performed:
 
