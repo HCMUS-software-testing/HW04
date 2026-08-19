@@ -5,8 +5,8 @@ This repository is the HW04 Playwright automation homework for the EShop demo st
 ## Project Structure & Module Organization
 
 - `docs/` — assignment text and the implementation plan
-- `req/` — original PDF brief
-- `ai-reasoning/` — ISTQB CT-AI syllabus; prefer `*.md` over PDFs
+- `req/` — assignment brief; read `*.md` only, never the PDF unless asked
+- `ai-reasoning/` — ISTQB CT-AI syllabus; read `*.md` only, never the PDF unless asked
 - `.agents/skills/` — Codex skills, including AI audit logging
 - Planned test tree:
   - `tests/feature-{a,b,c}.spec.ts`
@@ -43,4 +43,4 @@ History uses short imperative subjects, often Conventional Commits (`feat: add p
 
 ## Agent-Specific Instructions
 
-Do not invent HTML reports, ISO timestamps, or demo evidence. Offer an audit entry before writing `src/reports/ai-audit-report.md`. Follow `ai-reasoning/AGENTS.md` when reading syllabus files and `docs/superpowers/plans/2026-08-16-hw04-automation-testing.md` for implementation order.
+Do not invent HTML reports, ISO timestamps, or demo evidence. Offer an audit entry before writing `src/reports/ai-audit-report.md`. Follow `req/AGENTS.md` and `ai-reasoning/AGENTS.md`: read Markdown only in those folders. Follow `docs/superpowers/plans/2026-08-16-hw04-automation-testing.md` for implementation order.
