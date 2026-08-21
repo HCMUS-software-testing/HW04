@@ -1,0 +1,273 @@
+[
+  {
+    "id": "FR09-TC01",
+    "title": "Apply percent coupon SAVE10 successfully",
+    "type": "positive",
+    "mode": "hybrid",
+    "precondition": "User is logged in; SAVE10 is active, unexpired, and unused by user_id 1.",
+    "input": {
+      "endpoint": "/api/apply-coupon",
+      "code": "SAVE10",
+      "total_amount": 500000,
+      "user_id": 1,
+      "token": "user"
+    },
+    "expected": {
+      "status": 200,
+      "discount_amount": 50000,
+      "final_amount": 450000
+    },
+    "hw02Reference": "TC01"
+  },
+  {
+    "id": "FR09-TC02",
+    "title": "Apply fixed coupon BIGBUY successfully",
+    "type": "positive",
+    "mode": "api",
+    "precondition": "User is logged in; BIGBUY is active, unexpired, and unused by user_id 1.",
+    "input": {
+      "endpoint": "/api/apply-coupon",
+      "code": "BIGBUY",
+      "total_amount": 600000,
+      "user_id": 1,
+      "token": "user"
+    },
+    "expected": {
+      "status": 200,
+      "discount_amount": 50000,
+      "final_amount": 550000
+    },
+    "hw02Reference": "TC02"
+  },
+  {
+    "id": "FR09-TC03",
+    "title": "Reject unknown coupon code",
+    "type": "negative",
+    "mode": "api",
+    "precondition": "User is logged in.",
+    "input": {
+      "endpoint": "/api/apply-coupon",
+      "code": "NOTFOUND",
+      "total_amount": 500000,
+      "user_id": 1,
+      "token": "user"
+    },
+    "expected": {
+      "status": 404,
+      "errorContains": "không tồn tại"
+    },
+    "hw02Reference": "TC03"
+  },
+  {
+    "id": "FR09-TC04",
+    "title": "Reject inactive coupon",
+    "type": "negative",
+    "mode": "api",
+    "precondition": "Set SAVE10 is_active = 0 before request and restore afterward.",
+    "input": {
+      "endpoint": "/api/apply-coupon",
+      "code": "SAVE10",
+      "total_amount": 500000,
+      "user_id": 1,
+      "token": "user"
+    },
+    "expected": {
+      "status": 404,
+      "errorContains": "vô hiệu hóa"
+    },
+    "hw02Reference": "TC04"
+  },
+  {
+    "id": "FR09-TC05",
+    "title": "Reject empty coupon code",
+    "type": "negative",
+    "mode": "hybrid",
+    "precondition": "User is on checkout page or direct API request is used.",
+    "input": {
+      "endpoint": "/api/apply-coupon",
+      "code": "",
+      "total_amount": 500000,
+      "user_id": 1,
+      "token": "user"
+    },
+    "expected": {
+      "status": 400,
+      "uiApplyButtonDisabled": true,
+      "errorContains": "Vui lòng nhập mã giảm giá"
+    },
+    "hw02Reference": "TC05"
+  },
+  {
+    "id": "FR09-TC06",
+    "title": "Reject order below minimum amount",
+    "type": "negative",
+    "mode": "api",
+    "precondition": "SAVE10 requires minimum order amount 300000.",
+    "input": {
+      "endpoint": "/api/apply-coupon",
+      "code": "SAVE10",
+      "total_amount": 200000,
+      "user_id": 1,
+      "token": "user"
+    },
+    "expected": {
+      "status": 400,
+      "errorContains": "chưa đủ giá trị tối thiểu"
+    },
+    "hw02Reference": "TC06"
+  },
+  {
+    "id": "FR09-TC07",
+    "title": "Reject expired coupon",
+    "type": "negative",
+    "mode": "api",
+    "precondition": "EXPIRED exists with expired_at = 2020-01-01.",
+    "input": {
+      "endpoint": "/api/apply-coupon",
+      "code": "EXPIRED",
+      "total_amount": 500000,
+      "user_id": 1,
+      "token": "user"
+    },
+    "expected": {
+      "status": 400,
+      "errorContains": "hết hạn"
+    },
+    "hw02Reference": "TC07"
+  },
+  {
+    "id": "FR09-TC08",
+    "title": "Reject coupon after per-user usage limit is reached",
+    "type": "negative",
+    "mode": "api",
+    "precondition": "Insert one coupon_usage row for SAVE10 and user_id 1.",
+    "input": {
+      "endpoint": "/api/apply-coupon",
+      "code": "SAVE10",
+      "total_amount": 500000,
+      "user_id": 1,
+      "token": "user"
+    },
+    "expected": {
+      "status": 400,
+      "errorContains": "đạt giới hạn"
+    },
+    "hw02Reference": "TC08"
+  },
+  {
+    "id": "FR09-TC09",
+    "title": "Reject apply-coupon request without Authorization token",
+    "type": "negative",
+    "mode": "api",
+    "precondition": "No Authorization header is sent.",
+    "input": {
+      "endpoint": "/api/apply-coupon",
+      "code": "BIGBUY",
+      "total_amount": 600000,
+      "user_id": 1,
+      "token": null
+    },
+    "expected": {
+      "acceptedStatuses": [401, 403],
+      "errorMentionsAuth": true
+    },
+    "hw02Reference": "TC09"
+  },
+  {
+    "id": "FR09-TC10",
+    "title": "Reject forged user_id in request body",
+    "type": "negative",
+    "mode": "api",
+    "precondition": "Login as default user but send another user's user_id in body.",
+    "input": {
+      "endpoint": "/api/apply-coupon",
+      "code": "VIP100",
+      "total_amount": 500000,
+      "user_id": 999,
+      "token": "user"
+    },
+    "expected": {
+      "acceptedStatuses": [401, 403],
+      "serverMustUseTokenUserId": true
+    },
+    "hw02Reference": "TC10"
+  },
+  {
+    "id": "FR09-TC11",
+    "title": "Reject negative total amount",
+    "type": "negative",
+    "mode": "api",
+    "precondition": "User is logged in.",
+    "input": {
+      "endpoint": "/api/apply-coupon",
+      "code": "SAVE10",
+      "total_amount": -100000,
+      "user_id": 1,
+      "token": "user"
+    },
+    "expected": {
+      "status": 400,
+      "errorMentionsInvalidTotal": true
+    },
+    "hw02Reference": "TC11"
+  },
+  {
+    "id": "FR09-TC12",
+    "title": "Reject non-numeric total amount",
+    "type": "negative",
+    "mode": "api",
+    "precondition": "User is logged in.",
+    "input": {
+      "endpoint": "/api/apply-coupon",
+      "code": "SAVE10",
+      "total_amount": "abc",
+      "user_id": 1,
+      "token": "user"
+    },
+    "expected": {
+      "status": 400,
+      "errorMentionsInvalidTotal": true
+    },
+    "hw02Reference": "TC12"
+  },
+  {
+    "id": "FR09-BVA01",
+    "title": "Boundary: total amount equal to min_order_amount is accepted",
+    "type": "edge",
+    "mode": "api",
+    "precondition": "SAVE10 requires minimum order amount 300000 and is unused by user_id 1.",
+    "input": {
+      "endpoint": "/api/apply-coupon",
+      "code": "SAVE10",
+      "total_amount": 300000,
+      "user_id": 1,
+      "token": "user"
+    },
+    "expected": {
+      "status": 200,
+      "discount_amount": 30000,
+      "final_amount": 270000
+    },
+    "hw02Reference": "TC-BVA-01"
+  },
+  {
+    "id": "FR09-BVA02",
+    "title": "Boundary: VIP100 second use is still accepted",
+    "type": "edge",
+    "mode": "api",
+    "precondition": "Insert one coupon_usage row for VIP100 and user_id 1; max_uses_per_user is 2.",
+    "input": {
+      "endpoint": "/api/apply-coupon",
+      "code": "VIP100",
+      "total_amount": 500000,
+      "user_id": 1,
+      "token": "user"
+    },
+    "expected": {
+      "status": 200,
+      "discount_amount": 100000,
+      "final_amount": 400000
+    },
+    "hw02Reference": "TC-BVA-02"
+  }
+]
