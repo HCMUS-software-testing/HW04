@@ -265,6 +265,7 @@ test.describe("FR-02 Login and account lockout", () => {
     test(`${testCase.id} ${testCase.title}`, async ({ request, page }) => {
       test.info().annotations.push(
         { type: "feature", description: "FR-02" },
+        { type: "caseId", description: testCase.id },
         { type: "hw02Reference", description: testCase.hw02Reference },
         { type: "mode", description: testCase.mode },
       );

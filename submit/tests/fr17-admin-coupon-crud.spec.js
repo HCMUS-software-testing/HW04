@@ -220,6 +220,7 @@ test.describe("FR-17 Admin coupon CRUD", () => {
     }, testInfo) => {
       test.info().annotations.push(
         { type: "feature", description: "FR-17" },
+        { type: "caseId", description: testCase.id },
         { type: "hw02Reference", description: testCase.hw02Reference },
         { type: "mode", description: testCase.mode },
       );
