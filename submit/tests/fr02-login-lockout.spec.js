@@ -259,6 +259,8 @@ async function runCase(request, page, testCase) {
 }
 
 test.describe("FR-02 Login and account lockout", () => {
+  test.describe.configure({ mode: "serial" });
+
   for (const testCase of loginCases) {
     test(`${testCase.id} ${testCase.title}`, async ({ request, page }) => {
       test.info().annotations.push(
