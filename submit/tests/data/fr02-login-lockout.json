@@ -1,0 +1,244 @@
+[
+  {
+    "id": "FR02-TC01",
+    "title": "Login succeeds with valid default user",
+    "type": "positive",
+    "mode": "hybrid",
+    "precondition": "Default user exists and lockout state is reset.",
+    "input": {
+      "email": "test@eshop.com",
+      "password": "Test1234!",
+      "endpoint": "/api/login"
+    },
+    "expected": {
+      "status": 200,
+      "hasToken": true,
+      "userPasswordMustBeHidden": true,
+      "redirectPath": "/"
+    },
+    "hw02Reference": "TC01"
+  },
+  {
+    "id": "FR02-TC02",
+    "title": "Login fails when email does not exist",
+    "type": "negative",
+    "mode": "api",
+    "precondition": "No account exists for nonexistent@eshop.com.",
+    "input": {
+      "email": "nonexistent@eshop.com",
+      "password": "Test1234!",
+      "endpoint": "/api/login"
+    },
+    "expected": {
+      "status": 401,
+      "errorContains": "Invalid email or password"
+    },
+    "hw02Reference": "TC02"
+  },
+  {
+    "id": "FR02-TC03",
+    "title": "Login form rejects malformed email before submit",
+    "type": "negative",
+    "mode": "ui",
+    "precondition": "User is on the customer login page.",
+    "input": {
+      "email": "invalid-email.com",
+      "password": "Test1234!"
+    },
+    "expected": {
+      "emailInputType": "email",
+      "requestShouldBeSent": false,
+      "nativeValidation": true
+    },
+    "hw02Reference": "TC03"
+  },
+  {
+    "id": "FR02-TC04",
+    "title": "Login form rejects empty email",
+    "type": "negative",
+    "mode": "ui",
+    "precondition": "User is on the customer login page.",
+    "input": {
+      "email": "",
+      "password": "Test1234!"
+    },
+    "expected": {
+      "requestShouldBeSent": false,
+      "requiredValidation": true
+    },
+    "hw02Reference": "TC04"
+  },
+  {
+    "id": "FR02-TC05",
+    "title": "Login fails with wrong password",
+    "type": "negative",
+    "mode": "api",
+    "precondition": "Default user exists and lockout state is reset.",
+    "input": {
+      "email": "test@eshop.com",
+      "password": "WrongPassword!",
+      "endpoint": "/api/login"
+    },
+    "expected": {
+      "status": 401,
+      "errorContains": "Invalid email or password",
+      "loginAttemptsIncrementBy": 1
+    },
+    "hw02Reference": "TC05"
+  },
+  {
+    "id": "FR02-TC06",
+    "title": "Login form rejects empty password",
+    "type": "negative",
+    "mode": "ui",
+    "precondition": "User is on the customer login page.",
+    "input": {
+      "email": "test@eshop.com",
+      "password": ""
+    },
+    "expected": {
+      "requestShouldBeSent": false,
+      "requiredValidation": true
+    },
+    "hw02Reference": "TC06"
+  },
+  {
+    "id": "FR02-TC07",
+    "title": "Account is locked after three consecutive wrong passwords",
+    "type": "negative",
+    "mode": "hybrid",
+    "precondition": "Default user exists and lockout state is reset.",
+    "input": {
+      "email": "test@eshop.com",
+      "wrongPassword": "WrongPassword!",
+      "correctPassword": "Test1234!",
+      "failedAttempts": 3
+    },
+    "expected": {
+      "statusWhenLocked": 403,
+      "lockDurationSeconds": 30,
+      "errorContains": "Tài khoản đã bị khóa"
+    },
+    "hw02Reference": "TC07"
+  },
+  {
+    "id": "FR02-TC08",
+    "title": "Parallel brute-force attempts enforce lockout threshold",
+    "type": "edge",
+    "mode": "api",
+    "precondition": "Default user exists and lockout state is reset.",
+    "input": {
+      "email": "test@eshop.com",
+      "password": "WrongPassword!",
+      "parallelRequests": 5,
+      "endpoint": "/api/login"
+    },
+    "expected": {
+      "someStatusesInclude": 403,
+      "accountLockedAfterRun": true
+    },
+    "hw02Reference": "TC08"
+  },
+  {
+    "id": "FR02-TC09",
+    "title": "Old JWT token is rejected after account becomes locked",
+    "type": "negative",
+    "mode": "api",
+    "precondition": "Capture a valid user token, then lock the same account.",
+    "input": {
+      "protectedEndpoint": "/api/users/me",
+      "email": "test@eshop.com"
+    },
+    "expected": {
+      "acceptedStatuses": [401, 403],
+      "responseMustNotExposePassword": true
+    },
+    "hw02Reference": "TC09"
+  },
+  {
+    "id": "FR02-TC10",
+    "title": "Backend rejects malformed email in direct API login",
+    "type": "negative",
+    "mode": "api",
+    "precondition": "No frontend validation is involved.",
+    "input": {
+      "email": "notanemail",
+      "password": "Test1234!",
+      "endpoint": "/api/login"
+    },
+    "expected": {
+      "acceptedStatuses": [400, 401],
+      "errorMentionsValidation": true
+    },
+    "hw02Reference": "TC10"
+  },
+  {
+    "id": "FR02-BVA01",
+    "title": "Boundary: login succeeds with zero previous failed attempts",
+    "type": "edge",
+    "mode": "api",
+    "precondition": "Set login_attempts = 0 and locked_until = NULL for test user.",
+    "input": {
+      "email": "test@eshop.com",
+      "password": "Test1234!",
+      "failedAttemptsBefore": 0
+    },
+    "expected": {
+      "status": 200,
+      "hasToken": true
+    },
+    "hw02Reference": "TC-BVA-01"
+  },
+  {
+    "id": "FR02-BVA02",
+    "title": "Boundary: first wrong password does not lock account",
+    "type": "edge",
+    "mode": "api",
+    "precondition": "Set login_attempts = 0 and locked_until = NULL for test user.",
+    "input": {
+      "email": "test@eshop.com",
+      "password": "WrongPassword!",
+      "failedAttemptsBefore": 0
+    },
+    "expected": {
+      "status": 401,
+      "locked": false,
+      "loginAttemptsAfter": 1
+    },
+    "hw02Reference": "TC-BVA-02"
+  },
+  {
+    "id": "FR02-BVA03",
+    "title": "Boundary: third wrong password triggers lockout",
+    "type": "edge",
+    "mode": "api",
+    "precondition": "Set login_attempts = 2 and locked_until = NULL for test user.",
+    "input": {
+      "email": "test@eshop.com",
+      "password": "WrongPassword!",
+      "failedAttemptsBefore": 2
+    },
+    "expected": {
+      "status": 401,
+      "lockedAfterRequest": true
+    },
+    "hw02Reference": "TC-BVA-03"
+  },
+  {
+    "id": "FR02-BVA04",
+    "title": "Boundary: login succeeds after 31 seconds from 30-second lockout",
+    "type": "edge",
+    "mode": "api",
+    "precondition": "Set locked_until to a past timestamp equivalent to 31 seconds after a 30-second lock.",
+    "input": {
+      "email": "test@eshop.com",
+      "password": "Test1234!",
+      "secondsAfterLockStarted": 31
+    },
+    "expected": {
+      "status": 200,
+      "hasToken": true
+    },
+    "hw02Reference": "TC-BVA-07"
+  }
+]

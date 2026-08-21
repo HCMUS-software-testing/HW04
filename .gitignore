@@ -1,0 +1,9 @@
+.DS_Store
+
+node_modules/
+
+submit/node_modules/
+submit/test-results/*
+!submit/test-results/.gitkeep
+submit/screenshots/*
+!submit/screenshots/.gitkeep
