@@ -182,6 +182,7 @@ test.describe("FR-09 Coupon checkout", () => {
       test.info().annotations.push(
         { type: "feature", description: "FR-09" },
         { type: "caseId", description: testCase.id },
+        { type: "testType", description: testCase.type },
         { type: "hw02Reference", description: testCase.hw02Reference },
         { type: "mode", description: testCase.mode },
       );
