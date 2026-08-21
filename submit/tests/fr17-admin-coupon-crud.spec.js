@@ -211,6 +211,8 @@ async function runCase(request, page, rawCase, testInfo) {
 }
 
 test.describe("FR-17 Admin coupon CRUD", () => {
+  test.describe.configure({ mode: "serial" });
+
   for (const testCase of couponCrudCases) {
     test(`${testCase.id} ${testCase.title}`, async ({
       request,
