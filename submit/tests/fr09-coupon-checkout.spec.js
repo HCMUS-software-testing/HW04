@@ -175,6 +175,8 @@ async function runCase(request, page, testCase) {
 }
 
 test.describe("FR-09 Coupon checkout", () => {
+  test.describe.configure({ mode: "serial" });
+
   for (const testCase of couponCases) {
     test(`${testCase.id} ${testCase.title}`, async ({ request, page }) => {
       test.info().annotations.push(
