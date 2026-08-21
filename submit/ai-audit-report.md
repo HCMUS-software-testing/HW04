@@ -1,0 +1,219 @@
+# AI Audit Report - HW04 Automation Testing
+
+Khai báo: Em có sử dụng công cụ AI để hỗ trợ phân tích yêu cầu, viết mã kiểm thử tự động, chạy test và tổng hợp kết quả cho bài HW04.
+
+## Thông tin sinh viên
+
+- Họ và tên: Lê Mai Hoài Bảo
+- MSSV: 23127326
+- Bài tập: HW04 - Automation Testing
+- SUT: `eshop-sut`
+- Công cụ AI: OpenAI ChatGPT / Codex
+- Ngày làm việc chính: 2026-08-20
+
+## Ghi chú
+
+Báo cáo này ghi lại các tương tác AI chính phục vụ trực tiếp cho bài HW04. Các prompt bên dưới được biên tập lại theo dạng yêu cầu rõ ràng, ngắn gọn để dễ đọc trong báo cáo; nội dung vẫn phản ánh đúng nhiệm vụ đã giao cho AI và kết quả đã tạo trong repository.
+
+## Bảng tóm tắt tương tác
+
+| STT | Công cụ AI | Ngày giờ | Mục đích | Prompt / yêu cầu chính | Tóm tắt output AI | Review / chỉnh sửa của sinh viên |
+| ---: | --- | --- | --- | --- | --- | --- |
+| 1 | OpenAI ChatGPT / Codex | 2026-08-20, phiên làm việc | Lập workflow HW04 | Đọc đề bài, `PLAN.md`, tài liệu HW02 và source SUT; thực hiện bài có kiểm soát theo từng phần để sinh viên review trước khi tiếp tục. | Phân tích yêu cầu HW04, xác nhận 3 feature cần automate là FR-02, FR-09, FR-17; chuẩn hóa cấu trúc `submit/`, tạo thư mục report/test output và file commit log placeholder. | Sinh viên review và xác nhận phần chuẩn bị ban đầu. |
+| 2 | OpenAI ChatGPT / Codex | 2026-08-20, phiên làm việc | Cấu hình Playwright | Thiết lập môi trường Playwright trong thư mục `submit/`, chạy được trên Chromium, Firefox và WebKit, đồng thời cấu hình report theo yêu cầu bài nộp. | Tạo `package.json`, `package-lock.json`, `playwright.config.js`; cài `@playwright/test`; cấu hình 3 browser projects, HTML reporter, output folders và metadata `Run by: 23127326`. | Sinh viên review và xác nhận cấu hình Playwright. |
+| 3 | OpenAI ChatGPT / Codex | 2026-08-20, phiên làm việc | Thiết kế test data | Tạo dữ liệu kiểm thử data-driven cho FR-02, FR-09 và FR-17 dựa trên yêu cầu chức năng và tài liệu HW02. | Tạo 3 file JSON trong `submit/tests/data/`: FR-02 có 14 cases, FR-09 có 14 cases, FR-17 có 16 cases; mỗi case có input, expected result, precondition và tham chiếu HW02. | Sinh viên review và xác nhận bộ test data. |
+| 4 | OpenAI ChatGPT / Codex | 2026-08-20, phiên làm việc | Viết helper test | Xây dựng helper dùng chung để đăng nhập, gọi API, chuẩn bị dữ liệu SQLite và dọn trạng thái test. | Viết `api.js` và `auth.js` trong `submit/tests/helpers/`, gồm helper login user/admin, coupon API, setup lockout, setup coupon usage và clear web auth. | Sinh viên review và xác nhận helper test. |
+| 5 | OpenAI ChatGPT / Codex | 2026-08-20, phiên làm việc | Automate FR-02 | Viết Playwright tests cho chức năng login lockout, đọc test cases từ JSON và chạy trên 3 browsers. | Tạo `fr02-login-lockout.spec.js`; bao phủ login thành công/thất bại, email malformed, empty fields, lockout, boundary attempts, brute-force và kiểm tra trạng thái DB. | Sinh viên review và xác nhận test FR-02. |
+| 6 | OpenAI ChatGPT / Codex | 2026-08-20, phiên làm việc | Automate FR-09 | Viết Playwright tests cho coupon checkout, kết hợp kiểm thử API và UI checkout theo dữ liệu JSON. | Tạo `fr09-coupon-checkout.spec.js`; bao phủ coupon hợp lệ, không tồn tại, inactive, expired, min order, usage limit, missing token, forged user id và invalid total. | Sinh viên review và xác nhận test FR-09. |
+| 7 | OpenAI ChatGPT / Codex | 2026-08-20, phiên làm việc | Automate FR-17 | Viết Playwright tests cho chức năng admin coupon CRUD và các validation/security cases. | Tạo `fr17-admin-coupon-crud.spec.js`; bao phủ list/create/delete coupon bằng admin UI, validation dữ liệu coupon và các trường hợp thiếu/sai quyền qua API. | Sinh viên review và xác nhận test FR-17. |
+| 8 | OpenAI ChatGPT / Codex | 2026-08-20, phiên làm việc | Chạy test và tạo report | Reset dữ liệu, khởi động SUT, chạy toàn bộ Playwright suite và lưu HTML report kèm metadata sinh viên. | Chạy 132 executions trên 3 browsers; kết quả thật là 60 passed, 72 failed. Tạo `submit/playwright-report/index.html`, `run-metadata.md` và failure artifacts trong `submit/test-results/`. | Sinh viên review và xác nhận kết quả chạy test. |
+| 9 | OpenAI ChatGPT / Codex | 2026-08-20, phiên làm việc | Tổng hợp git commit log | Kiểm tra lịch sử git liên quan đến test scripts và tạo file commit log cho phần nộp bài. | Cập nhật `submit/git-commit-log.txt`; ghi nhận hiện chỉ có 1 qualifying commit chạm `.spec.js`, chưa đủ yêu cầu 8 commits. | Sinh viên được thông báo cần tạo commit thật nếu muốn đạt tiêu chí commit history. |
+| 10 | OpenAI ChatGPT / Codex | 2026-08-20, phiên làm việc | Tổng hợp AI Audit | Tổng hợp AI Audit từ các prompt, output và artifact chính trong phiên làm việc, chỉ giữ các nội dung liên quan trực tiếp đến HW04. | Tạo `submit/ai-audit-report.md` với bảng tóm tắt tương tác và log chi tiết từng bước AI hỗ trợ. | Sinh viên review và yêu cầu bỏ nội dung không liên quan, chỉnh prompt rõ nghĩa hơn. |
+
+## Log tương tác chi tiết
+
+### Tương tác 1 - Lập workflow HW04
+
+- Công cụ AI: OpenAI ChatGPT / Codex
+- Ngày giờ: 2026-08-20, phiên làm việc
+- Prompt / yêu cầu chính:
+
+```text
+Đọc các tài liệu hiện có của bài HW04, bao gồm đề bài, PLAN, tài liệu HW02 và source SUT. Sau đó thực hiện bài theo từng bước, mỗi bước hoàn tất thì dừng để sinh viên duyệt trước khi tiếp tục.
+```
+
+- Output AI:
+
+```text
+AI đọc yêu cầu bài, plan và source SUT; xác định phạm vi automation gồm FR-02 login lockout, FR-09 coupon checkout và FR-17 admin coupon CRUD. AI chuẩn hóa cấu trúc submit/, tạo các thư mục dành cho Playwright report, test results, screenshots và file commit log placeholder.
+```
+
+- Review / chỉnh sửa của sinh viên: Review và xác nhận phần chuẩn bị ban đầu.
+
+### Tương tác 2 - Cấu hình Playwright
+
+- Công cụ AI: OpenAI ChatGPT / Codex
+- Ngày giờ: 2026-08-20, phiên làm việc
+- Prompt / yêu cầu chính:
+
+```text
+Thiết lập Playwright trong thư mục submit, cấu hình chạy đa trình duyệt, lưu report đúng thư mục bài nộp và ghi metadata MSSV vào report.
+```
+
+- Output AI:
+
+```text
+AI tạo submit/package.json, cài @playwright/test, sinh package-lock.json và viết submit/playwright.config.js. Cấu hình gồm Chromium, Firefox, WebKit, HTML reporter, outputDir, testDir, workers = 1 và metadata Run by: 23127326.
+```
+
+- Review / chỉnh sửa của sinh viên: Review và xác nhận cấu hình Playwright.
+
+### Tương tác 3 - Thiết kế test data
+
+- Công cụ AI: OpenAI ChatGPT / Codex
+- Ngày giờ: 2026-08-20, phiên làm việc
+- Prompt / yêu cầu chính:
+
+```text
+Thiết kế test data dạng JSON cho FR-02, FR-09 và FR-17. Mỗi case cần có input, expected result, precondition và tham chiếu đến yêu cầu kiểm thử.
+```
+
+- Output AI:
+
+```text
+AI tạo dữ liệu kiểm thử:
+- fr02-login-lockout.json: 14 cases.
+- fr09-coupon-checkout.json: 14 cases.
+- fr17-admin-coupon-crud.json: 16 cases.
+AI kiểm tra JSON hợp lệ và bảo đảm mỗi case có các trường lõi phục vụ data-driven tests.
+```
+
+- Review / chỉnh sửa của sinh viên: Review và xác nhận bộ test data.
+
+### Tương tác 4 - Viết helper test
+
+- Công cụ AI: OpenAI ChatGPT / Codex
+- Ngày giờ: 2026-08-20, phiên làm việc
+- Prompt / yêu cầu chính:
+
+```text
+Tạo helper dùng chung cho Playwright tests, bao gồm login user/admin, gọi API coupon, thao tác SQLite để setup precondition và cleanup dữ liệu test.
+```
+
+- Output AI:
+
+```text
+AI viết submit/tests/helpers/api.js với các helper loginAsUser, loginAsAdmin, applyCoupon, listCoupons, createCoupon, deleteCoupon, resetDefaultUserState, setUserLockState, setCouponActive, clearCouponUsage và deleteCouponsByCodePrefix.
+
+AI viết submit/tests/helpers/auth.js với các helper loginWeb, loginAdmin, getCustomerLoginFieldTypes và clearWebAuth.
+```
+
+- Review / chỉnh sửa của sinh viên: Review và xác nhận helper test.
+
+### Tương tác 5 - Automate FR-02
+
+- Công cụ AI: OpenAI ChatGPT / Codex
+- Ngày giờ: 2026-08-20, phiên làm việc
+- Prompt / yêu cầu chính:
+
+```text
+Viết Playwright spec cho FR-02 login lockout, đọc cases từ JSON, chạy trên 3 browsers và kiểm tra cả API response, UI validation lẫn trạng thái database.
+```
+
+- Output AI:
+
+```text
+AI tạo submit/tests/fr02-login-lockout.spec.js. Test bao phủ login thành công, sai mật khẩu, email sai định dạng, empty fields, tài khoản bị khóa, boundary attempts, brute-force song song, token cũ và kiểm tra password không bị leak trong response. Playwright discovery nhận 14 cases x 3 browsers = 42 executions.
+```
+
+- Review / chỉnh sửa của sinh viên: Review và xác nhận test FR-02.
+
+### Tương tác 6 - Automate FR-09
+
+- Công cụ AI: OpenAI ChatGPT / Codex
+- Ngày giờ: 2026-08-20, phiên làm việc
+- Prompt / yêu cầu chính:
+
+```text
+Viết Playwright spec cho FR-09 coupon checkout, dùng data-driven JSON và kết hợp kiểm thử API với UI checkout.
+```
+
+- Output AI:
+
+```text
+AI tạo submit/tests/fr09-coupon-checkout.spec.js. Test bao phủ SAVE10, BIGBUY, coupon không tồn tại, coupon inactive, empty code, below min order, expired coupon, usage limit, missing token, forged user_id, invalid total và boundary min order. Playwright discovery nhận 14 cases x 3 browsers = 42 executions.
+```
+
+- Review / chỉnh sửa của sinh viên: Review và xác nhận test FR-09.
+
+### Tương tác 7 - Automate FR-17
+
+- Công cụ AI: OpenAI ChatGPT / Codex
+- Ngày giờ: 2026-08-20, phiên làm việc
+- Prompt / yêu cầu chính:
+
+```text
+Viết Playwright spec cho FR-17 admin coupon CRUD, bao phủ thao tác admin UI, validation dữ liệu coupon và các security cases qua API.
+```
+
+- Output AI:
+
+```text
+AI tạo submit/tests/fr17-admin-coupon-crud.spec.js. Test bao phủ admin list, create, delete coupon, validation cho code/discount/min order/dates/usage limit, và security cases như user thường hoặc thiếu token gọi admin API. Playwright discovery nhận 16 cases x 3 browsers = 48 executions.
+```
+
+- Review / chỉnh sửa của sinh viên: Review và xác nhận test FR-17.
+
+### Tương tác 8 - Chạy test và tạo report
+
+- Công cụ AI: OpenAI ChatGPT / Codex
+- Ngày giờ: 2026-08-20, phiên làm việc
+- Prompt / yêu cầu chính:
+
+```text
+Reset database, khởi động backend/web/admin, chạy toàn bộ Playwright suite và tạo HTML report cùng artifact lỗi để nộp bài.
+```
+
+- Output AI:
+
+```text
+AI reset database, khởi động SUT và chạy npm test trong thư mục submit. Kết quả thật của lần chạy là 132 executions, 60 passed, 72 failed. AI tạo submit/playwright-report/index.html, submit/playwright-report/run-metadata.md và failure artifacts trong submit/test-results/.
+```
+
+- Review / chỉnh sửa của sinh viên: Review và xác nhận kết quả chạy test.
+
+### Tương tác 9 - Tổng hợp git commit log
+
+- Công cụ AI: OpenAI ChatGPT / Codex
+- Ngày giờ: 2026-08-20, phiên làm việc
+- Prompt / yêu cầu chính:
+
+```text
+Kiểm tra git history liên quan đến các file test script và tạo submit/git-commit-log.txt theo yêu cầu bài nộp.
+```
+
+- Output AI:
+
+```text
+AI kiểm tra git history bằng git log. Kết quả tại thời điểm kiểm tra: chỉ có 1 qualifying commit chạm file .spec.js, chưa đủ yêu cầu 8 commits. AI cập nhật submit/git-commit-log.txt với trạng thái hiện tại và các commit gần nhất để sinh viên dễ kiểm tra.
+```
+
+- Review / chỉnh sửa của sinh viên: Sinh viên cần tạo thêm commit thật nếu muốn hoàn tất tiêu chí commit history.
+
+### Tương tác 10 - Tổng hợp AI Audit
+
+- Công cụ AI: OpenAI ChatGPT / Codex
+- Ngày giờ: 2026-08-20, phiên làm việc
+- Prompt / yêu cầu chính:
+
+```text
+Tạo AI Audit Report cho bài HW04 dựa trên các tương tác chính trong phiên làm việc. Chỉ ghi các bước liên quan trực tiếp đến bài automation testing, trình bày prompt theo dạng yêu cầu rõ ràng và tóm tắt output AI tương ứng.
+```
+
+- Output AI:
+
+```text
+AI tạo submit/ai-audit-report.md gồm thông tin sinh viên, ghi chú phạm vi, bảng tóm tắt 10 tương tác và log chi tiết cho từng bước: lập workflow, cấu hình Playwright, thiết kế test data, viết helper, automate FR-02/FR-09/FR-17, chạy test/report, tổng hợp git commit log và tổng hợp AI Audit.
+```
+
+- Review / chỉnh sửa của sinh viên: Sinh viên review, yêu cầu bỏ nội dung không liên quan và chỉnh prompt cho rõ nghĩa hơn.
