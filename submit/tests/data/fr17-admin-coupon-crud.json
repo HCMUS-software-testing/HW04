@@ -1,0 +1,382 @@
+[
+  {
+    "id": "FR17-TC01",
+    "title": "Admin can list coupons",
+    "type": "positive",
+    "mode": "hybrid",
+    "precondition": "Admin is logged in.",
+    "input": {
+      "operation": "list",
+      "endpoint": "/api/coupons",
+      "token": "admin"
+    },
+    "expected": {
+      "status": 200,
+      "containsCodes": ["SAVE10", "BIGBUY", "VIP100", "EXPIRED"]
+    },
+    "hw02Reference": "TC01"
+  },
+  {
+    "id": "FR17-TC02",
+    "title": "Admin creates valid percent coupon",
+    "type": "positive",
+    "mode": "hybrid",
+    "precondition": "Admin is logged in and code AUTO_PCT_${runId} does not exist.",
+    "input": {
+      "operation": "create",
+      "endpoint": "/api/admin/coupons",
+      "token": "admin",
+      "coupon": {
+        "code": "AUTO_PCT_${runId}",
+        "type": "percent",
+        "discount_value": 15,
+        "min_order_amount": 200000,
+        "expired_at": "2099-12-31",
+        "max_uses_per_user": 1
+      }
+    },
+    "expected": {
+      "status": 200,
+      "messageContains": "Coupon created",
+      "visibleInList": true
+    },
+    "hw02Reference": "TC02"
+  },
+  {
+    "id": "FR17-TC03",
+    "title": "Admin creates valid fixed coupon",
+    "type": "positive",
+    "mode": "api",
+    "precondition": "Admin is logged in and code AUTO_FIX_${runId} does not exist.",
+    "input": {
+      "operation": "create",
+      "endpoint": "/api/admin/coupons",
+      "token": "admin",
+      "coupon": {
+        "code": "AUTO_FIX_${runId}",
+        "type": "fixed",
+        "discount_value": 25000,
+        "min_order_amount": 100000,
+        "expired_at": "2099-12-31",
+        "max_uses_per_user": 1
+      }
+    },
+    "expected": {
+      "status": 200,
+      "messageContains": "Coupon created"
+    },
+    "hw02Reference": "TC03"
+  },
+  {
+    "id": "FR17-TC04",
+    "title": "Reject empty coupon code",
+    "type": "negative",
+    "mode": "api",
+    "precondition": "Admin is logged in.",
+    "input": {
+      "operation": "create",
+      "endpoint": "/api/admin/coupons",
+      "token": "admin",
+      "coupon": {
+        "code": "",
+        "type": "percent",
+        "discount_value": 15,
+        "min_order_amount": 200000,
+        "expired_at": "2099-12-31",
+        "max_uses_per_user": 1
+      }
+    },
+    "expected": {
+      "acceptedStatuses": [400, 422],
+      "errorMentions": "code"
+    },
+    "hw02Reference": "TC04"
+  },
+  {
+    "id": "FR17-TC05",
+    "title": "Reject duplicate coupon code",
+    "type": "negative",
+    "mode": "api",
+    "precondition": "SAVE10 already exists.",
+    "input": {
+      "operation": "create",
+      "endpoint": "/api/admin/coupons",
+      "token": "admin",
+      "coupon": {
+        "code": "SAVE10",
+        "type": "percent",
+        "discount_value": 15,
+        "min_order_amount": 200000,
+        "expired_at": "2099-12-31",
+        "max_uses_per_user": 1
+      }
+    },
+    "expected": {
+      "acceptedStatuses": [400, 409, 422],
+      "errorMentions": "duplicate"
+    },
+    "hw02Reference": "TC05"
+  },
+  {
+    "id": "FR17-TC06",
+    "title": "Reject invalid coupon type",
+    "type": "negative",
+    "mode": "api",
+    "precondition": "Admin is logged in.",
+    "input": {
+      "operation": "create",
+      "endpoint": "/api/admin/coupons",
+      "token": "admin",
+      "coupon": {
+        "code": "AUTO_BAD_TYPE_${runId}",
+        "type": "bogus",
+        "discount_value": 15,
+        "min_order_amount": 200000,
+        "expired_at": "2099-12-31",
+        "max_uses_per_user": 1
+      }
+    },
+    "expected": {
+      "acceptedStatuses": [400, 422],
+      "errorMentions": "type"
+    },
+    "hw02Reference": "TC06"
+  },
+  {
+    "id": "FR17-TC07",
+    "title": "Reject zero discount value",
+    "type": "edge",
+    "mode": "api",
+    "precondition": "Admin is logged in.",
+    "input": {
+      "operation": "create",
+      "endpoint": "/api/admin/coupons",
+      "token": "admin",
+      "coupon": {
+        "code": "AUTO_ZERO_${runId}",
+        "type": "percent",
+        "discount_value": 0,
+        "min_order_amount": 200000,
+        "expired_at": "2099-12-31",
+        "max_uses_per_user": 1
+      }
+    },
+    "expected": {
+      "acceptedStatuses": [400, 422],
+      "errorMentions": "discount"
+    },
+    "hw02Reference": "TC07"
+  },
+  {
+    "id": "FR17-TC08",
+    "title": "Reject negative discount value",
+    "type": "negative",
+    "mode": "api",
+    "precondition": "Admin is logged in.",
+    "input": {
+      "operation": "create",
+      "endpoint": "/api/admin/coupons",
+      "token": "admin",
+      "coupon": {
+        "code": "AUTO_NEG_DISC_${runId}",
+        "type": "fixed",
+        "discount_value": -50000,
+        "min_order_amount": 200000,
+        "expired_at": "2099-12-31",
+        "max_uses_per_user": 1
+      }
+    },
+    "expected": {
+      "acceptedStatuses": [400, 422],
+      "errorMentions": "discount"
+    },
+    "hw02Reference": "TC08"
+  },
+  {
+    "id": "FR17-TC09",
+    "title": "Reject negative minimum order amount",
+    "type": "negative",
+    "mode": "api",
+    "precondition": "Admin is logged in.",
+    "input": {
+      "operation": "create",
+      "endpoint": "/api/admin/coupons",
+      "token": "admin",
+      "coupon": {
+        "code": "AUTO_NEG_MIN_${runId}",
+        "type": "fixed",
+        "discount_value": 50000,
+        "min_order_amount": -1,
+        "expired_at": "2099-12-31",
+        "max_uses_per_user": 1
+      }
+    },
+    "expected": {
+      "acceptedStatuses": [400, 422],
+      "errorMentions": "minimum"
+    },
+    "hw02Reference": "TC09"
+  },
+  {
+    "id": "FR17-TC10",
+    "title": "Reject missing expiration date",
+    "type": "negative",
+    "mode": "api",
+    "precondition": "Admin is logged in.",
+    "input": {
+      "operation": "create",
+      "endpoint": "/api/admin/coupons",
+      "token": "admin",
+      "coupon": {
+        "code": "AUTO_NO_EXP_${runId}",
+        "type": "fixed",
+        "discount_value": 50000,
+        "min_order_amount": 200000,
+        "expired_at": "",
+        "max_uses_per_user": 1
+      }
+    },
+    "expected": {
+      "acceptedStatuses": [400, 422],
+      "errorMentions": "expired_at"
+    },
+    "hw02Reference": "TC10"
+  },
+  {
+    "id": "FR17-TC11",
+    "title": "Reject past expiration date",
+    "type": "negative",
+    "mode": "api",
+    "precondition": "Admin is logged in.",
+    "input": {
+      "operation": "create",
+      "endpoint": "/api/admin/coupons",
+      "token": "admin",
+      "coupon": {
+        "code": "AUTO_PAST_${runId}",
+        "type": "percent",
+        "discount_value": 15,
+        "min_order_amount": 200000,
+        "expired_at": "2020-01-01",
+        "max_uses_per_user": 1
+      }
+    },
+    "expected": {
+      "acceptedStatuses": [400, 422],
+      "errorMentions": "expired"
+    },
+    "hw02Reference": "TC11"
+  },
+  {
+    "id": "FR17-TC12",
+    "title": "Reject max uses per user equal to zero",
+    "type": "edge",
+    "mode": "api",
+    "precondition": "Admin is logged in.",
+    "input": {
+      "operation": "create",
+      "endpoint": "/api/admin/coupons",
+      "token": "admin",
+      "coupon": {
+        "code": "AUTO_MAX0_${runId}",
+        "type": "percent",
+        "discount_value": 15,
+        "min_order_amount": 200000,
+        "expired_at": "2099-12-31",
+        "max_uses_per_user": 0
+      }
+    },
+    "expected": {
+      "acceptedStatuses": [400, 422],
+      "errorMentions": "max_uses_per_user"
+    },
+    "hw02Reference": "TC12"
+  },
+  {
+    "id": "FR17-TC13",
+    "title": "Admin deletes existing coupon",
+    "type": "positive",
+    "mode": "hybrid",
+    "precondition": "Create coupon AUTO_DELETE_${runId} and capture its id.",
+    "input": {
+      "operation": "delete",
+      "endpoint": "/api/admin/coupons/:id",
+      "token": "admin",
+      "couponCode": "AUTO_DELETE_${runId}"
+    },
+    "expected": {
+      "status": 200,
+      "messageContains": "Coupon deleted",
+      "visibleInList": false
+    },
+    "hw02Reference": "TC13"
+  },
+  {
+    "id": "FR17-TC14",
+    "title": "Reject delete coupon id zero",
+    "type": "edge",
+    "mode": "api",
+    "precondition": "No valid coupon has id 0.",
+    "input": {
+      "operation": "delete",
+      "endpoint": "/api/admin/coupons/0",
+      "token": "admin",
+      "coupon_id": 0
+    },
+    "expected": {
+      "acceptedStatuses": [400, 404, 422],
+      "errorMentions": "not found"
+    },
+    "hw02Reference": "TC-BVA-09"
+  },
+  {
+    "id": "FR17-TC15",
+    "title": "Reject normal user creating admin coupon",
+    "type": "negative",
+    "mode": "api",
+    "precondition": "Login as default user, not admin.",
+    "input": {
+      "operation": "create",
+      "endpoint": "/api/admin/coupons",
+      "token": "user",
+      "coupon": {
+        "code": "AUTO_USER_${runId}",
+        "type": "percent",
+        "discount_value": 15,
+        "min_order_amount": 200000,
+        "expired_at": "2099-12-31",
+        "max_uses_per_user": 1
+      }
+    },
+    "expected": {
+      "acceptedStatuses": [401, 403],
+      "errorMentions": "admin"
+    },
+    "hw02Reference": "TC15"
+  },
+  {
+    "id": "FR17-TC16",
+    "title": "Reject admin coupon request without token",
+    "type": "negative",
+    "mode": "api",
+    "precondition": "No Authorization header is sent.",
+    "input": {
+      "operation": "create",
+      "endpoint": "/api/admin/coupons",
+      "token": null,
+      "coupon": {
+        "code": "AUTO_NO_TOKEN_${runId}",
+        "type": "percent",
+        "discount_value": 15,
+        "min_order_amount": 200000,
+        "expired_at": "2099-12-31",
+        "max_uses_per_user": 1
+      }
+    },
+    "expected": {
+      "status": 401,
+      "errorMentions": "Unauthorized"
+    },
+    "hw02Reference": "TC16"
+  }
+]
