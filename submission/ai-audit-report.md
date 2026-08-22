@@ -10,7 +10,7 @@ I use AI tools for the following tasks.
 | ---: | --- | --- | --- | --- | --- | --- |
 | 1 | Gemini 3.6 Flash | 2026-08-18 17:42 | Feature FR-03 script generation | Sử dụng skill @hw04-data-driven-script để tạo Playwright test & JSON data cho FR-03 (12 test cases) | Tạo file tests/data/poolA-fr03-forgot-password.json và tests/poolA-fr03-forgot-password.spec.ts với 3 assertion patterns | Accepted initial draft |
 | 2 | Gemini 3.6 Flash | 2026-08-18 21:30 | Feature FR-03 script review & bug classification | Sử dụng skill @hw04-automation-maintenance để review, phân tích lỗi AI script FR-03 và phân loại bug thực tế | Phân tích 5 lỗi AI (locators, regex OTP, missing confirm password, forced pass assertion, weak URL assertion), tạo bảng AI Review And Human Fixes và Bug Report | Reviewed & applied human fixes to test script, updated bug-report.md & main-report.md |
-| 3 | Gemini 3.6 Flash | 2026-08-22 08:36 | Feature FR-10 (Order Status) script generation | Sử dụng skill @hw04-data-driven-script để tạo Playwright test & JSON data cho FR-10 (12 test cases) từ file poolB.md | Tạo file tests/data/poolB-fr10-order-status.json và tests/poolB-fr10-order-status.spec.ts với 4 assertion patterns | Accepted initial draft, verified 36 tests across 3 browsers |
+| 3 | Gemini 3.6 Flash | 2026-08-22 08:36 | Feature FR-10 (Order Status) script generation | Sử dụng skill @hw04-data-driven-script để tạo Playwright test & JSON data cho FR-10 (12 test cases) từ file poolB.md | Tạo file tests/data/poolB-fr10-order-status.json và tests/poolB-fr10-order-status.spec.ts với 4 assertion patterns (stateTransition, statusCode, controlState, visibleText) | Refactored test setup fixture for dynamic order state initialization. Verified 24 Passed, 12 Failed across 3 browsers |
 | 4 | `<ToolName>` | `<YYYY-MM-DD HH:mm>` | Feature C test case generation | `<prompt summary>` | `<output summary>` | `<human review>` |
 | 5 | `<ToolName>` | `<YYYY-MM-DD HH:mm>` | Feature C script generation | `<prompt summary>` | `<output summary>` | `<human fixes>` |
 
@@ -124,7 +124,7 @@ Thông tin Input:
 - Base URL: http://localhost:5173
 - Định dạng data: .json
 - Đường dẫn Spec Output: tests/poolB-fr10-order-status.spec.ts
-- Đường dẫn Data Output: tests/data/poolB-fr10-order-status.jsonB
+- Đường dẫn Data Output: tests/data/poolB-fr10-order-status.json
 - Danh sách 12 Test Cases: Lấy trong bảng Test Case Table của file poolB.md
 ```
 
@@ -136,22 +136,21 @@ Thông tin Input:
 Summary Artifacts Created:
 - Spec File: tests/poolB-fr10-order-status.spec.ts - File Playwright test đọc test case động từ data file JSON, áp dụng 4 assertion patterns.
 - Data File (JSON): tests/data/poolB-fr10-order-status.json - File dữ liệu JSON chứa đầy đủ 12 test cases của Feature FR-10.
-- Data File (jsonB): tests/data/poolB-fr10-order-status.jsonB - Bản sao định dạng với đường dẫn theo đúng yêu cầu prompt.
 
 4 Assertion Patterns Đã Sử Dụng:
 1. stateTransition: Kiểm tra sự chuyên dịch trạng thái đơn hàng trong backend/UI (pending -> confirmed, confirmed -> shipping, shipping -> delivered, confirmed -> canceled).
 2. statusCode: Kiểm tra phản hồi HTTP status code (401/403/400) khi tài khoản User cố gắng thao tác các API dành riêng cho Admin hoặc thực hiện chuyển đổi trạng thái sai quy tắc.
-3. controlState: Kiểm tra sự tồn tại/ẩn/vô hiệu hóa của các nút điều hướng thao tác trên UI (ví dụ: nút Hủy đơn không hiển thị đối với đơn hàng đã giao hoặc đang giao).
+3. controlState: Kiểm tra sự tồn tại/ẩn/vô hiệu hóa của các nút điều hướng thao tác trên UI (ví dụ: nút Hủy đơn không hiển thị đối với đơn hàng đã giao).
 4. visibleText: Kiểm tra các chuỗi nhãn trạng thái hiển thị trực quan trên giao diện (Chờ xác nhận, Đã xác nhận, Đang giao, Đã giao, Đã hủy).
 
 Danh sách 12 Test Cases (Pool B - FR-10): TC1 tới TC12 (Positive, Negative, Boundary).
 
 Ghi chú Human Review & Verification:
 - Preconditions: SUT Backend running at http://localhost:3000, Web SUT running at http://localhost:5173.
-- Hành vi thực tế SUT (Bugs ghi nhận): TC2, TC4, TC6 thất bại do SUT Backend thiếu kiểm tra quyền Role Admin trên endpoint status; TC9, TC10 thất bại do thiếu ràng buộc không cho phép hủy khi đơn hàng đang ở trạng thái shipping.
+- Hành vi thực tế SUT (Bugs ghi nhận): TC2, TC4, TC6 thất bại do SUT Backend thiếu kiểm tra quyền Role Admin trên endpoint status; TC10 thất bại do backend cho phép hủy đơn khi đang ở trạng thái shipping.
 ```
 
-- **Human review / change:** Accepted initial draft, verified 36 tests across Chromium, Firefox, Cốc Cốc browsers.
+- **Human review / change:** Added dynamic order state setup fixture `setupOrderWithStatus()`. Verified 24 Passed, 12 Failed across Chromium, Firefox, Cốc Cốc browsers (8 Passed, 4 Failed per browser).
 
 ---
 
