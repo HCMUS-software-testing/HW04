@@ -11,8 +11,7 @@ I use AI tools for the following tasks.
 | 1 | Gemini 3.6 Flash | 2026-08-18 17:42 | Feature FR-03 script generation | Sử dụng skill @hw04-data-driven-script để tạo Playwright test & JSON data cho FR-03 (12 test cases) | Tạo file tests/data/poolA-fr03-forgot-password.json và tests/poolA-fr03-forgot-password.spec.ts với 3 assertion patterns | Accepted initial draft |
 | 2 | Gemini 3.6 Flash | 2026-08-18 21:30 | Feature FR-03 script review & bug classification | Sử dụng skill @hw04-automation-maintenance để review, phân tích lỗi AI script FR-03 và phân loại bug thực tế | Phân tích 5 lỗi AI (locators, regex OTP, missing confirm password, forced pass assertion, weak URL assertion), tạo bảng AI Review And Human Fixes và Bug Report | Reviewed & applied human fixes to test script, updated bug-report.md & main-report.md |
 | 3 | Gemini 3.6 Flash | 2026-08-22 08:36 | Feature FR-10 (Order Status) script generation | Sử dụng skill @hw04-data-driven-script để tạo Playwright test & JSON data cho FR-10 (12 test cases) từ file poolB.md | Tạo file tests/data/poolB-fr10-order-status.json và tests/poolB-fr10-order-status.spec.ts với 4 assertion patterns (stateTransition, statusCode, controlState, visibleText) | Refactored test setup fixture for dynamic order state initialization. Verified 24 Passed, 12 Failed across 3 browsers |
-| 4 | `<ToolName>` | `<YYYY-MM-DD HH:mm>` | Feature C test case generation | `<prompt summary>` | `<output summary>` | `<human review>` |
-| 5 | `<ToolName>` | `<YYYY-MM-DD HH:mm>` | Feature C script generation | `<prompt summary>` | `<output summary>` | `<human fixes>` |
+| 4 | Gemini 3.6 Flash | 2026-08-22 09:12 | Feature FR-10 script review & bug classification | Sử dụng skill @hw04-automation-maintenance để review, phân tích lỗi AI script FR-10 và tạo bảng AI Review And Human Fixes | Phân tích 5 lỗi AI (setup fixture tĩnh, bỏ qua RBAC, assertion 1 chiều, session token UI flaky, bug masking), tạo bảng AI Review And Human Fixes và Bug Report | Refactored tests/poolB-fr10-order-status.spec.ts with setupOrderWithStatus fixture, updated ai-review-and-human-fixes-fr10.md, verified 24 Passed & 12 Failed |
 
 ## Full Interaction Logs
 
@@ -154,6 +153,49 @@ Ghi chú Human Review & Verification:
 
 ---
 
+### Interaction 4
+
+- **AI tool:** Gemini 3.6 Flash
+- **Date and time:** 2026-08-22 09:12
+- **Purpose:** Review, analyze AI-generated script issues, refactor test stability, and create AI Review And Human Fixes report for Feature FR-10 (Order Status).
+- **Prompt:**
+
+```text
+Hãy dùng skill @hw04-automation-maintenance để review, phân tích các thay đổi và tạo bảng AI Review And Human Fixes cho test script poolA-fr10-order-status.spec.ts.
+
+Thông tin đầu vào:
+- Spec file: tests/poolB-fr10-order-status.spec.ts
+- Data file: tests/data/poolB-fr10-order-status.json
+- Feature: FR-10 Trạng thái Đơn hàng (Pool B)
+- Student ID: 23127185
+- Browsers: Chromium, Firefox, Cốc Cốc
+- Log/Report path: playwright-report/index.html
+
+Yêu cầu xuất ra:
+1. Bảng AI Review And Human Fixes (gồm AI Issue, Human Fix, Why AI Missed It).
+2. Phân loại kết quả Pass/Fail (Bug thực tế của SUT vs Lỗi automation).
+3. Nội dung Bug Report ngắn gọn.
+```
+
+- **AI output:**
+
+```text
+Phân tích và sửa đổi 5 lỗi chính từ AI script cho FR-10:
+1. Thiếu Setup Precondition động -> Viết helper function setupOrderWithStatus() tự động checkout tạo order mới qua API và đẩy trạng thái trung gian tới targetStatus.
+2. Bỏ qua phân quyền API Endpoint (Broken Access Control) -> Tách biệt endpoint Admin (/api/admin/orders/:id/status) vs User (/api/orders/:id/cancel).
+3. Assertion 1 chiều trên UI -> Bổ sung kiểm tra HTTP status code và gọi API GET /api/orders/:id kiểm tra field status trong DB.
+4. Flaky Session State UI -> Inject Bearer Token vào localStorage bằng page.evaluate() trước khi chuyển hướng tới /profile.
+5. Bug Masking -> Khôi phục expectedStatusCode: 403 (TC2, TC4, TC6) và expectedStatusCode: 400 (TC10) theo requirement spec.
+
+Kết quả Phân loại Pass/Fail:
+- 24 PASSED (8 per browser): TC1, TC3, TC5, TC7, TC8, TC9, TC11, TC12 hoạt động đúng nghiệp vụ.
+- 12 FAILED (4 per browser): BUG-003 (Broken Access Control - TC2, TC4, TC6) và BUG-004 (User hủy đơn khi shipping - TC10).
+```
+
+- **Human review / change:** Created `submission/ai-review-and-human-fixes-fr10.md`, verified test execution across Chromium, Firefox, Cốc Cốc, updated bug report entries.
+
+---
+
 ## Prompt Quality Notes
 
 | Prompt | What Worked | What Failed | Improvement |
@@ -161,6 +203,7 @@ Ghi chú Human Review & Verification:
 | `Skill @hw04-data-driven-script invocation for FR-03` | Clarified output paths, base URL, and assertion pattern requirements clearly | None | Specify exact SUT input element selectors if non-standard UI components exist |
 | `Skill @hw04-automation-maintenance invocation for FR-03` | Structured review process, identified 5 specific AI script issues, categorized SUT bugs clearly | None | Include raw HTML DOM snippet when requesting AI locator fixes |
 | `Skill @hw04-data-driven-script invocation for FR-10` | Extracted 12 test cases from poolB.md, generated clean spec and JSON data file with 4 assertion patterns | SUT permission bugs caused test cases to fail assertion as expected | Document expected HTTP status codes and SUT authorization bugs clearly |
+| `Skill @hw04-automation-maintenance invocation for FR-10` | Extracted 5 critical AI automation issues, refactored dynamic precondition fixture, structured Pass/Fail bug classification | None | Specify SUT API endpoint structures and authentication headers explicitly in initial prompt |
 
 ## Human Responsibility Statement
 
