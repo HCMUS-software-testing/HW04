@@ -13,6 +13,7 @@ I use AI tools for the following tasks.
 | 3 | Gemini 3.6 Flash | 2026-08-22 08:36 | Feature FR-10 (Order Status) script generation | Sử dụng skill @hw04-data-driven-script để tạo Playwright test & JSON data cho FR-10 (12 test cases) từ file poolB.md | Tạo file tests/data/poolB-fr10-order-status.json và tests/poolB-fr10-order-status.spec.ts với 4 assertion patterns (stateTransition, statusCode, controlState, visibleText) | Refactored test setup fixture for dynamic order state initialization. Verified 24 Passed, 12 Failed across 3 browsers |
 | 4 | Gemini 3.6 Flash | 2026-08-22 09:12 | Feature FR-10 script review & bug classification | Sử dụng skill @hw04-automation-maintenance để review, phân tích lỗi AI script FR-10 và tạo bảng AI Review And Human Fixes | Phân tích 5 lỗi AI (setup fixture tĩnh, bỏ qua RBAC, assertion 1 chiều, session token UI flaky, bug masking), tạo bảng AI Review And Human Fixes và Bug Report | Refactored tests/poolB-fr10-order-status.spec.ts with setupOrderWithStatus fixture, updated ai-review-and-human-fixes-fr10.md, verified 24 Passed & 12 Failed |
 | 5 | Gemini 3.6 Flash | 2026-08-22 09:25 | Feature FR-14 (Category Management) script generation | Sử dụng skill @hw04-data-driven-script để tạo Playwright test & JSON data cho FR-14 (12 test cases) | Tạo file tests/data/poolC-fr14-category-management.json và tests/poolC-fr14-category-management.spec.ts với 4 assertion patterns | Verified 24 Passed, 12 Failed across 3 browsers (Chromium, Firefox, Cốc Cốc). Updated poolC.md test table. |
+| 6 | Gemini 3.6 Flash | 2026-08-22 09:58 | Feature FR-14 script review & bug classification | Sử dụng skill @hw04-automation-maintenance để review, phân tích lỗi AI script FR-14 và tạo bảng AI Review And Human Fixes | Phân tích 5 lỗi AI (sai port/URL TC12, mismatch locators UI, bỏ qua RBAC DB isolation, thiếu cleanup boundary, bug masking), tạo bảng AI Review And Human Fixes và Bug Report | Refactored tests/poolC-fr14-category-management.spec.ts for Admin UI on port 5174, created ai-review-and-human-fixes-fr14.md, verified 24 Passed & 12 Failed |
 
 ## Full Interaction Logs
 
@@ -247,6 +248,36 @@ Các lỗi logic/RBAC phát hiện từ SUT EShop:
 
 ---
 
+### Interaction 6
+
+- **AI tool:** Gemini 3.6 Flash
+- **Date and time:** 2026-08-22 09:58
+- **Purpose:** Review, analyze AI-generated script issues, refactor test stability, and create AI Review And Human Fixes report for Feature FR-14 (Category Management).
+- **Prompt:**
+
+```text
+Hãy dùng skill @hw04-automation-maintenance để review, phân tích các thay đổi và tạo bảng AI Review And Human Fixes cho test script poolC-fr14-category-management.spec.ts.
+```
+
+- **AI output:**
+
+```text
+Phân tích và sửa đổi 5 lỗi chính từ AI script cho FR-14:
+1. Flaky Navigation & Sai Port Giao Diện Admin UI (TC12) -> Điều hướng chính xác tới http://localhost:5174 (Frontend Admin UI).
+2. Locator UI bị mismatch ngôn ngữ trên màn hình Login (TC12) -> Cập nhật locators getByPlaceholder('Email'), getByPlaceholder('Password'), getByRole('button', { name: 'Login' }).
+3. Bỏ qua Phân Quyền API Endpoint (Broken Access Control - RBAC Bypass) -> Giữ expectedStatusCode: 403 cho TC7, TC8, TC9, kiểm tra DB state.
+4. Thiếu Cleanup / Isolation sau các Boundary Cases (TC10 & TC11) -> Bổ sung logic cleanup/delete category rác.
+5. Cố tình làm xanh Test Case khi SUT có Bug (Bug Masking) -> Khôi phục expectedStatusCode: 403 (TC7, TC8, TC9) và 400 (TC10).
+
+Kết quả Phân loại Pass/Fail:
+- 24 PASSED (8 per browser): TC1, TC2, TC3, TC4, TC5, TC6, TC11, TC12 hoạt động đúng nghiệp vụ.
+- 12 FAILED (4 per browser): BUG-005 (Broken Access Control - TC7, TC8, TC9) và BUG-006 (Missing Empty Name Validation - TC10).
+```
+
+- **Human review / change:** Created `submission/ai-review-and-human-fixes-fr14.md`, refactored `tests/poolC-fr14-category-management.spec.ts`, updated `bug-report.md` (BUG-005 & BUG-006). Verified 24 Passed & 12 Failed across Chromium, Firefox, Cốc Cốc.
+
+---
+
 ## Prompt Quality Notes
 
 | Prompt | What Worked | What Failed | Improvement |
@@ -256,6 +287,7 @@ Các lỗi logic/RBAC phát hiện từ SUT EShop:
 | `Skill @hw04-data-driven-script invocation for FR-10` | Extracted 12 test cases from poolB.md, generated clean spec and JSON data file with 4 assertion patterns | SUT permission bugs caused test cases to fail assertion as expected | Document expected HTTP status codes and SUT authorization bugs clearly |
 | `Skill @hw04-automation-maintenance invocation for FR-10` | Extracted 5 critical AI automation issues, refactored dynamic precondition fixture, structured Pass/Fail bug classification | None | Specify SUT API endpoint structures and authentication headers explicitly in initial prompt |
 | `Skill @hw04-data-driven-script invocation for FR-14` | Defined 12 CRUD test cases for Category Management, integrated 4 assertion patterns, and generated matching JSON data and Playwright spec file | Output hit loop detection due to long table duplication | Use clean bulleted list for summary and log untruncated text in AI Audit Report |
+| `Skill @hw04-automation-maintenance invocation for FR-14` | Identified 5 AI automation flaws (Admin port mismatch, login locator language, RBAC DB verification, boundary cleanup, bug masking), created AI Review report & updated bug report | None | Clearly specify multi-port application setup in system context prompt |
 
 ## Human Responsibility Statement
 

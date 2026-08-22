@@ -183,12 +183,12 @@ test.describe(`FR-14: Category Management (Pool C) | Run by: ${studentId} | Time
 
       } else if (tc.id === 'TC12') {
         // Coc Coc / Web UI Case: Admin adding category through frontend-admin UI
-        await page.goto('/');
+        await page.goto('http://localhost:5174');
 
-        // Log in via UI form
-        await page.getByPlaceholder(/email/i).fill('admin@eshop.com');
-        await page.getByPlaceholder(/mật khẩu/i).fill('Admin123!');
-        await page.getByRole('button', { name: /Đăng nhập/i }).click();
+        // Log in via Admin UI form (http://localhost:5174)
+        await page.getByPlaceholder('Email').fill('admin@eshop.com');
+        await page.getByPlaceholder('Password').fill('Admin123!');
+        await page.getByRole('button', { name: 'Login' }).click();
 
         // Navigate to Category Tab
         const catTab = page.getByText('Danh mục', { exact: true });
