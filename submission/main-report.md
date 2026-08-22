@@ -227,6 +227,6 @@ All selected test cases were automated.
 
 ## 12. Demo Video
 
-- **YouTube unlisted link:** `https://youtu.be/HPz0QpjUPH4`
+- **YouTube unlisted link:** `https://youtu.be/-G-VOqTk7gQ`
 - **Authorship evidence:** Terminal running `whoami`
 - **Script demonstrated:** `tests/poolA-fr03-forgot-password.spec.ts`

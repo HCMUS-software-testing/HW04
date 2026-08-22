@@ -5,7 +5,7 @@
 - **MSSV:** `23127185`
 - **Họ tên:** `Mai Thị Kim Duyên`
 - **Repository GitHub Công Khai:** `https://github.com/HCMUS-software-testing/HW04/tree/melyen`
-- **Demo Video YouTube Unlisted:** `https://youtu.be/HPz0QpjUPH4`
+- **Demo Video YouTube Unlisted:** `https://youtu.be/-G-VOqTk7gQ`
 - **SUT:** EShop - <https://github.com/ttbhanh/eshop-sut>
 
 ## Self-Assessment
@@ -31,7 +31,7 @@
 | Number failed (per browser run / total executions) | 17 / 51 |
 | Number of browser runs | 9 (3 features × 3 browsers) |
 | Number of confirmed product bugs | 6 |
-| Demo video link | `https://youtu.be/HPz0QpjUPH4` |
+| Demo video link | `https://youtu.be/-G-VOqTk7gQ` |
 
 ## Feature Selection
 
