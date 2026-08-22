@@ -1,5 +1,15 @@
 import { defineConfig, devices } from '@playwright/test';
 
+function getUTC7Timestamp(): string {
+  const now = new Date();
+  const utc7Date = new Date(now.getTime() + (now.getTimezoneOffset() + 420) * 60000);
+  const pad = (n: number) => String(n).padStart(2, '0');
+  const pad3 = (n: number) => String(n).padStart(3, '0');
+  return `${utc7Date.getFullYear()}-${pad(utc7Date.getMonth() + 1)}-${pad(utc7Date.getDate())}T${pad(utc7Date.getHours())}:${pad(utc7Date.getMinutes())}:${pad(utc7Date.getSeconds())}.${pad3(utc7Date.getMilliseconds())}+07:00`;
+}
+
+process.env.RUN_TIMESTAMP = process.env.RUN_TIMESTAMP || getUTC7Timestamp();
+
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -35,7 +45,7 @@ export default defineConfig({
   ],
   metadata: {
     'Run by': process.env.STUDENT_ID || '23127185',
-    'Timestamp': new Date().toISOString(),
+    'Timestamp': process.env.RUN_TIMESTAMP,
   },
 
   /* Configure projects for major browsers */

@@ -28,7 +28,7 @@ Kiểm thử toàn bộ các thao tác CRUD danh mục sản phẩm (FR-14) bao 
 
 ## 3. Preconditions
 
-- SUT EShop đang chạy tại: `http://localhost:5173` (Frontend Admin / User) và Backend `http://localhost:3000`.
+- SUT EShop đang chạy tại: `http://localhost:5174` (Frontend Admin / User) và Backend `http://localhost:3000`.
 - Tài khoản Admin: `admin@eshop.com` / `Admin123!`.
 - Tài khoản User: `test@eshop.com` / `Test1234!`.
 - Browser cần chạy:

@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import testData from './data/poolB-fr10-order-status.json';
 
 const studentId = process.env.STUDENT_ID || '23127185';
-const timestamp = process.env.RUN_TIMESTAMP || '2026-08-22T01:43:00.000Z';
+const timestamp = process.env.RUN_TIMESTAMP || new Date().toISOString();
 const API_BASE = process.env.API_BASE || 'http://localhost:3000/api';
 
 /**

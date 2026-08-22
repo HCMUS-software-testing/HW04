@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import testData from './data/poolA-fr03-forgot-password.json';
 
 const studentId = process.env.STUDENT_ID || '23127185';
-const timestamp = new Date().toISOString();
+const timestamp = process.env.RUN_TIMESTAMP || new Date().toISOString();
 
 test.describe(`FR-03: Forgot Password & Password Reset (Pool A) | Run by: ${studentId} | Timestamp: ${timestamp}`, () => {
   test.beforeEach(async ({ page }) => {
@@ -22,7 +22,7 @@ test.describe(`FR-03: Forgot Password & Password Reset (Pool A) | Run by: ${stud
       if (tc.step === 1) {
         // Step 1: Request OTP
         const emailInput = page.locator('input[type="text"]').first();
-        
+
         if (tc.email !== '') {
           await emailInput.fill(tc.email);
         } else {
@@ -45,7 +45,7 @@ test.describe(`FR-03: Forgot Password & Password Reset (Pool A) | Run by: ${stud
             const messageElement = page.getByText(new RegExp(tc.expectedMessage, 'i'))
               .or(page.locator('div:has-text("Mã OTP của bạn là:")'))
               .or(page.locator('.alert, .message, .error, .toast')).first();
-            
+
             const isVisible = await messageElement.isVisible().catch(() => false);
             if (!isVisible && tc.type === 'Negative') {
               // SUT backend API may not be running or throws native window.alert/uncaught error
