@@ -1,7 +1,10 @@
 import { test, expect } from '@playwright/test';
 import testData from './data/poolA-fr03-forgot-password.json';
 
-test.describe('FR-03: Forgot Password & Password Reset (Pool A)', () => {
+const studentId = process.env.STUDENT_ID || '23127185';
+const timestamp = new Date().toISOString();
+
+test.describe(`FR-03: Forgot Password & Password Reset (Pool A) | Run by: ${studentId} | Timestamp: ${timestamp}`, () => {
   test.beforeEach(async ({ page }) => {
     // Navigate to forgot password page
     await page.goto('/forgot-password');

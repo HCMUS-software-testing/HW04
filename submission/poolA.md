@@ -1,11 +1,10 @@
-# Pool A - FR-03 Forgot Password And Password Reset
+# Pool A - FR-03 Quên mật khẩu và đặt lại mật khẩu, gồm hai bước
 
 ## 1. Thông Tin Feature
 
-- **Pool:** A - Authentication, Categories, and Products
+- **Pool:** A
 - **Feature ID:** FR-03
-- **Feature name:** Forgot password and password reset, two steps
-- **Tên tiếng Việt:** Quên mật khẩu và đặt lại mật khẩu, gồm hai bước
+- **Feature name:** Quên mật khẩu và đặt lại mật khẩu, gồm hai bước
 - **SUT:** EShop
 - **Repository SUT:** <https://github.com/ttbhanh/eshop-sut>
 - **Automation tool:** `Playwright`
@@ -14,7 +13,7 @@
 - **Data file:** `tests/data/poolA-fr03-forgot-password.json`
 - **HTML report:** `playwright-report`
 - **Run by:** `23127185`
-- **Run timestamp:** `<ISO timestamp>`
+- **Run timestamp:** `2026-08-22T16:11:30.133Z`
 
 ## 2. Mục Tiêu Kiểm Thử
 
