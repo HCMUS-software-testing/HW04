@@ -42,4 +42,4 @@
 | Main report PDF | `main-report.pdf` | Báo cáo chính dạng PDF |
 | AI Audit Report PDF | `ai-audit-report.pdf` | Phụ lục AI Audit Report dạng PDF |
 | AI Critique PDF | `ai-critique.pdf` | Báo cáo AI Critique dạng PDF |
-| Git commit log | `git-commit-log.txt` | Git log minh chứng ít nhất 8 test commits |
+| Git commit log | `GitCommitLog.txt` | |

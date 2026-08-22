@@ -1,3 +1,17 @@
+* commit 913d7119beea3f70b1b17df30bb719cdf7a00b9c
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Sat Aug 22 16:12:36 2026 +0700
+| 
+|     update link video demo
+| 
+|  README.md                   |   1 -
+|  submission/GitCommitLog.txt |  34 ++++++++++++++++++++++++++++++++--
+|  submission/README.md        |   4 ++--
+|  submission/links.md         |   2 +-
+|  submission/main-report.md   |   2 +-
+|  submission/main-report.pdf  | Bin 348673 -> 521078 bytes
+|  6 files changed, 36 insertions(+), 7 deletions(-)
+| 
 * commit de81f59996ad259c54f7acdfcbbf0ae1b0f6fcd1
 | Author: Melyenn <thiduyen310@gmail.com>
 | Date:   Sat Aug 22 15:59:37 2026 +0700
