@@ -25,9 +25,9 @@
 ## 2. Phân Loại Kết Quả Pass/Fail (Bug Thực Tế SUT vs Lỗi Automation)
 
 - **Tổng số Test Cases:** 12 TCs (Chạy trên 3 trình duyệt: Chromium, Firefox, Cốc Cốc)
-- **Kết quả Execution:** **4 PASSED**, **8 FAILED**
+- **Kết quả Execution:** **3 PASSED**, **9 FAILED**
 
-### A. Bugs Thực Tế Của SUT (SUT Product Bugs) - 8 Test Cases Fail:
+### A. Bugs Thực Tế Của SUT (SUT Product Bugs) - 9 Test Cases Fail:
 1. **TC1 (Lỗi OTP Format & Length - Severity: Medium):**
    - *Mô tả:* SUT sinh ra và hiển thị mã OTP chỉ có 4 chữ số (ví dụ: `1234`), trong khi yêu cầu kỹ thuật chuẩn của FR-03 là mã OTP 6 chữ số.
 2. **TC5 - TC12 (Lỗi Validation Password Policy & Thiếu trường Confirm Password - Severity: High):**
@@ -36,7 +36,7 @@
      - Khi nhập mật khẩu mới hợp lệ theo quy định (độ dài $\ge 8$, chữ hoa, chữ thường, chữ số, ký tự đặc biệt: `Aaaaaaa1!`, `AAAAAAAAa1!`), SUT vẫn báo lỗi: *"Mật khẩu quá yếu! Phải dài tối thiểu 8 ký tự, gồm chữ hoa, chữ thường, số và KÝ TỰ ĐẶC BIỆT."* làm người dùng không thể hoàn tất đặt lại mật khẩu.
 
 ### B. Trạng Thái Test Suite / Lỗi Automation:
-- **4 PASSED (TC2, TC3, TC4):** Các Negative test cases ở Bước 1 kiểm tra validation email hoạt động đúng nghiệp vụ.
+- **3 PASSED (TC2, TC3, TC4):** Các Negative test cases ở Bước 1 kiểm tra validation email hoạt động đúng nghiệp vụ.
 - **Khắc phục lỗi Automation:** Các lỗi locator trùng lặp và logic soft-assertion của AI đã được chỉnh sửa hoàn tất, giúp bộ test script đạt độ ổn định cao trên Chromium, Firefox và Cốc Cốc.
 
 ---

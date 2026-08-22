@@ -63,9 +63,9 @@ I completed HW02 and reused the same three selected web features for HW04.
 
 | Browser | Executed | Passed | Failed | HTML Report / Evidence |
 | --- | ---: | ---: | ---: | --- |
-| Chromium | 12 | 4 | 8 | `playwright-report/index.html` |
-| Firefox | 12 | 4 | 8 | `playwright-report/index.html` |
-| Cốc Cốc | 12 | 4 | 8 | `playwright-report/index.html` |
+| Chromium | 12 | 3 | 9 | `playwright-report/index.html` |
+| Firefox | 12 | 3 | 9 | `playwright-report/index.html` |
+| Cốc Cốc | 12 | 3 | 9 | `playwright-report/index.html` |
 
 ### 4.4 AI Review And Human Fixes
 

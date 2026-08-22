@@ -8,8 +8,8 @@
 | Number of test cases automated | 36 |
 | Number of test cases executed (per browser run) | 36 |
 | Total test executions (3 browsers) | 108 |
-| Number passed (per browser run / total executions) | 18 / 54 |
-| Number failed (per browser run / total executions) | 18 / 54 |
+| Number passed (per browser run / total executions) | 19 / 57 |
+| Number failed (per browser run / total executions) | 17 / 51 |
 | Number of browser runs | 9 (3 features × 3 browsers) |
 | Number of confirmed product bugs | 6 |
 
@@ -17,7 +17,7 @@
 
 | Feature | Test Cases Automated | Chromium Passed / Failed | Firefox Passed / Failed | Cốc Cốc Passed / Failed | Notes |
 | --- | ---: | --- | --- | --- | --- |
-| Feature A - FR-03 Quên & Đặt lại MK | 12 | 4 / 8 | 4 / 8 | 4 / 8 | Failed TCs due to OTP length bug & password policy validation bug |
+| Feature A - FR-03 Quên & Đặt lại MK | 12 | 3 / 9 | 3 / 9 | 3 / 9 | Failed TCs due to OTP length bug & password policy validation bug |
 | Feature B - FR-10 Trạng thái Đơn hàng | 12 | 8 / 4 | 8 / 4 | 8 / 4 | Failed TCs due to RBAC bypass (TC2, TC4, TC6) & cancel shipping order bug (TC10) |
 | Feature C - FR-14 Quản lý Danh mục | 12 | 8 / 4 | 8 / 4 | 8 / 4 | Failed TCs due to Category RBAC bypass (TC7, TC8, TC9) & empty name bug (TC10) |
 

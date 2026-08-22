@@ -27,8 +27,8 @@
 | Number of test cases automated | 36 |
 | Number of test cases executed (per browser run) | 36 |
 | Total test executions (across 3 browsers) | 108 |
-| Number passed (per browser run / total executions) | 18 / 54 |
-| Number failed (per browser run / total executions) | 18 / 54 |
+| Number passed (per browser run / total executions) | 19 / 57 |
+| Number failed (per browser run / total executions) | 17 / 51 |
 | Number of browser runs | 9 (3 features × 3 browsers) |
 | Number of confirmed product bugs | 6 |
 | Demo video link | `https://youtu.be/HPz0QpjUPH4` |
