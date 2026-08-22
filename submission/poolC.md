@@ -34,7 +34,7 @@ Kiểm thử toàn bộ các thao tác CRUD danh mục sản phẩm (FR-14) bao 
 - Browser cần chạy:
   - Chromium
   - Firefox
-  - Cốc Cốc (Chromium-based)
+  - Cốc Cốc
 - HTML report hiển thị:
   - `Run by: 23127185`
   - ISO timestamp: `2026-08-22T01:43:00.000Z`

@@ -1,0 +1,141 @@
+* commit aa563f79e8f76d4b72e617f4f881e240983002a2
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Sat Aug 22 14:01:29 2026 +0700
+| 
+|     change timestamp UTC+7
+| 
+|  submission/playwright.config.ts                         | 12 +++++++++++-
+|  submission/poolC.md                                     |  2 +-
+|  submission/tests/poolA-fr03-forgot-password.spec.ts     |  6 +++---
+|  submission/tests/poolB-fr10-order-status.spec.ts        |  2 +-
+|  submission/tests/poolC-fr14-category-management.spec.ts |  2 +-
+|  5 files changed, 17 insertions(+), 7 deletions(-)
+| 
+* commit e3d9f4c336c57e0b2def2520f6f45e5fab07572e
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Sat Aug 22 10:02:14 2026 +0700
+| 
+|     add ai review and human fixes fr14
+| 
+|  submission/ai-audit-report.md                     | 32 +++++++
+|  submission/ai-review-and-human-fixes-fr14.md      | 93 +++++++++++++++++++++
+|  .../tests/poolC-fr14-category-management.spec.ts  | 10 +--
+|  3 files changed, 130 insertions(+), 5 deletions(-)
+| 
+* commit 804cb024a6479ae5d3bc32239dc02375f5b05856
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Sat Aug 22 09:57:35 2026 +0700
+| 
+|     add ai review and human fixes fr3
+| 
+|  submission/ai-audit-report.md                     |  54 ++++-
+|  submission/ai-review-and-human-fixes-fr03.md      | 103 ++++++++++
+|  submission/poolC.md                               |  65 ++++++
+|  .../data/poolC-fr14-category-management.json      | 134 +++++++++++++
+|  .../tests/poolC-fr14-category-management.spec.ts  | 211 ++++++++++++++++++++
+|  5 files changed, 565 insertions(+), 2 deletions(-)
+| 
+* commit 93d02fa33112158c009f7256403b4286c5b5d315
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Sat Aug 22 09:21:05 2026 +0700
+| 
+|     add ai review and human fixes fr10
+| 
+|  submission/ai-audit-report.md                | 47 ++++++++++++++++++++++-
+|  submission/ai-review-and-human-fixes-fr10.md | 53 ++++++++++++++++++++++++++
+|  2 files changed, 98 insertions(+), 2 deletions(-)
+| 
+* commit e763bc82d31cb550c4a3fa5ce58d40fadd481e21
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Sat Aug 22 09:06:34 2026 +0700
+| 
+|     fix test playwright of pool B
+| 
+|  submission/ai-audit-report.md                    |  11 +-
+|  submission/poolB.md                              |   6 +-
+|  submission/tests/poolB-fr10-order-status.spec.ts | 251 +++++++++++++--------
+|  3 files changed, 160 insertions(+), 108 deletions(-)
+| 
+* commit c63af2a517273af288e7450ed59afcbff7c47052
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Sat Aug 22 08:55:04 2026 +0700
+| 
+|     add test playwright for poolB
+| 
+|  submission/ai-audit-report.md                     |  50 ++++++-
+|  submission/poolB.md                               |  71 +++++++++
+|  .../tests/data/poolB-fr10-order-status.json       | 158 ++++++++++++++++++++
+|  submission/tests/poolB-fr10-order-status.spec.ts  | 116 ++++++++++++++
+|  4 files changed, 394 insertions(+), 1 deletion(-)
+| 
+* commit 7a49b8b9cca640ee53694d75fa52c1fdcd0c9284
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Sat Aug 22 08:27:14 2026 +0700
+| 
+|     fix test playwright of pool A
+| 
+|  submission/poolA.md                                 | 9 ++++-----
+|  submission/tests/poolA-fr03-forgot-password.spec.ts | 5 ++++-
+|  2 files changed, 8 insertions(+), 6 deletions(-)
+| 
+* commit 3852fa6da6bdd431c04cafa61abeb4dffa1ea17b
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Tue Aug 18 21:53:43 2026 +0700
+| 
+|     test(poolA): add report through test by playwright
+| 
+|  submission/ai-audit-report.md | 122 +++++++++++++++++++++++
+|  submission/bug-report.md      | 102 +++++++++++++++++++
+|  submission/main-report.md     | 215 ++++++++++++++++++++++++++++++++++++++++
+|  submission/poolA.md           |  70 +++++++++++++
+|  4 files changed, 509 insertions(+)
+| 
+* commit 04640e2e97440abc9fe5a63cdbf5001086a79129
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Tue Aug 18 20:55:41 2026 +0700
+| 
+|     test(poolA): update locators, browser config to Coccoc and strict spec assertions
+|     
+|     - Replace WebKit with Coccoc Browser in playwright.config.ts due to OS dependencies
+|     - Update element locators to match SUT React DOM structure and handle window.alert dialogs
+|     - Enforce strict URL assertions on reset password step to accurately catch SUT bugs
+|     - Update execution results in poolA.md (4 passed, 8 failed across Chromium, Firefox, Coccoc)
+| 
+|  submission/playwright.config.ts                   | 21 +++++--
+|  .../tests/poolA-fr03-forgot-password.spec.ts      | 62 +++++++++++++++------
+|  2 files changed, 61 insertions(+), 22 deletions(-)
+| 
+* commit 411b22b7397eb6d668f5f61b5eaba68eebb14d04
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Tue Aug 18 17:45:10 2026 +0700
+| 
+|     feat: add initial test data for FR03
+| 
+|  .../tests/data/poolA-fr03-forgot-password.json    | 134 ++++++++++++++++++++
+|  .../tests/poolA-fr03-forgot-password.spec.ts      |  74 +++++++++++
+|  2 files changed, 208 insertions(+)
+| 
+* commit a782c39e163a70de0b536c81de08b0d4877e95d2
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Tue Aug 18 16:54:35 2026 +0700
+| 
+|     feat: init playwright
+| 
+|  submission/.github/workflows/playwright.yml | 27 ++++++++
+|  submission/.gitignore                       |  8 +++
+|  submission/package-lock.json                | 97 +++++++++++++++++++++++++++
+|  submission/package.json                     | 14 ++++
+|  submission/playwright.config.ts             | 79 ++++++++++++++++++++++
+|  submission/tests/example.spec.ts            | 18 +++++
+|  6 files changed, 243 insertions(+)
+| 
+* commit f4df999876c39e7135eb477e9507d576e7d9bd15
+  Author: Melyenn <thiduyen310@gmail.com>
+  Date:   Sun Aug 16 20:27:48 2026 +0700
+  
+      feat: add plan
+  
+   docs/HW04_ASSIGNMENT.md                           |  232 ++++
+   docs/HW04_ASSIGNMENT_VI.md                        |  232 ++++
+   .../plans/2026-08-16-hw04-automation-testing.md   | 1088 +++++++++++++++++++
+   3 files changed, 1552 insertions(+)

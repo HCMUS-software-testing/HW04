@@ -38,7 +38,7 @@ Các test case tập trung vào:
 - Browser cần chạy:
   - Chromium
   - Firefox
-  - Cốc Cốc (Chromium-based)
+  - Cốc Cốc
 - HTML report phải hiển thị:
   - `Run by: 23127185`
   - ISO timestamp: `2026-08-18T13:48:29.000Z`
@@ -49,9 +49,9 @@ Các test case tập trung vào:
 
 | Browser | Executed | Passed | Failed | HTML Report / Evidence |
 | --- | ---: | ---: | ---: | --- |
-| Chromium | 12 | 4 | 8 | `playwright-report/index.html` |
-| Firefox | 12 | 4 | 8 | `playwright-report/index.html` |
-| Cốc Cốc | 12 | 4 | 8 | `playwright-report/index.html` |
+| Chromium | 12 | 2 | 10 | `playwright-report/index.html` |
+| Firefox | 12 | 2 | 10 | `playwright-report/index.html` |
+| Cốc Cốc | 12 | 2 | 10 | `playwright-report/index.html` |
 
 | Test Case ID | Phân loại | Mục tiêu | Đầu vào | Các bước thực hiện | Kết quả mong đợi | Thực tế | Verdict |
 | --- | --- | --- | --- | --- | --- | --- | --- |

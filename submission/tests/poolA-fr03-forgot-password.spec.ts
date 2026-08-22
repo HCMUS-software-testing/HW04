@@ -33,7 +33,7 @@ test.describe(`FR-03: Forgot Password & Password Reset (Pool A) | Run by: ${stud
         await submitBtn.click();
 
         // Assertion Patterns used:
-        if (tc.assertionPattern === 'validationMessage') {
+        if (tc.assertionPattern === 'validationMessage' || tc.id === 'TC3') {
           // 1. Form / Control State Assertion (HTML5 Validation or Input State)
           const validationMessage = await emailInput.evaluate((el: HTMLInputElement) => el.validationMessage);
           expect(validationMessage).toBeTruthy();
@@ -46,12 +46,15 @@ test.describe(`FR-03: Forgot Password & Password Reset (Pool A) | Run by: ${stud
               .or(page.locator('div:has-text("Mã OTP của bạn là:")'))
               .or(page.locator('.alert, .message, .error, .toast')).first();
 
-            const isVisible = await messageElement.isVisible().catch(() => false);
-            if (!isVisible && tc.type === 'Negative') {
-              // SUT backend API may not be running or throws native window.alert/uncaught error
-              expect(tc.type).toBe('Negative');
-            } else {
-              await expect(messageElement).toBeVisible();
+            await expect(messageElement).toBeVisible();
+
+            // TC1: Bổ sung kiểm tra OTP phải đủ 6 chữ số (BUG-002)
+            if (tc.id === 'TC1') {
+              const otpBanner = page.locator('div:has-text("Mã OTP của bạn là:")').first();
+              const bannerText = await otpBanner.innerText();
+              const otpMatch = bannerText.match(/(\d+)/);
+              expect(otpMatch, 'OTP phải được hiển thị dạng số').toBeTruthy();
+              expect(otpMatch![1].length, 'OTP phải có đúng 6 chữ số').toBe(6);
             }
           }
         }
@@ -85,9 +88,9 @@ test.describe(`FR-03: Forgot Password & Password Reset (Pool A) | Run by: ${stud
 
         // Fill Confirm Password if field exists
         const confirmPasswordInput = page.getByPlaceholder(/xác nhận mật khẩu|confirm password/i).or(page.getByLabel(/xác nhận mật khẩu|confirm password/i));
-        if (await confirmPasswordInput.isVisible()) {
-          await confirmPasswordInput.fill(tc.confirmPassword);
-        }
+        // Assert trường Xác nhận mật khẩu phải tồn tại (SUT BUG-001: thiếu trường này)
+        await expect(confirmPasswordInput).toBeVisible({ timeout: 3000 });
+        await confirmPasswordInput.fill(tc.confirmPassword);
 
         const resetBtn = page.getByRole('button', { name: /đặt lại mật khẩu|reset password|xác nhận/i });
         await resetBtn.click();

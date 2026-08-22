@@ -49,6 +49,13 @@ test.describe(`FR-14: Category Management (Pool C) | Run by: ${studentId} | Time
         const createdCat = categories.find((c: any) => c.name === tc.categoryName);
         expect(createdCat).toBeDefined();
 
+        // Cleanup: xóa danh mục test TC1 để giữ DB sạch
+        if (createdCat) {
+          await request.delete(`${API_BASE}/categories/${createdCat.id}`, {
+            headers: { Authorization: `Bearer ${adminToken}` }
+          });
+        }
+
       } else if (tc.id === 'TC2') {
         // Positive Case: Public GET /api/categories without auth
         const listRes = await request.get(`${API_BASE}/categories`);
@@ -161,9 +168,22 @@ test.describe(`FR-14: Category Management (Pool C) | Run by: ${studentId} | Time
           data: { name: tc.categoryName }
         });
 
+        // Cleanup: xóa danh mục rác nếu SUT tạo thành công (BUG-006)
+        const responseStatus = createRes.status();
+        if (responseStatus === 200) {
+          try {
+            const body = await createRes.json();
+            if (body.id) {
+              await request.delete(`${API_BASE}/categories/${body.id}`, {
+                headers: { Authorization: `Bearer ${adminToken}` }
+              });
+            }
+          } catch { /* cleanup best-effort */ }
+        }
+
         // 2. Assertion Pattern: statusCode (Expect 400 Bad Request for empty name)
         // Note: SUT lacks validation for empty category name (returns 200), causing assertion to fail.
-        expect(createRes.status()).toBe(tc.expectedStatusCode);
+        expect(responseStatus).toBe(tc.expectedStatusCode);
 
       } else if (tc.id === 'TC11') {
         // Boundary Case: Admin creating category with maximum string length (255 chars)
@@ -180,6 +200,13 @@ test.describe(`FR-14: Category Management (Pool C) | Run by: ${studentId} | Time
         const categories = await listRes.json();
         const boundaryCat = categories.find((c: any) => c.name === tc.categoryName);
         expect(boundaryCat).toBeDefined();
+
+        // Cleanup: xóa danh mục boundary test TC11 để giữ DB sạch
+        if (boundaryCat) {
+          await request.delete(`${API_BASE}/categories/${boundaryCat.id}`, {
+            headers: { Authorization: `Bearer ${adminToken}` }
+          });
+        }
 
       } else if (tc.id === 'TC12') {
         // Coc Coc / Web UI Case: Admin adding category through frontend-admin UI
