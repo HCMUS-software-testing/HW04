@@ -1,0 +1,134 @@
+[
+  {
+    "id": "TC1",
+    "type": "Positive",
+    "role": "admin",
+    "categoryName": "Thiết bị số test TC1",
+    "title": "Kiểm tra Admin tạo danh mục mới hợp lệ",
+    "steps": "1. Đăng nhập với quyền Admin\n2. Thực hiện request POST http://localhost:3000/api/categories với body { name: 'Thiết bị số test TC1' }",
+    "expectedMessage": "Danh mục được tạo thành công",
+    "expectedStatusCode": 200,
+    "assertionPattern": "stateTransition"
+  },
+  {
+    "id": "TC2",
+    "type": "Positive",
+    "role": "guest",
+    "categoryName": "",
+    "title": "Kiểm tra xem danh sách danh mục public",
+    "steps": "1. Thực hiện request GET http://localhost:3000/api/categories không cần token",
+    "expectedMessage": "Trả về danh sách mảng danh mục thành công",
+    "expectedStatusCode": 200,
+    "assertionPattern": "stateTransition"
+  },
+  {
+    "id": "TC3",
+    "type": "Positive",
+    "role": "admin",
+    "categoryName": "Thiết bị số Cao cấp Updated TC3",
+    "title": "Kiểm tra Admin cập nhật tên danh mục",
+    "steps": "1. Đăng nhập với quyền Admin\n2. Đã có 1 danh mục\n3. Thực hiện request PUT http://localhost:3000/api/categories/{id} với tên mới",
+    "expectedMessage": "Danh mục được cập nhật tên thành công",
+    "expectedStatusCode": 200,
+    "assertionPattern": "stateTransition"
+  },
+  {
+    "id": "TC4",
+    "type": "Positive",
+    "role": "admin",
+    "categoryName": "Danh mục sắp xóa TC4",
+    "title": "Kiểm tra Admin xóa danh mục thành công",
+    "steps": "1. Đăng nhập với quyền Admin\n2. Tạo danh mục tạm\n3. Thực hiện request DELETE http://localhost:3000/api/categories/{id}",
+    "expectedMessage": "Danh mục bị xóa thành công khỏi hệ thống",
+    "expectedStatusCode": 200,
+    "assertionPattern": "stateTransition"
+  },
+  {
+    "id": "TC5",
+    "type": "Negative",
+    "role": "unauthorized",
+    "categoryName": "Danh mục vô hiệu TC5",
+    "title": "Kiểm tra tạo danh mục khi không có Token (Chưa đăng nhập)",
+    "steps": "1. Không gửi header Authorization\n2. Thực hiện request POST http://localhost:3000/api/categories",
+    "expectedMessage": "Báo lỗi Unauthorized 401",
+    "expectedStatusCode": 401,
+    "assertionPattern": "statusCode"
+  },
+  {
+    "id": "TC6",
+    "type": "Negative",
+    "role": "invalid_token",
+    "categoryName": "Danh mục vô hiệu TC6",
+    "title": "Kiểm tra tạo danh mục với Token không hợp lệ",
+    "steps": "1. Gửi header Authorization: Bearer invalid_token_123\n2. Thực hiện request POST http://localhost:3000/api/categories",
+    "expectedMessage": "Báo lỗi Forbidden 403",
+    "expectedStatusCode": 403,
+    "assertionPattern": "statusCode"
+  },
+  {
+    "id": "TC7",
+    "type": "Negative",
+    "role": "user",
+    "categoryName": "Danh mục User tạo TC7",
+    "title": "Kiểm tra User không có quyền tạo danh mục mới",
+    "steps": "1. Đăng nhập với tài khoản User (non-admin)\n2. Thực hiện request POST http://localhost:3000/api/categories với User token",
+    "expectedMessage": "Báo lỗi không có quyền Admin (Forbidden 403)",
+    "expectedStatusCode": 403,
+    "assertionPattern": "statusCode"
+  },
+  {
+    "id": "TC8",
+    "type": "Negative",
+    "role": "user",
+    "categoryName": "Danh mục User sửa TC8",
+    "title": "Kiểm tra User không có quyền cập nhật danh mục",
+    "steps": "1. Đăng nhập với tài khoản User (non-admin)\n2. Thực hiện request PUT http://localhost:3000/api/categories/{id} với User token",
+    "expectedMessage": "Báo lỗi không có quyền Admin (Forbidden 403)",
+    "expectedStatusCode": 403,
+    "assertionPattern": "statusCode"
+  },
+  {
+    "id": "TC9",
+    "type": "Negative",
+    "role": "user",
+    "categoryName": "",
+    "title": "Kiểm tra User không có quyền xóa danh mục",
+    "steps": "1. Đăng nhập với tài khoản User (non-admin)\n2. Thực hiện request DELETE http://localhost:3000/api/categories/{id} với User token",
+    "expectedMessage": "Báo lỗi không có quyền Admin (Forbidden 403)",
+    "expectedStatusCode": 403,
+    "assertionPattern": "statusCode"
+  },
+  {
+    "id": "TC10",
+    "type": "Boundary",
+    "role": "admin",
+    "categoryName": "",
+    "title": "Kiểm tra Admin tạo danh mục với tên rỗng",
+    "steps": "1. Đăng nhập với quyền Admin\n2. Thực hiện request POST http://localhost:3000/api/categories với body { name: '' }",
+    "expectedMessage": "Báo lỗi tên danh mục không được để trống (400 Bad Request)",
+    "expectedStatusCode": 400,
+    "assertionPattern": "statusCode"
+  },
+  {
+    "id": "TC11",
+    "type": "Boundary",
+    "role": "admin",
+    "categoryName": "Category_Boundary_Length_255_Characters_ABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789_ABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789_ABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789_ABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789_ABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789_ABCDEFGHIJKLMNOPQRSTUVWXYZ_012",
+    "title": "Kiểm tra Admin tạo danh mục với tên dài 255 ký tự",
+    "steps": "1. Đăng nhập với quyền Admin\n2. Thực hiện request POST http://localhost:3000/api/categories với chuỗi 255 ký tự",
+    "expectedMessage": "Tạo danh mục độ dài cực đại thành công",
+    "expectedStatusCode": 200,
+    "assertionPattern": "stateTransition"
+  },
+  {
+    "id": "TC12",
+    "type": "Coc Coc Case",
+    "role": "admin",
+    "categoryName": "Danh mục UI Test TC12",
+    "title": "Kiểm tra Admin thêm danh mục trực tiếp trên giao diện Admin UI",
+    "steps": "1. Đăng nhập Admin trên giao diện Admin UI\n2. Chuyển sang tab Danh mục\n3. Nhập tên danh mục mới 'Danh mục UI Test TC12' và bấm Thêm mới",
+    "expectedMessage": "Tên danh mục hiển thị thành công trong bảng Danh mục của Admin UI",
+    "expectedStatusCode": 200,
+    "assertionPattern": "visibleText"
+  }
+]

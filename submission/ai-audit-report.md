@@ -12,6 +12,7 @@ I use AI tools for the following tasks.
 | 2 | Gemini 3.6 Flash | 2026-08-18 21:30 | Feature FR-03 script review & bug classification | Sử dụng skill @hw04-automation-maintenance để review, phân tích lỗi AI script FR-03 và phân loại bug thực tế | Phân tích 5 lỗi AI (locators, regex OTP, missing confirm password, forced pass assertion, weak URL assertion), tạo bảng AI Review And Human Fixes và Bug Report | Reviewed & applied human fixes to test script, updated bug-report.md & main-report.md |
 | 3 | Gemini 3.6 Flash | 2026-08-22 08:36 | Feature FR-10 (Order Status) script generation | Sử dụng skill @hw04-data-driven-script để tạo Playwright test & JSON data cho FR-10 (12 test cases) từ file poolB.md | Tạo file tests/data/poolB-fr10-order-status.json và tests/poolB-fr10-order-status.spec.ts với 4 assertion patterns (stateTransition, statusCode, controlState, visibleText) | Refactored test setup fixture for dynamic order state initialization. Verified 24 Passed, 12 Failed across 3 browsers |
 | 4 | Gemini 3.6 Flash | 2026-08-22 09:12 | Feature FR-10 script review & bug classification | Sử dụng skill @hw04-automation-maintenance để review, phân tích lỗi AI script FR-10 và tạo bảng AI Review And Human Fixes | Phân tích 5 lỗi AI (setup fixture tĩnh, bỏ qua RBAC, assertion 1 chiều, session token UI flaky, bug masking), tạo bảng AI Review And Human Fixes và Bug Report | Refactored tests/poolB-fr10-order-status.spec.ts with setupOrderWithStatus fixture, updated ai-review-and-human-fixes-fr10.md, verified 24 Passed & 12 Failed |
+| 5 | Gemini 3.6 Flash | 2026-08-22 09:25 | Feature FR-14 (Category Management) script generation | Sử dụng skill @hw04-data-driven-script để tạo Playwright test & JSON data cho FR-14 (12 test cases) | Tạo file tests/data/poolC-fr14-category-management.json và tests/poolC-fr14-category-management.spec.ts với 4 assertion patterns | Verified 24 Passed, 12 Failed across 3 browsers (Chromium, Firefox, Cốc Cốc). Updated poolC.md test table. |
 
 ## Full Interaction Logs
 
@@ -196,6 +197,56 @@ Kết quả Phân loại Pass/Fail:
 
 ---
 
+### Interaction 5
+
+- **AI tool:** Gemini 3.6 Flash
+- **Date and time:** 2026-08-22 09:25
+- **Purpose:** Generate Playwright data-driven test script and JSON data file for Feature FR-14 (Category Management - Pool C).
+- **Prompt:**
+
+```text
+Hãy sử dụng skill @hw04-data-driven-script để viết Playwright test và tạo data file cho Feature 14
+
+Thông tin Input:
+- Feature ID: FR-14 (Category Management)
+- Pool: C
+- Base URL: http://localhost:5173
+- Định dạng data: .json
+- Đường dẫn Spec Output: tests/poolB-fr14-category-management.spec.ts
+- Đường dẫn Data Output: tests/data/poolB-fr14-category-management.json
+- Danh sách 12 Test Cases: Lấy trong bảng Test Case Table của file poolC.md
+```
+
+- **AI output:**
+
+```text
+Đã hoàn thành tạo Playwright test script và file test data JSON cho Feature 14 (Quản lý Danh mục - FR-14) dựa trên skill @hw04-data-driven-script.
+
+Summary Artifacts Created:
+1. Spec File (Playwright): tests/poolC-fr14-category-management.spec.ts
+2. Data File (JSON): tests/data/poolC-fr14-category-management.json
+3. Pool C Documentation: poolC.md
+
+Key Implementation Highlights:
+- Data-Driven Architecture: Tách toàn bộ dữ liệu của 12 test cases ra file poolC-fr14-category-management.json. Spec file nạp dữ liệu động thông qua vòng lặp for (const tc of testData).
+- Assertion Patterns Sử Dụng (4 Patterns):
+  1. stateTransition: Kiểm tra mã HTTP 200 OK và xác nhận danh mục được thêm/sửa/xóa trực tiếp trong database via API.
+  2. statusCode: Xác nhận các mã lỗi hệ thống như 401 Unauthorized và 403 Forbidden khi thiếu token hoặc không đúng thẩm quyền.
+  3. visibleText: Xác minh tên danh mục mới hiển thị chính xác trên giao diện Admin UI (/admin).
+  4. controlState: Kiểm tra sự tồn tại/ẩn của các nút tương tác và trường nhập liệu.
+
+Results & Product Vulnerabilities Identified:
+Đã chạy kiểm thử trên 3 trình duyệt (Chromium, Firefox, Cốc Cốc) với kết quả: 24 Passed, 12 Failed (8 Pass / 4 Fail mỗi trình duyệt).
+
+Các lỗi logic/RBAC phát hiện từ SUT EShop:
+- TC7, TC8, TC9 (RBAC Violation): Backend SUT sử dụng authenticateToken nhưng không kiểm tra vai trò admin, cho phép tài khoản User bình thường thực hiện các lệnh POST/PUT/DELETE đối với danh mục.
+- TC10 (Missing Validation): Backend SUT chấp nhận tạo danh mục với tên là chuỗi rỗng "" thay vì trả về 400 Bad Request.
+```
+
+- **Human review / change:** Verified test execution across Chromium, Firefox, Cốc Cốc (24 Passed, 12 Failed). Updated `poolC.md` test table with accurate 12 Category Management test cases and SUT execution results.
+
+---
+
 ## Prompt Quality Notes
 
 | Prompt | What Worked | What Failed | Improvement |
@@ -204,9 +255,8 @@ Kết quả Phân loại Pass/Fail:
 | `Skill @hw04-automation-maintenance invocation for FR-03` | Structured review process, identified 5 specific AI script issues, categorized SUT bugs clearly | None | Include raw HTML DOM snippet when requesting AI locator fixes |
 | `Skill @hw04-data-driven-script invocation for FR-10` | Extracted 12 test cases from poolB.md, generated clean spec and JSON data file with 4 assertion patterns | SUT permission bugs caused test cases to fail assertion as expected | Document expected HTTP status codes and SUT authorization bugs clearly |
 | `Skill @hw04-automation-maintenance invocation for FR-10` | Extracted 5 critical AI automation issues, refactored dynamic precondition fixture, structured Pass/Fail bug classification | None | Specify SUT API endpoint structures and authentication headers explicitly in initial prompt |
+| `Skill @hw04-data-driven-script invocation for FR-14` | Defined 12 CRUD test cases for Category Management, integrated 4 assertion patterns, and generated matching JSON data and Playwright spec file | Output hit loop detection due to long table duplication | Use clean bulleted list for summary and log untruncated text in AI Audit Report |
 
 ## Human Responsibility Statement
 
 I reviewed, corrected, and took responsibility for the final automation scripts, data files, assertions, reports, and bug reports submitted for HW04.
-
-
