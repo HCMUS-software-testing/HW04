@@ -10,7 +10,7 @@
 - HTML report: `submit/playwright-report/index.html`
 - Failure artifacts: `submit/test-results/` and `submit/playwright-report/data/`
 
-The following bugs are grouped from repeated failures across the three browsers. GitHub Issue links are marked `TBD` and should be replaced after creating public GitHub Issues.
+The following bugs are grouped from repeated failures across the three browsers. GitHub Issue links point to public issues created for the confirmed bug groups.
 
 ## BUG-01: Login API Exposes User Password
 
@@ -19,7 +19,7 @@ The following bugs are grouped from repeated failures across the three browsers.
 - Related test: `FR02-TC01 Login succeeds with valid default user`
 - Browsers observed: Chromium, Firefox, WebKit
 - Screenshot: `submit/screenshots/BUG-01-password-leak-login-response.png`
-- GitHub Issue: `TBD`
+- GitHub Issue: https://github.com/HCMUS-software-testing/HW04/issues/1
 
 ### Steps To Reproduce
 
@@ -33,7 +33,7 @@ The response should include authentication data and safe user profile fields onl
 
 ### Actual
 
-The response body contains a `password` property with value `Test1234!`, causing the assertion `not.toHaveProperty("password")` to fail.
+The response body contains a `password` property. The concrete password value is redacted in this report for security, causing the assertion `not.toHaveProperty("password")` to fail.
 
 ## BUG-02: Login Form Uses Text Input Instead Of Email Input
 
@@ -42,7 +42,7 @@ The response body contains a `password` property with value `Test1234!`, causing
 - Related test: `FR02-TC03 Login form rejects malformed email before submit`
 - Browsers observed: Chromium, Firefox, WebKit
 - Screenshot: `submit/screenshots/BUG-02-login-email-input-type.png`
-- GitHub Issue: `TBD`
+- GitHub Issue: https://github.com/HCMUS-software-testing/HW04/issues/2
 
 ### Steps To Reproduce
 
@@ -65,7 +65,7 @@ The field type is `text`, not `email`. The browser does not provide native email
 - Related test: `FR02-TC07 Account is locked after three consecutive wrong passwords`
 - Browsers observed: Chromium, Firefox, WebKit
 - Screenshot: `submit/screenshots/BUG-03-lockout-duration.png`
-- GitHub Issue: `TBD`
+- GitHub Issue: https://github.com/HCMUS-software-testing/HW04/issues/3
 
 ### Steps To Reproduce
 
@@ -88,7 +88,7 @@ The observed remaining lock duration is approximately 180 seconds, which does no
 - Related tests: `FR09-TC11 Reject negative total amount`, `FR09-TC12 Reject non-numeric total amount`
 - Browsers observed: Chromium, Firefox, WebKit
 - Screenshot: `submit/screenshots/BUG-04-negative-total-validation.png`
-- GitHub Issue: `TBD`
+- GitHub Issue: https://github.com/HCMUS-software-testing/HW04/issues/4
 
 ### Steps To Reproduce
 
