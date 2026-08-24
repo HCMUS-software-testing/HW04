@@ -1,0 +1,7 @@
+# AI Critique
+
+Trong bài HW04, AI hỗ trợ nhanh ở phần đọc yêu cầu, dựng cấu trúc Playwright, tạo data-driven tests và viết helper API/UI. Tuy nhiên, output ban đầu của AI chưa đủ tin cậy nếu dùng trực tiếp. Điểm yếu rõ nhất là AI có xu hướng suy đoán hành vi mong muốn từ tên feature thay vì kiểm chứng toàn bộ source SUT. Ví dụ, AI đặt kỳ vọng login response không trả về password, input email phải là `type="email"`, lockout kéo dài 30 giây, hoặc API phải trả mã lỗi validation cụ thể. Khi chạy thật, nhiều expectation này thất bại vì SUT đang có hành vi khác hoặc vì test oracle quá chặt.
+
+AI cũng dễ tạo selector và dữ liệu kiểm thử theo giả định. Một số UI test phụ thuộc placeholder/text cụ thể, trong khi trang thực tế dùng nhãn tiếng Việt không đồng nhất hoặc route hiển thị form khác kỳ vọng. Với database state, AI chưa tự phát hiện hết rủi ro test bị ảnh hưởng bởi dữ liệu còn lại từ case trước; vì vậy cần bổ sung helper reset/cleanup và chạy serial cho các nhóm có trạng thái dùng chung.
+
+Nguyên nhân chính là AI không có khả năng tự đảm bảo oracle đúng nếu không chạy test và đọc lỗi thật. AI giỏi tạo khung nhanh, nhưng vẫn cần sinh viên kiểm tra bằng report, trace, screenshot và source code. Bài học rút ra là nên dùng AI như một cộng tác viên tạo draft, sau đó bắt buộc xác minh bằng execution thật, tách bug thật khỏi lỗi assertion, và ghi nhận trung thực trong report thay vì sửa kết quả cho đẹp.
