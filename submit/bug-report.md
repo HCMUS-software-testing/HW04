@@ -21,6 +21,8 @@ The following bugs are grouped from repeated failures across the three browsers.
 - Screenshot: `submit/screenshots/BUG-01-password-leak-login-response.png`
 - GitHub Issue: https://github.com/HCMUS-software-testing/HW04/issues/1
 
+![BUG-01 evidence](screenshots/BUG-01-password-leak-login-response.png)
+
 ### Steps To Reproduce
 
 1. Start the SUT backend.
@@ -43,6 +45,8 @@ The response body contains a `password` property. The concrete password value is
 - Browsers observed: Chromium, Firefox, WebKit
 - Screenshot: `submit/screenshots/BUG-02-login-email-input-type.png`
 - GitHub Issue: https://github.com/HCMUS-software-testing/HW04/issues/2
+
+![BUG-02 evidence](screenshots/BUG-02-login-email-input-type.png)
 
 ### Steps To Reproduce
 
@@ -67,6 +71,8 @@ The field type is `text`, not `email`. The browser does not provide native email
 - Screenshot: `submit/screenshots/BUG-03-lockout-duration.png`
 - GitHub Issue: https://github.com/HCMUS-software-testing/HW04/issues/3
 
+![BUG-03 evidence](screenshots/BUG-03-lockout-duration.png)
+
 ### Steps To Reproduce
 
 1. Reset the default user state.
@@ -89,6 +95,8 @@ The observed remaining lock duration is approximately 180 seconds, which does no
 - Browsers observed: Chromium, Firefox, WebKit
 - Screenshot: `submit/screenshots/BUG-04-negative-total-validation.png`
 - GitHub Issue: https://github.com/HCMUS-software-testing/HW04/issues/4
+
+![BUG-04 evidence](screenshots/BUG-04-negative-total-validation.png)
 
 ### Steps To Reproduce
 
