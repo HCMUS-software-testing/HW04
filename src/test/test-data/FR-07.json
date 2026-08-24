@@ -1,0 +1,212 @@
+{
+  "feature": "FR-07: Shopping Cart",
+  "pool": "Pool B - Cart & Checkout",
+  "description": "Test data for Shopping Cart management (FR-07) covering positive, negative, and edge cases.",
+  "testCases": [
+    {
+      "id": "CART_001",
+      "description": "Verify empty cart displays illustration and friendly empty state message",
+      "category": "positive",
+      "action": "view_empty_cart",
+      "input": {},
+      "expected": {
+        "itemCount": 0,
+        "emptyMessage": "Giỏ hàng của bạn đang trống",
+        "hasIllustration": true
+      }
+    },
+    {
+      "id": "CART_002",
+      "description": "Add a single product to cart and verify item details and initial total",
+      "category": "positive",
+      "action": "add_product",
+      "input": {
+        "productId": 1,
+        "productName": "Sản phẩm A",
+        "price": 100000,
+        "quantity": 1
+      },
+      "expected": {
+        "itemCount": 1,
+        "subtotal": 100000,
+        "totalAmount": 100000,
+        "totalLabel": "Tổng cộng"
+      }
+    },
+    {
+      "id": "CART_003",
+      "description": "Add the same product twice and verify quantity increments without duplicating rows",
+      "category": "positive",
+      "action": "add_same_product_twice",
+      "input": {
+        "productId": 1,
+        "productName": "Sản phẩm A",
+        "price": 100000,
+        "addQuantity": 1
+      },
+      "expected": {
+        "rowCount": 1,
+        "quantity": 2,
+        "subtotal": 200000,
+        "totalAmount": 200000
+      }
+    },
+    {
+      "id": "CART_004",
+      "description": "Add multiple different products and verify total sum calculation",
+      "category": "positive",
+      "action": "add_multiple_products",
+      "input": {
+        "items": [
+          { "productId": 1, "productName": "Sản phẩm A", "price": 100000, "quantity": 2 },
+          { "productId": 2, "productName": "Sản phẩm B", "price": 150000, "quantity": 1 }
+        ]
+      },
+      "expected": {
+        "rowCount": 2,
+        "totalAmount": 350000,
+        "totalLabel": "Tổng cộng"
+      }
+    },
+    {
+      "id": "CART_005",
+      "description": "Increase item quantity using the '+' button in cart",
+      "category": "positive",
+      "action": "increase_quantity_button",
+      "input": {
+        "productId": 1,
+        "initialQuantity": 1,
+        "clicks": 1
+      },
+      "expected": {
+        "newQuantity": 2,
+        "subtotal": 200000,
+        "totalAmount": 200000
+      }
+    },
+    {
+      "id": "CART_006",
+      "description": "Decrease item quantity using the '-' button in cart",
+      "category": "positive",
+      "action": "decrease_quantity_button",
+      "input": {
+        "productId": 1,
+        "initialQuantity": 3,
+        "clicks": 1
+      },
+      "expected": {
+        "newQuantity": 2,
+        "subtotal": 200000,
+        "totalAmount": 200000
+      }
+    },
+    {
+      "id": "CART_007",
+      "description": "Directly edit item quantity input box to a valid number",
+      "category": "positive",
+      "action": "edit_quantity_input",
+      "input": {
+        "productId": 1,
+        "newQuantity": 5,
+        "price": 100000
+      },
+      "expected": {
+        "newQuantity": 5,
+        "subtotal": 500000,
+        "totalAmount": 500000
+      }
+    },
+    {
+      "id": "CART_008",
+      "description": "Click 'Tiếp tục mua sắm' button to return to home/catalog page",
+      "category": "positive",
+      "action": "continue_shopping",
+      "input": {},
+      "expected": {
+        "redirectUrl": "/"
+      }
+    },
+    {
+      "id": "CART_009",
+      "description": "Delete an item from cart and confirm in confirmation dialog",
+      "category": "positive",
+      "action": "delete_item_confirm",
+      "input": {
+        "productId": 1,
+        "confirmDelete": true
+      },
+      "expected": {
+        "dialogAppeared": true,
+        "itemRemoved": true,
+        "itemCount": 0
+      }
+    },
+    {
+      "id": "CART_010",
+      "description": "Cancel deletion in confirmation dialog to keep item in cart",
+      "category": "edge",
+      "action": "delete_item_cancel",
+      "input": {
+        "productId": 1,
+        "confirmDelete": false
+      },
+      "expected": {
+        "dialogAppeared": true,
+        "itemRemoved": false,
+        "itemCount": 1
+      }
+    },
+    {
+      "id": "CART_011",
+      "description": "Attempt to decrease quantity below 1 using '-' button when quantity is 1",
+      "category": "edge",
+      "action": "decrease_below_min",
+      "input": {
+        "productId": 1,
+        "initialQuantity": 1
+      },
+      "expected": {
+        "quantity": 1,
+        "disabledButton": true
+      }
+    },
+    {
+      "id": "CART_012",
+      "description": "Enter invalid quantity (0, negative, or non-numeric) into quantity input",
+      "category": "negative",
+      "action": "enter_invalid_quantity",
+      "input": {
+        "productId": 1,
+        "invalidValue": "-2"
+      },
+      "expected": {
+        "resetQuantity": 1,
+        "errorMessage": "Số lượng phải là số nguyên dương"
+      }
+    },
+    {
+      "id": "CART_013",
+      "description": "Verify exact label text for total amount matches 'Tổng cộng' instead of 'Tổng tạm tính'",
+      "category": "edge",
+      "action": "verify_total_label",
+      "input": {},
+      "expected": {
+        "totalLabelExact": "Tổng cộng",
+        "invalidLabelNotPresent": "Tổng tạm tính"
+      }
+    },
+    {
+      "id": "CART_014",
+      "description": "Remove all items one by one until cart returns to empty state",
+      "category": "positive",
+      "action": "clear_all_items",
+      "input": {
+        "initialItemCount": 2
+      },
+      "expected": {
+        "finalItemCount": 0,
+        "emptyMessage": "Giỏ hàng của bạn đang trống"
+      }
+    }
+  ]
+}

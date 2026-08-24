@@ -1,0 +1,220 @@
+{
+  "feature": "FR-01: Account Registration",
+  "pool": "Pool A - Authentication",
+  "description": "Test data for user registration (FR-01) covering positive, negative, and edge cases.",
+  "testCases": [
+    {
+      "id": "REG_001",
+      "description": "Register successfully with valid name, email, and strong password",
+      "category": "positive",
+      "input": {
+        "name": "Nguyen Van Test",
+        "email": "valid_user_reg001@domain.com",
+        "password": "Password123!",
+        "confirmPassword": "Password123!"
+      },
+      "expected": {
+        "success": true,
+        "redirectUrl": "/login",
+        "message": "User registered successfully"
+      }
+    },
+    {
+      "id": "REG_002",
+      "description": "Fail registration when Full Name field is blank",
+      "category": "negative",
+      "input": {
+        "name": "",
+        "email": "test_empty_name@domain.com",
+        "password": "Password123!",
+        "confirmPassword": "Password123!"
+      },
+      "expected": {
+        "success": false,
+        "errorMessage": "Vui lòng nhập họ tên"
+      }
+    },
+    {
+      "id": "REG_003",
+      "description": "Fail registration when Email field is blank",
+      "category": "negative",
+      "input": {
+        "name": "Nguyen Van A",
+        "email": "",
+        "password": "Password123!",
+        "confirmPassword": "Password123!"
+      },
+      "expected": {
+        "success": false,
+        "errorMessage": "Vui lòng nhập email"
+      }
+    },
+    {
+      "id": "REG_004",
+      "description": "Fail registration when Email format is missing '@' symbol",
+      "category": "negative",
+      "input": {
+        "name": "Nguyen Van B",
+        "email": "invalidemaildomain.com",
+        "password": "Password123!",
+        "confirmPassword": "Password123!"
+      },
+      "expected": {
+        "success": false,
+        "errorMessage": "Email không hợp lệ"
+      }
+    },
+    {
+      "id": "REG_005",
+      "description": "Fail registration when Email format is missing domain portion",
+      "category": "negative",
+      "input": {
+        "name": "Nguyen Van C",
+        "email": "user@",
+        "password": "Password123!",
+        "confirmPassword": "Password123!"
+      },
+      "expected": {
+        "success": false,
+        "errorMessage": "Email không hợp lệ"
+      }
+    },
+    {
+      "id": "REG_006",
+      "description": "Fail registration when Email is already registered in system",
+      "category": "negative",
+      "input": {
+        "name": "User Duplicate",
+        "email": "test@eshop.com",
+        "password": "Password123!",
+        "confirmPassword": "Password123!"
+      },
+      "expected": {
+        "success": false,
+        "errorMessage": "Email đã tồn tại"
+      }
+    },
+    {
+      "id": "REG_007",
+      "description": "Fail registration when Password is under 8 characters",
+      "category": "negative",
+      "input": {
+        "name": "Short Password User",
+        "email": "short_pass@domain.com",
+        "password": "Pass1!",
+        "confirmPassword": "Pass1!"
+      },
+      "expected": {
+        "success": false,
+        "errorMessage": "Mật khẩu phải có tối thiểu 8 ký tự"
+      }
+    },
+    {
+      "id": "REG_008",
+      "description": "Fail registration when Password lacks an uppercase letter",
+      "category": "negative",
+      "input": {
+        "name": "No Uppercase User",
+        "email": "no_upper@domain.com",
+        "password": "password123!",
+        "confirmPassword": "password123!"
+      },
+      "expected": {
+        "success": false,
+        "errorMessage": "Mật khẩu phải chứa ít nhất 1 chữ hoa"
+      }
+    },
+    {
+      "id": "REG_009",
+      "description": "Fail registration when Password lacks a lowercase letter",
+      "category": "negative",
+      "input": {
+        "name": "No Lowercase User",
+        "email": "no_lower@domain.com",
+        "password": "PASSWORD123!",
+        "confirmPassword": "PASSWORD123!"
+      },
+      "expected": {
+        "success": false,
+        "errorMessage": "Mật khẩu phải chứa ít nhất 1 chữ thường"
+      }
+    },
+    {
+      "id": "REG_010",
+      "description": "Fail registration when Password lacks a digit",
+      "category": "negative",
+      "input": {
+        "name": "No Digit User",
+        "email": "no_digit@domain.com",
+        "password": "Password!",
+        "confirmPassword": "Password!"
+      },
+      "expected": {
+        "success": false,
+        "errorMessage": "Mật khẩu phải chứa ít nhất 1 chữ số"
+      }
+    },
+    {
+      "id": "REG_011",
+      "description": "Fail registration when Password lacks a special character",
+      "category": "negative",
+      "input": {
+        "name": "No Special User",
+        "email": "no_special@domain.com",
+        "password": "Password123",
+        "confirmPassword": "Password123"
+      },
+      "expected": {
+        "success": false,
+        "errorMessage": "Mật khẩu phải chứa ít nhất 1 ký tự đặc biệt"
+      }
+    },
+    {
+      "id": "REG_012",
+      "description": "Fail registration when Confirm Password does not match Password",
+      "category": "negative",
+      "input": {
+        "name": "Mismatch Password User",
+        "email": "mismatch_pass@domain.com",
+        "password": "Password123!",
+        "confirmPassword": "Password123?"
+      },
+      "expected": {
+        "success": false,
+        "errorMessage": "Mật khẩu xác nhận không khớp"
+      }
+    },
+    {
+      "id": "REG_013",
+      "description": "Register successfully with Vietnamese accented characters in Full Name",
+      "category": "edge",
+      "input": {
+        "name": "Nguyễn Văn Ánh-Dương Khang",
+        "email": "vn_accent_reg013@domain.com",
+        "password": "Password123!",
+        "confirmPassword": "Password123!"
+      },
+      "expected": {
+        "success": true,
+        "redirectUrl": "/login",
+        "message": "User registered successfully"
+      }
+    },
+    {
+      "id": "REG_014",
+      "description": "Register successfully with complex password containing multiple allowed special characters (@, $, !, %, *, ?, &)",
+      "category": "edge",
+      "input": {
+        "name": "Complex Pass User",
+        "email": "complex_pass_reg014@domain.com",
+        "password": "P@ssw0rd!$%*?&",
+        "confirmPassword": "P@ssw0rd!$%*?&"
+      },
+      "expected": {
+        "success": true,
+        "redirectUrl": "/login",
+        "message": "User registered successfully"
+      }
+    }
+  ]
+}

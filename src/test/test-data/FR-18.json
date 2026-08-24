@@ -1,0 +1,217 @@
+{
+  "feature": "FR-18: Admin Order Management",
+  "pool": "Pool C - Web Admin",
+  "description": "Test data for Admin Order Management (FR-18) covering order listing, status transitions, final states, XSS safety, and access control.",
+  "testCases": [
+    {
+      "id": "ADM_ORD_001",
+      "description": "Admin views list of all orders across all users in the system",
+      "category": "positive",
+      "action": "view_all_orders",
+      "input": {
+        "adminToken": "admin_valid_token"
+      },
+      "expected": {
+        "success": true,
+        "ordersVisible": true,
+        "columns": ["Mã đơn", "Khách hàng", "Ngày đặt", "Tổng tiền", "Trạng thái", "Thao tác"]
+      }
+    },
+    {
+      "id": "ADM_ORD_002",
+      "description": "Filter order list by status 'pending'",
+      "category": "positive",
+      "action": "filter_by_status",
+      "input": {
+        "filterStatus": "pending"
+      },
+      "expected": {
+        "success": true,
+        "allDisplayedOrdersHaveStatus": "pending"
+      }
+    },
+    {
+      "id": "ADM_ORD_003",
+      "description": "Filter order list by status 'confirmed'",
+      "category": "positive",
+      "action": "filter_by_status",
+      "input": {
+        "filterStatus": "confirmed"
+      },
+      "expected": {
+        "success": true,
+        "allDisplayedOrdersHaveStatus": "confirmed"
+      }
+    },
+    {
+      "id": "ADM_ORD_004",
+      "description": "Filter order list by status 'shipping'",
+      "category": "positive",
+      "action": "filter_by_status",
+      "input": {
+        "filterStatus": "shipping"
+      },
+      "expected": {
+        "success": true,
+        "allDisplayedOrdersHaveStatus": "shipping"
+      }
+    },
+    {
+      "id": "ADM_ORD_005",
+      "description": "Filter order list by status 'delivered'",
+      "category": "positive",
+      "action": "filter_by_status",
+      "input": {
+        "filterStatus": "delivered"
+      },
+      "expected": {
+        "success": true,
+        "allDisplayedOrdersHaveStatus": "delivered"
+      }
+    },
+    {
+      "id": "ADM_ORD_006",
+      "description": "Filter order list by status 'canceled'",
+      "category": "positive",
+      "action": "filter_by_status",
+      "input": {
+        "filterStatus": "canceled"
+      },
+      "expected": {
+        "success": true,
+        "allDisplayedOrdersHaveStatus": "canceled"
+      }
+    },
+    {
+      "id": "ADM_ORD_007",
+      "description": "Admin updates order status from 'pending' to 'confirmed'",
+      "category": "positive",
+      "action": "update_status",
+      "input": {
+        "currentStatus": "pending",
+        "targetStatus": "confirmed"
+      },
+      "expected": {
+        "success": true,
+        "updatedStatus": "confirmed",
+        "message": "Cập nhật trạng thái đơn hàng thành công"
+      }
+    },
+    {
+      "id": "ADM_ORD_008",
+      "description": "Admin updates order status from 'confirmed' to 'shipping'",
+      "category": "positive",
+      "action": "update_status",
+      "input": {
+        "currentStatus": "confirmed",
+        "targetStatus": "shipping"
+      },
+      "expected": {
+        "success": true,
+        "updatedStatus": "shipping",
+        "message": "Cập nhật trạng thái đơn hàng thành công"
+      }
+    },
+    {
+      "id": "ADM_ORD_009",
+      "description": "Admin updates order status from 'shipping' to 'delivered'",
+      "category": "positive",
+      "action": "update_status",
+      "input": {
+        "currentStatus": "shipping",
+        "targetStatus": "delivered"
+      },
+      "expected": {
+        "success": true,
+        "updatedStatus": "delivered",
+        "isFinalState": true,
+        "message": "Cập nhật trạng thái đơn hàng thành công"
+      }
+    },
+    {
+      "id": "ADM_ORD_010",
+      "description": "Admin cancels an order in 'pending' status -> 'canceled'",
+      "category": "positive",
+      "action": "cancel_order",
+      "input": {
+        "currentStatus": "pending",
+        "targetStatus": "canceled"
+      },
+      "expected": {
+        "success": true,
+        "updatedStatus": "canceled",
+        "isFinalState": true
+      }
+    },
+    {
+      "id": "ADM_ORD_011",
+      "description": "Admin cancels an order in 'confirmed' status -> 'canceled'",
+      "category": "positive",
+      "action": "cancel_order",
+      "input": {
+        "currentStatus": "confirmed",
+        "targetStatus": "canceled"
+      },
+      "expected": {
+        "success": true,
+        "updatedStatus": "canceled",
+        "isFinalState": true
+      }
+    },
+    {
+      "id": "ADM_ORD_012",
+      "description": "Fail updating status of a 'delivered' order (Final State restriction)",
+      "category": "negative",
+      "action": "invalid_transition_from_delivered",
+      "input": {
+        "currentStatus": "delivered",
+        "targetStatus": "shipping"
+      },
+      "expected": {
+        "success": false,
+        "errorMessage": "Không thể thay đổi trạng thái của đơn hàng đã giao (delivered)"
+      }
+    },
+    {
+      "id": "ADM_ORD_013",
+      "description": "Fail updating status of a 'canceled' order (Final State restriction)",
+      "category": "negative",
+      "action": "invalid_transition_from_canceled",
+      "input": {
+        "currentStatus": "canceled",
+        "targetStatus": "confirmed"
+      },
+      "expected": {
+        "success": false,
+        "errorMessage": "Không thể thay đổi trạng thái của đơn hàng đã hủy (canceled)"
+      }
+    },
+    {
+      "id": "ADM_ORD_014",
+      "description": "Verify shipping address containing HTML/script tags is safely escaped on Admin UI",
+      "category": "edge",
+      "action": "check_xss_escaping",
+      "input": {
+        "shippingAddress": "<script>alert('XSS')</script> 123 Le Loi"
+      },
+      "expected": {
+        "rawHtmlExecuted": false,
+        "textRenderedSafely": true
+      }
+    },
+    {
+      "id": "ADM_ORD_015",
+      "description": "Access denied when non-admin user attempts to view Admin Order Management",
+      "category": "negative",
+      "action": "unauthorized_access",
+      "input": {
+        "userRole": "user"
+      },
+      "expected": {
+        "accessGranted": false,
+        "redirectUrl": "/login",
+        "errorMessage": "Truy cập bị từ chối"
+      }
+    }
+  ]
+}
