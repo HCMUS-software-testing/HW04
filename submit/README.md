@@ -1,16 +1,16 @@
-# HW04 AI Automation Submission
+# Bài Nộp HW04 - Tự Động Hóa Kiểm Thử Bằng AI
 
-## Student Information
+## Thông Tin Sinh Viên
 
-- Student: Le Mai Hoai Bao
-- Student ID: 23127326
-- Repository: https://github.com/HCMUS-software-testing/HW04.git
+- Họ và tên: Lê Mai Hoài Bảo
+- MSSV: 23127326
+- Kho mã nguồn: https://github.com/HCMUS-software-testing/HW04.git
 - SUT: `eshop-sut`
-- Automation tool: Playwright
-- Browser matrix: Chromium, Firefox, WebKit
-- Demo video: `TBD - add unlisted YouTube link after recording`
+- Công cụ kiểm thử tự động: Playwright
+- Trình duyệt kiểm thử: Chromium, Firefox, WebKit
+- Video demo: `TBD - bổ sung link YouTube unlisted sau khi quay`
 
-## How To Run
+## Cách Chạy
 
 ```bash
 cd submit
@@ -19,7 +19,7 @@ npm test
 npm run report
 ```
 
-Run one browser only:
+Chạy riêng từng trình duyệt:
 
 ```bash
 npm run test:chromium
@@ -27,54 +27,54 @@ npm run test:firefox
 npm run test:webkit
 ```
 
-The SUT must be running before executing the tests:
+SUT cần được khởi động trước khi chạy test:
 
 - Backend API: `http://localhost:3000`
 - Customer web app: `http://localhost:3001`
 - Admin web app: `http://localhost:3002`
 
-## Test Summary
+## Tóm Tắt Kiểm Thử
 
-| Metric | Value |
+| Chỉ số | Giá trị |
 | --- | ---: |
-| Features automated | 3 |
-| Test case data rows | 44 |
-| Browser projects | 3 |
-| Total executions | 132 |
-| Passed | 60 |
-| Failed | 72 |
-| Recorded bug groups | 4 |
-| HTML report | `submit/playwright-report/index.html` |
-| Run metadata | `submit/playwright-report/run-metadata.md` |
+| Số tính năng đã tự động hóa | 3 |
+| Số dòng test data | 44 |
+| Số cấu hình trình duyệt | 3 |
+| Tổng số lượt chạy | 132 |
+| Số lượt đạt | 60 |
+| Số lượt không đạt | 72 |
+| Nhóm bug đã ghi nhận | 4 |
+| Báo cáo HTML | `submit/playwright-report/index.html` |
+| Metadata lần chạy | `submit/playwright-report/run-metadata.md` |
 
-## Automated Features
+## Tính Năng Đã Tự Động Hóa
 
-| Feature | Script | Data file | Cases | Executions |
+| Tính năng | Script | File dữ liệu | Số case | Số lượt chạy |
 | --- | --- | --- | ---: | ---: |
-| FR-02 Login and account lockout | `tests/fr02-login-lockout.spec.js` | `tests/data/fr02-login-lockout.json` | 14 | 42 |
-| FR-09 Coupon checkout | `tests/fr09-coupon-checkout.spec.js` | `tests/data/fr09-coupon-checkout.json` | 14 | 42 |
-| FR-17 Admin coupon CRUD | `tests/fr17-admin-coupon-crud.spec.js` | `tests/data/fr17-admin-coupon-crud.json` | 16 | 48 |
+| FR-02 Đăng nhập và khóa tài khoản | `tests/fr02-login-lockout.spec.js` | `tests/data/fr02-login-lockout.json` | 14 | 42 |
+| FR-09 Áp dụng coupon khi checkout | `tests/fr09-coupon-checkout.spec.js` | `tests/data/fr09-coupon-checkout.json` | 14 | 42 |
+| FR-17 Admin quản lý coupon CRUD | `tests/fr17-admin-coupon-crud.spec.js` | `tests/data/fr17-admin-coupon-crud.json` | 16 | 48 |
 
-## Deliverables
+## Tài Liệu Nộp Kèm
 
-- Main report: `submit/main-report.md`
-- Test summary: `submit/test-summary.md`
-- Bug report: `submit/bug-report.md`
-- AI critique: `submit/ai-critique.md`
-- AI audit report: `submit/ai-audit-report.md`
+- Báo cáo chính: `submit/main-report.md`
+- Tóm tắt kiểm thử: `submit/test-summary.md`
+- Báo cáo bug: `submit/bug-report.md`
+- Nhận xét về AI: `submit/ai-critique.md`
+- Báo cáo audit AI: `submit/ai-audit-report.md`
 - Git commit log: `submit/git-commit-log.txt`
-- Playwright HTML report: `submit/playwright-report/index.html`
-- Screenshots: `submit/screenshots/`
+- Báo cáo HTML Playwright: `submit/playwright-report/index.html`
+- Ảnh chụp màn hình bug: `submit/screenshots/`
 
-## Self-Assessment
+## Tự Đánh Giá
 
-| No. | Criteria | Grade | Self-Assessed Grade |
+| STT | Tiêu chí | Điểm tối đa | Tự đánh giá |
 | --- | --- | ---: | ---: |
-| 1 | Task 1 - Feature A: FR-02 Login lockout | 25 | 21 |
-| 2 | Task 1 - Feature B: FR-09 Coupon checkout | 25 | 21 |
-| 3 | Task 1 - Feature C: FR-17 Admin coupon CRUD | 25 | 21 |
-| 4 | Task 2 - Demo video | 15 | 0 |
+| 1 | Nhiệm vụ 1 - Tính năng A: FR-02 Login lockout | 25 | 21 |
+| 2 | Nhiệm vụ 1 - Tính năng B: FR-09 Coupon checkout | 25 | 21 |
+| 3 | Nhiệm vụ 1 - Tính năng C: FR-17 Admin coupon CRUD | 25 | 21 |
+| 4 | Nhiệm vụ 2 - Video demo | 15 | 0 |
 | 5 | Agent Skills | 10 | 8 |
-| | Total | 100 | 71 |
+| | Tổng cộng | 100 | 71 |
 
-Note: Demo video score is left as `0` until the unlisted YouTube demo is recorded and linked.
+Ghi chú: Điểm video demo đang để `0` cho đến khi có link YouTube unlisted thật.

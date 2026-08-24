@@ -1,117 +1,117 @@
-# HW04 Bug Report
+# Báo Cáo Bug HW04
 
-## Run Context
+## Ngữ Cảnh Lần Chạy
 
-- Student ID: 23127326
-- Test run timestamp: 2026-08-20T15:45:31Z
-- Browsers: Chromium, Firefox, WebKit
-- Total executions: 132
-- Failed executions: 72
-- HTML report: `submit/playwright-report/index.html`
-- Failure artifacts: `submit/test-results/` and `submit/playwright-report/data/`
+- MSSV: 23127326
+- Timestamp lần chạy test: 2026-08-20T15:45:31Z
+- Trình duyệt: Chromium, Firefox, WebKit
+- Tổng số lượt chạy: 132
+- Số lượt không đạt: 72
+- Báo cáo HTML: `submit/playwright-report/index.html`
+- Artifact lỗi: `submit/test-results/` và `submit/playwright-report/data/`
 
-The following bugs are grouped from repeated failures across the three browsers. GitHub Issue links point to public issues created for the confirmed bug groups.
+Các bug bên dưới được gom từ những failure lặp lại trên 3 trình duyệt. Link GitHub Issue trỏ tới issue public đã tạo cho từng nhóm bug được xác nhận.
 
-## BUG-01: Login API Exposes User Password
+## BUG-01: Login API Trả Về Password Của User
 
-- Feature: FR-02 Login and account lockout
-- Severity: Critical
-- Related test: `FR02-TC01 Login succeeds with valid default user`
-- Browsers observed: Chromium, Firefox, WebKit
-- Screenshot: `submit/screenshots/BUG-01-password-leak-login-response.png`
+- Tính năng: FR-02 Đăng nhập và khóa tài khoản
+- Mức độ nghiêm trọng: Nghiêm trọng
+- Test liên quan: `FR02-TC01 Login succeeds with valid default user`
+- Trình duyệt ghi nhận: Chromium, Firefox, WebKit
+- Ảnh chụp màn hình: `submit/screenshots/BUG-01-password-leak-login-response.png`
 - GitHub Issue: https://github.com/HCMUS-software-testing/HW04/issues/1
 
-![BUG-01 evidence](screenshots/BUG-01-password-leak-login-response.png)
+![Bằng chứng BUG-01](screenshots/BUG-01-password-leak-login-response.png)
 
-### Steps To Reproduce
+### Các Bước Tái Hiện
 
-1. Start the SUT backend.
-2. Send `POST /api/login` with valid user credentials.
-3. Inspect the JSON response body.
+1. Khởi động backend của SUT.
+2. Gửi `POST /api/login` với thông tin đăng nhập hợp lệ của user mặc định.
+3. Kiểm tra body JSON trong response.
 
-### Expected
+### Kết Quả Mong Đợi
 
-The response should include authentication data and safe user profile fields only. It must not expose the user's password.
+Response chỉ nên chứa thông tin xác thực và các trường profile an toàn. Response không được trả về password của user.
 
-### Actual
+### Kết Quả Thực Tế
 
-The response body contains a `password` property. The concrete password value is redacted in this report for security, causing the assertion `not.toHaveProperty("password")` to fail.
+Body response có thuộc tính `password`. Giá trị password cụ thể được ẩn trong báo cáo này vì lý do bảo mật, làm assertion `not.toHaveProperty("password")` thất bại.
 
-## BUG-02: Login Form Uses Text Input Instead Of Email Input
+## BUG-02: Form Login Dùng Text Input Thay Vì Email Input
 
-- Feature: FR-02 Login and account lockout
-- Severity: Medium
-- Related test: `FR02-TC03 Login form rejects malformed email before submit`
-- Browsers observed: Chromium, Firefox, WebKit
-- Screenshot: `submit/screenshots/BUG-02-login-email-input-type.png`
+- Tính năng: FR-02 Đăng nhập và khóa tài khoản
+- Mức độ nghiêm trọng: Trung bình
+- Test liên quan: `FR02-TC03 Login form rejects malformed email before submit`
+- Trình duyệt ghi nhận: Chromium, Firefox, WebKit
+- Ảnh chụp màn hình: `submit/screenshots/BUG-02-login-email-input-type.png`
 - GitHub Issue: https://github.com/HCMUS-software-testing/HW04/issues/2
 
-![BUG-02 evidence](screenshots/BUG-02-login-email-input-type.png)
+![Bằng chứng BUG-02](screenshots/BUG-02-login-email-input-type.png)
 
-### Steps To Reproduce
+### Các Bước Tái Hiện
 
-1. Open the customer login page.
-2. Inspect the username/email field.
-3. Enter malformed email text and submit the form.
+1. Mở trang login của customer web app.
+2. Kiểm tra field username/email.
+3. Nhập email sai định dạng và submit form.
 
-### Expected
+### Kết Quả Mong Đợi
 
-The login field should use browser-level email validation or equivalent validation before submitting malformed email values.
+Field login nên dùng kiểm tra email cấp trình duyệt hoặc cơ chế kiểm tra tương đương trước khi gửi request với email sai định dạng.
 
-### Actual
+### Kết Quả Thực Tế
 
-The field type is `text`, not `email`. The browser does not provide native email validation for malformed email input.
+Field có type là `text`, không phải `email`. Trình duyệt không áp dụng cơ chế kiểm tra email sẵn có cho input sai định dạng.
 
-## BUG-03: Account Lockout Duration Does Not Match Requirement
+## BUG-03: Thời Gian Khóa Tài Khoản Không Khớp Yêu Cầu
 
-- Feature: FR-02 Login and account lockout
-- Severity: High
-- Related test: `FR02-TC07 Account is locked after three consecutive wrong passwords`
-- Browsers observed: Chromium, Firefox, WebKit
-- Screenshot: `submit/screenshots/BUG-03-lockout-duration.png`
+- Tính năng: FR-02 Đăng nhập và khóa tài khoản
+- Mức độ nghiêm trọng: Cao
+- Test liên quan: `FR02-TC07 Account is locked after three consecutive wrong passwords`
+- Trình duyệt ghi nhận: Chromium, Firefox, WebKit
+- Ảnh chụp màn hình: `submit/screenshots/BUG-03-lockout-duration.png`
 - GitHub Issue: https://github.com/HCMUS-software-testing/HW04/issues/3
 
-![BUG-03 evidence](screenshots/BUG-03-lockout-duration.png)
+![Bằng chứng BUG-03](screenshots/BUG-03-lockout-duration.png)
 
-### Steps To Reproduce
+### Các Bước Tái Hiện
 
-1. Reset the default user state.
-2. Submit three consecutive wrong password attempts.
-3. Read `locked_until` from the database.
+1. Reset trạng thái user mặc định.
+2. Submit sai mật khẩu 3 lần liên tiếp.
+3. Đọc giá trị `locked_until` trong database.
 
-### Expected
+### Kết Quả Mong Đợi
 
-The account should be locked for approximately 30 seconds according to the HW02-derived test expectation.
+Tài khoản nên bị khóa khoảng 30 giây theo kỳ vọng test được rút ra từ HW02.
 
-### Actual
+### Kết Quả Thực Tế
 
-The observed remaining lock duration is approximately 180 seconds, which does not match the expected 30-second lockout window.
+Thời gian khóa còn lại quan sát được khoảng 180 giây, không khớp với cửa sổ lockout 30 giây.
 
-## BUG-04: Coupon API Handles Invalid Totals As Minimum-Order Errors
+## BUG-04: Coupon API Trả Lỗi Minimum Order Cho Total Không Hợp Lệ
 
-- Feature: FR-09 Coupon checkout
-- Severity: High
-- Related tests: `FR09-TC11 Reject negative total amount`, `FR09-TC12 Reject non-numeric total amount`
-- Browsers observed: Chromium, Firefox, WebKit
-- Screenshot: `submit/screenshots/BUG-04-negative-total-validation.png`
+- Tính năng: FR-09 Áp dụng coupon khi checkout
+- Mức độ nghiêm trọng: Cao
+- Test liên quan: `FR09-TC11 Reject negative total amount`, `FR09-TC12 Reject non-numeric total amount`
+- Trình duyệt ghi nhận: Chromium, Firefox, WebKit
+- Ảnh chụp màn hình: `submit/screenshots/BUG-04-negative-total-validation.png`
 - GitHub Issue: https://github.com/HCMUS-software-testing/HW04/issues/4
 
-![BUG-04 evidence](screenshots/BUG-04-negative-total-validation.png)
+![Bằng chứng BUG-04](screenshots/BUG-04-negative-total-validation.png)
 
-### Steps To Reproduce
+### Các Bước Tái Hiện
 
-1. Log in as a normal user.
-2. Call `POST /api/apply-coupon` with coupon code and an invalid `total_amount`, such as a negative value or non-numeric value.
-3. Inspect the response message.
+1. Đăng nhập bằng user thường.
+2. Gọi `POST /api/apply-coupon` với coupon code và `total_amount` không hợp lệ, ví dụ số âm hoặc non-numeric value.
+3. Kiểm tra message trong response.
 
-### Expected
+### Kết Quả Mong Đợi
 
-The API should reject the request with a validation error that clearly mentions invalid total/order amount.
+API nên từ chối request bằng lỗi kiểm tra dữ liệu nêu rõ `total_amount` hoặc tổng tiền đơn hàng không hợp lệ.
 
-### Actual
+### Kết Quả Thực Tế
 
-The API returns a minimum-order error message, for example: `Đơn hàng chưa đủ giá trị tối thiểu...`, which hides the real invalid input problem.
+API trả message lỗi minimum-order, ví dụ `Đơn hàng chưa đủ giá trị tối thiểu...`, làm che mất vấn đề input không hợp lệ.
 
-## Additional Observations
+## Ghi Nhận Bổ Sung
 
-The Playwright run also shows repeated failures for authorization and validation edge cases in FR-09 and FR-17. Some of these may be product bugs, while others may be test-oracle gaps where the expected status code was stricter than the implemented API behavior. They are preserved in the HTML report and should be triaged before final issue creation.
+Lần chạy Playwright cũng ghi nhận các failure lặp lại ở nhóm phân quyền và các trường hợp biên kiểm tra dữ liệu của FR-09 và FR-17. Một số lỗi có thể là bug sản phẩm, trong khi một số khác có thể là khoảng lệch test oracle do expected status code nghiêm ngặt hơn hành vi API hiện tại. Các bằng chứng này vẫn được giữ trong báo cáo HTML để phân loại tiếp nếu cần.

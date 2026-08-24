@@ -1,31 +1,31 @@
-# HW04 Main Report - AI Automation Testing
+# Báo Cáo Chính HW04 - Kiểm Thử Tự Động Bằng AI
 
-## 1. Overview
+## 1. Tổng Quan
 
-- Student: Le Mai Hoai Bao
-- Student ID: 23127326
+- Họ và tên: Lê Mai Hoài Bảo
+- MSSV: 23127326
 - SUT: `eshop-sut`
-- Repository: https://github.com/HCMUS-software-testing/HW04.git
-- Automation framework: Playwright
-- Browsers: Chromium, Firefox, WebKit
-- Last recorded run: 2026-08-20T15:45:31Z
-- HTML report: `submit/playwright-report/index.html`
-- Demo video: `TBD - add unlisted YouTube link after recording`
+- Kho mã nguồn: https://github.com/HCMUS-software-testing/HW04.git
+- Công cụ kiểm thử tự động: Playwright
+- Trình duyệt: Chromium, Firefox, WebKit
+- Lần chạy được ghi nhận gần nhất: 2026-08-20T15:45:31Z
+- Báo cáo HTML: `submit/playwright-report/index.html`
+- Video demo: `TBD - bổ sung link YouTube unlisted sau khi quay`
 
-This assignment automates three features selected from the HW02 test design and executes them across three browsers. The tests combine browser UI flows, direct API calls, and database setup/cleanup helpers.
+Bài làm tự động hóa 3 tính năng được chọn từ thiết kế kiểm thử HW02 và chạy trên 3 trình duyệt. Bộ test kết hợp luồng UI trên trình duyệt, gọi API trực tiếp và helper chuẩn bị/dọn dữ liệu trong database.
 
-## 2. SUT And Tool Setup
+## 2. SUT Và Thiết Lập Công Cụ
 
-The SUT is an e-commerce application with a backend API, customer web app, and admin web app. The automation project is placed under `submit/` and uses Playwright with CommonJS test files.
+SUT là ứng dụng thương mại điện tử gồm backend API, web app khách hàng và web app admin. Dự án kiểm thử tự động được đặt trong thư mục `submit/` và dùng Playwright với file test CommonJS.
 
-Key files:
+Các file chính:
 
-- Config: `submit/playwright.config.js`
-- Package manifest: `submit/package.json`
-- API/database helpers: `submit/tests/helpers/api.js`
-- UI auth helpers: `submit/tests/helpers/auth.js`
+- Cấu hình: `submit/playwright.config.js`
+- Khai báo package: `submit/package.json`
+- Helper API/database: `submit/tests/helpers/api.js`
+- Helper đăng nhập UI: `submit/tests/helpers/auth.js`
 
-Commands:
+Lệnh chạy:
 
 ```bash
 cd submit
@@ -34,66 +34,66 @@ npm test
 npm run report
 ```
 
-## 3. Browser Matrix
+## 3. Ma Trận Trình Duyệt
 
-| Browser project | Purpose |
+| Cấu hình trình duyệt | Mục đích |
 | --- | --- |
-| Chromium | Main desktop browser coverage |
-| Firefox | Cross-browser behavior validation |
-| WebKit | Safari-like rendering and form behavior validation |
+| Chromium | Kiểm thử chính trên trình duyệt desktop phổ biến |
+| Firefox | Kiểm tra khác biệt hành vi giữa trình duyệt |
+| WebKit | Kiểm tra hành vi gần với Safari, đặc biệt ở form và UI |
 
-## 4. Automated Features
+## 4. Tính Năng Đã Tự Động Hóa
 
-| Feature | Description | Test data | Script | Cases | Browser executions |
+| Tính năng | Mô tả | Test data | Script | Số case | Số lượt chạy trên trình duyệt |
 | --- | --- | --- | --- | ---: | ---: |
-| FR-02 | Login validation and account lockout | `submit/tests/data/fr02-login-lockout.json` | `submit/tests/fr02-login-lockout.spec.js` | 14 | 42 |
-| FR-09 | Coupon validation during checkout | `submit/tests/data/fr09-coupon-checkout.json` | `submit/tests/fr09-coupon-checkout.spec.js` | 14 | 42 |
-| FR-17 | Admin coupon CRUD and authorization | `submit/tests/data/fr17-admin-coupon-crud.json` | `submit/tests/fr17-admin-coupon-crud.spec.js` | 16 | 48 |
+| FR-02 | Kiểm tra đăng nhập và khóa tài khoản | `submit/tests/data/fr02-login-lockout.json` | `submit/tests/fr02-login-lockout.spec.js` | 14 | 42 |
+| FR-09 | Kiểm tra coupon khi checkout | `submit/tests/data/fr09-coupon-checkout.json` | `submit/tests/fr09-coupon-checkout.spec.js` | 14 | 42 |
+| FR-17 | Admin quản lý coupon CRUD và phân quyền | `submit/tests/data/fr17-admin-coupon-crud.json` | `submit/tests/fr17-admin-coupon-crud.spec.js` | 16 | 48 |
 
-## 5. HW02 Mapping
+## 5. Mapping Với HW02
 
-| HW02 feature reference | Automation coverage |
+| Tham chiếu tính năng HW02 | Phạm vi tự động hóa |
 | --- | --- |
-| FR-02 login lockout test design | Valid login, unknown email, malformed email, empty fields, wrong password, lockout, brute-force, old token, boundary attempts |
-| FR-09 coupon checkout test design | Valid percent/fixed coupon, unknown/inactive/expired coupon, empty code, min order, usage limit, missing token, forged user id, invalid total |
-| FR-17 admin coupon CRUD test design | Admin list/create/delete, validation for coupon fields, duplicate code, invalid type, authorization failures |
+| FR-02 login lockout | Đăng nhập hợp lệ, email không tồn tại, email sai định dạng, trường rỗng, sai mật khẩu, khóa tài khoản, brute-force, token cũ, biên số lần thử |
+| FR-09 coupon checkout | Coupon percent/fixed hợp lệ, coupon không tồn tại/inactive/expired, code rỗng, min order, usage limit, thiếu token, forged user id, invalid total |
+| FR-17 admin coupon CRUD | Admin list/create/delete, kiểm tra field coupon, duplicate code, invalid type, lỗi phân quyền |
 
-Each JSON row includes `id`, `title`, `type`, `mode`, `precondition`, `input`, `expected`, and `hw02Reference` to keep the implementation traceable to the HW02 design.
+Mỗi dòng JSON có các trường `id`, `title`, `type`, `mode`, `precondition`, `input`, `expected` và `hw02Reference` để trace được từ thiết kế HW02 sang automation script.
 
-## 6. Execution Result
+## 6. Kết Quả Chạy Test
 
-| Metric | Value |
+| Chỉ số | Giá trị |
 | --- | ---: |
-| Features automated | 3 |
-| Test cases automated | 44 |
-| Browser projects | 3 |
-| Total executions | 132 |
-| Passed | 60 |
-| Failed | 72 |
+| Số tính năng đã tự động hóa | 3 |
+| Số test case đã tự động hóa | 44 |
+| Số cấu hình trình duyệt | 3 |
+| Tổng số lượt chạy | 132 |
+| Số lượt đạt | 60 |
+| Số lượt không đạt | 72 |
 
-The execution exceeds the assignment minimum of 108 executions. The HTML report includes `Run by: 23127326` and timestamp metadata.
+Số lượt chạy vượt yêu cầu tối thiểu 108 lượt chạy của đề. Báo cáo HTML có metadata `Run by: 23127326` và timestamp của lần chạy.
 
-## 7. Bug And Gap Analysis
+## 7. Phân Tích Bug Và Gap
 
-The failing tests revealed several likely SUT issues:
+Các test failed phát hiện một số vấn đề có khả năng là bug thật của SUT:
 
-- Login API exposes the user's password in the response.
-- Login UI uses a plain text input instead of email validation.
-- Account lockout duration is around 180 seconds instead of the expected 30 seconds.
-- Coupon API reports invalid total values as minimum-order errors.
+- Login API trả về password của user trong response.
+- Login UI dùng input text thay vì kiểm tra email.
+- Thời gian khóa tài khoản khoảng 180 giây thay vì kỳ vọng 30 giây.
+- Coupon API trả lỗi min-order cho dữ liệu `total_amount` không hợp lệ.
 
-Some failures require further triage because they may be assertion gaps rather than confirmed SUT defects. For example, several admin coupon validation tests expected a specific failure status range while the SUT returned a different error code. These are documented in `submit/bug-report.md` and preserved in the Playwright report.
+Một số failure khác cần phân loại thêm vì có thể là khoảng lệch của test oracle chứ chưa chắc là bug SUT. Ví dụ, nhiều test kiểm tra admin coupon kỳ vọng một nhóm HTTP status cụ thể, trong khi SUT trả status khác. Các lỗi này được giữ trong báo cáo Playwright và ghi nhận trong `submit/bug-report.md`.
 
-## 8. Review Of AI-Generated Scripts
+## 8. Review Script Do AI Sinh
 
-AI was useful for producing the initial Playwright structure, data-driven case files, and shared helpers. However, the generated scripts needed human review because AI over-assumed SUT behavior. Examples include expecting no password in login response, assuming `input[type=email]`, assuming a 30-second lockout duration, and expecting strict validation error messages. After running the tests, the scripts were refined with explicit database setup/cleanup, serial execution for stateful feature suites, and test annotations for feature/case metadata.
+AI hữu ích trong việc tạo cấu trúc Playwright ban đầu, tạo test case theo dữ liệu và helper dùng chung. Tuy nhiên, script do AI sinh cần được rà soát vì AI suy đoán quá nhiều về hành vi SUT. Ví dụ: AI kỳ vọng response login không có password, giả định `input[type=email]`, giả định khóa tài khoản 30 giây và kỳ vọng thông báo kiểm tra dữ liệu rất cụ thể. Sau khi chạy test thật, script được bổ sung setup/cleanup database rõ ràng, chạy tuần tự cho các tính năng có trạng thái dùng chung và thêm annotation để báo cáo thể hiện metadata của từng tính năng/case.
 
-## 9. Evidence
+## 9. Bằng Chứng
 
-- Test summary: `submit/test-summary.md`
-- Bug report: `submit/bug-report.md`
-- AI critique: `submit/ai-critique.md`
-- AI audit: `submit/ai-audit-report.md`
+- Tóm tắt kiểm thử: `submit/test-summary.md`
+- Báo cáo bug: `submit/bug-report.md`
+- Nhận xét về AI: `submit/ai-critique.md`
+- Báo cáo audit AI: `submit/ai-audit-report.md`
 - Git commit log: `submit/git-commit-log.txt`
-- HTML report: `submit/playwright-report/index.html`
-- Representative screenshots: `submit/screenshots/`
+- Báo cáo HTML: `submit/playwright-report/index.html`
+- Ảnh chụp màn hình đại diện: `submit/screenshots/`
