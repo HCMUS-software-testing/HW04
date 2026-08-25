@@ -1,1 +1,25 @@
+# Dependencies
+node_modules/
 eshop-sut/
+
+# Playwright generated output
+test-results/
+playwright-report/
+blob-report/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+
+# Archives and local OS/editor files
+*.zip
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Tool logs and coverage output
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+coverage/
