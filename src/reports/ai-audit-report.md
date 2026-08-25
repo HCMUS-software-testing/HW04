@@ -16,7 +16,8 @@
 | 3 | Time: `2026-08-20 23:56 +07`<br>Tool: `Gemini 3.6 Flash`<br>Prompt:<br>Convert ref/10_Automation Testing.pdf sang markdown đúng theo nội dung và layout. Các sơ đồ có thể để dưới dạng mermaid, còn các ảnh có thể screenshot. Còn lại nội dung thì chuyển full sang text có heading, bullet points... layout đẹp. Output bỏ vào folder ref. Tạo cả 2 bản tiếng anh và tiếng việt. | valid |
 | 4 | Time: `2026-08-21 00:08 +07`<br>Tool: `Gemini 3.6 Flash`<br>Prompt:<br>/using-superpowers Dựa vào eshop-sut/README.md và eshop-sut/api_specification.md hãy phân tích và tạo file test data JSON cho 3 tính năng FR-01, FR-07 và FR-18 (mỗi feature tối thiểu 12 test cases gồm positive, negative, edge cases) lưu vào thư mục src/test/test-data/. | valid |
 | 5 | Time: `2026-08-24 22:57 +07`<br>Tool: `Claude Opus 4.6`<br>Prompt:<br>/using-superpowers <br>Hãy thực hiện các công việc sau để thiết lập dự án Playwright Automation cho HW04:<br>1. Khởi tạo `package.json` và `playwright.config.ts` với cấu hình:<br>   - Chạy trên 3 trình duyệt: Chromium, Firefox, WebKit.<br>   - Base URL mặc định: `http://localhost:5173`.<br>   - Cấu hình Playwright HTML Reporter hiển thị tiêu đề: `HW04 Automation Testing - Run by: 23127075`.<br>   - Tạo file helper `tests/helpers/eshop.ts` chứa các hàm dùng chung (gotoHome, login, expectVisibleText...).<br>2. Viết file test script đầu tiên `tests/feature-a.spec.ts`:<br>   - Thực thi Data-Driven Testing cho FR-01 bằng cách đọc dữ liệu từ `src/test/test-data/FR-01.json`.<br>   - Áp dụng ít nhất 3 dạng assertion patterns (URL, Visible Text, Control State).<br>   - Đảm bảo script cấu trúc rõ ràng, dễ bảo trì và sử dụng các locator ổn định. | valid |
-| 6 | Time: `2026-08-25 22:32 +07`<br>Tool: `Codex / GPT-5`<br>Prompt:<br>[@superpowers](plugin://superpowers@openai-api-curated) <br><br>Đổi tên src/test/specs/feature-a.spec.ts thành src/test/specs/fr01.spec.ts<br><br>Viết file test script /src/test/specs/fr07.spec.ts:<br><br>- Thực thi Data-Driven Testing cho FR-07: Shopping Cart bằng cách đọc dữ liệu từ src/test/test-data/FR-07.json.<br>- Tạo test case tự động từ toàn bộ mảng testCases trong file JSON.<br>- Áp dụng ít nhất 3 dạng assertion patterns phù hợp:<br>  - URL assertion để kiểm tra điều hướng đến trang giỏ hàng.<br>  - Visible Text assertion để kiểm tra trạng thái giỏ hàng, tên sản phẩm, tổng tiền và thông báo.<br>  - Control State assertion để kiểm tra quantity input, nút tăng/giảm, nút xóa và trạng thái nút checkout.<br>- Sử dụng các locator ổn định như role, label, text hoặc data-testid; tránh locator phụ thuộc vào CSS class thay đổi thường xuyên.<br>- Tách các thao tác dùng chung thành helper functions nếu cần.<br>- Cấu trúc script rõ ràng, dễ bảo trì, mô tả đúng action và expected result của từng test case.<br>- Không hardcode danh sách test case trong file .spec.ts; dữ liệu phải lấy từ FR-07.json. | [Manual by user] |
+| 6 | Time: `2026-08-25 22:32 +07`<br>Tool: `Codex / GPT-5`<br>Prompt:<br>[@superpowers](plugin://superpowers@openai-api-curated)<br><br>Đổi tên src/test/specs/feature-a.spec.ts thành src/test/specs/fr01.spec.ts<br><br>Viết file test script /src/test/specs/fr07.spec.ts:<br><br>- Thực thi Data-Driven Testing cho FR-07: Shopping Cart bằng cách đọc dữ liệu từ src/test/test-data/FR-07.json.<br>- Tạo test case tự động từ toàn bộ mảng testCases trong file JSON.<br>- Áp dụng ít nhất 3 dạng assertion patterns phù hợp:<br>  - URL assertion để kiểm tra điều hướng đến trang giỏ hàng.<br>  - Visible Text assertion để kiểm tra trạng thái giỏ hàng, tên sản phẩm, tổng tiền và thông báo.<br>  - Control State assertion để kiểm tra quantity input, nút tăng/giảm, nút xóa và trạng thái nút checkout.<br>- Sử dụng các locator ổn định như role, label, text hoặc data-testid; tránh locator phụ thuộc vào CSS class thay đổi thường xuyên.<br>- Tách các thao tác dùng chung thành helper functions nếu cần.<br>- Cấu trúc script rõ ràng, dễ bảo trì, mô tả đúng action và expected result của từng test case.<br>- Không hardcode danh sách test case trong file .spec.ts; dữ liệu phải lấy từ FR-07.json. | [Manual by user] |
+| 7 | Time: `2026-08-25 22:42 +07`<br>Tool: `Codex / GPT-5`<br>Prompt:<br>[@superpowers](plugin://superpowers@openai-api-curated) <br><br>Viết file test script đầu tiên src/test/specs/fr18.spec.ts:<br><br>- Thực thi Data-Driven Testing cho FR-18: Admin Order Management bằng cách đọc dữ liệu từ src/test/test-data/FR-18.json.<br>- Tạo test case tự động từ toàn bộ mảng testCases trong file JSON.<br>- Áp dụng ít nhất 3 dạng assertion patterns phù hợp:<br>  - URL assertion để kiểm tra truy cập đúng trang quản lý đơn hàng và các trang liên quan.<br>  - Visible Text assertion để kiểm tra danh sách đơn hàng, tiêu đề cột, trạng thái đơn hàng, thông báo lỗi và thông báo thành công.<br>  - Control State assertion để kiểm tra bộ lọc trạng thái, nút thao tác, form cập nhật trạng thái và quyền truy cập của admin.<br>- Bao phủ các hành vi được mô tả trong dữ liệu FR-18, gồm xem danh sách, lọc trạng thái, chuyển trạng thái, trạng thái cuối, kiểm tra XSS và access control.<br>- Sử dụng các locator ổn định như role, label, text hoặc data-testid; tránh locator phụ thuộc vào CSS class thay đổi thường xuyên.<br>- Tách thao tác đăng nhập admin, điều hướng và cập nhật trạng thái thành helper functions nếu cần.<br>- Cấu trúc script rõ ràng, dễ bảo trì và không hardcode danh sách test case trong .spec.ts. | [Manual by user] |
 
 ### 2.2. Chi tiết audit
 
@@ -148,6 +149,36 @@ Viết file test script /src/test/specs/fr07.spec.ts:
 - Không hardcode danh sách test case trong file .spec.ts; dữ liệu phải lấy từ FR-07.json.
 
 **AI Output:** Đã đổi tên src/test/specs/feature-a.spec.ts thành fr01.spec.ts và tạo src/test/specs/fr07.spec.ts với 14 test case đọc từ FR-07.json, helper dùng chung và các assertion URL, visible text, control state. Kiểm tra disco...
+
+**Verdict:** [Manual by user]
+
+**Reasoning:** [Manual by user]
+
+**Student Fix:** [Manual by user]
+
+### 2.2.7 Entry 7
+
+**Prompt + Tool:**
+
+Time: `2026-08-25 22:42 +07`
+Tool: `Codex / GPT-5`
+Prompt:
+[@superpowers](plugin://superpowers@openai-api-curated)
+
+Viết file test script đầu tiên src/test/specs/fr18.spec.ts:
+
+- Thực thi Data-Driven Testing cho FR-18: Admin Order Management bằng cách đọc dữ liệu từ src/test/test-data/FR-18.json.
+- Tạo test case tự động từ toàn bộ mảng testCases trong file JSON.
+- Áp dụng ít nhất 3 dạng assertion patterns phù hợp:
+  - URL assertion để kiểm tra truy cập đúng trang quản lý đơn hàng và các trang liên quan.
+  - Visible Text assertion để kiểm tra danh sách đơn hàng, tiêu đề cột, trạng thái đơn hàng, thông báo lỗi và thông báo thành công.
+  - Control State assertion để kiểm tra bộ lọc trạng thái, nút thao tác, form cập nhật trạng thái và quyền truy cập của admin.
+- Bao phủ các hành vi được mô tả trong dữ liệu FR-18, gồm xem danh sách, lọc trạng thái, chuyển trạng thái, trạng thái cuối, kiểm tra XSS và access control.
+- Sử dụng các locator ổn định như role, label, text hoặc data-testid; tránh locator phụ thuộc vào CSS class thay đổi thường xuyên.
+- Tách thao tác đăng nhập admin, điều hướng và cập nhật trạng thái thành helper functions nếu cần.
+- Cấu trúc script rõ ràng, dễ bảo trì và không hardcode danh sách test case trong .spec.ts.
+
+**AI Output:** Đã tạo src/test/specs/fr18.spec.ts với 15 test case đọc từ FR-18.json, helper đăng nhập admin/điều hướng/cập nhật trạng thái, và assertion URL, visible text, control state. Kiểm tra discovery thành công 129 test trên...
 
 **Verdict:** [Manual by user]
 
