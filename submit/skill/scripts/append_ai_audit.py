@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Append một entry AI Audit Report cho HW04 trong folder skill."""
+"""Append một entry AI Audit Report cho HW04 vào submit/ai-audit-report.md."""
 
 from __future__ import annotations
 
@@ -82,7 +82,7 @@ def append_entry(args: argparse.Namespace) -> Path:
     audit_file = (
         Path(args.audit_file)
         if args.audit_file
-        else repo_root / "submit" / "skill" / "ai-audit-report.md"
+        else repo_root / "submit" / "ai-audit-report.md"
     )
     if not audit_file.is_absolute():
         audit_file = repo_root / audit_file

@@ -1,13 +1,13 @@
 ---
 name: skill
-description: Tự động ghi AI Audit Report cho HW04 Automation Testing bằng tiếng Việt. Dùng ở mọi prompt hoặc response trong workspace HW04, đặc biệt khi Codex/ChatGPT/AI được dùng để đọc đề, lập kế hoạch, sinh Playwright tests, tạo data-driven automation, sửa script, phân tích lỗi, viết báo cáo, chuẩn bị demo hoặc trả lời câu hỏi bài tập. File audit phải nằm trong folder submit/skill/ và không cần người dùng gọi lệnh kích hoạt.
+description: Tự động ghi AI Audit Report cho HW04 Automation Testing bằng tiếng Việt. Dùng ở mọi prompt hoặc response trong workspace HW04, đặc biệt khi Codex/ChatGPT/AI được dùng để đọc đề, lập kế hoạch, sinh Playwright tests, tạo data-driven automation, sửa script, phân tích lỗi, viết báo cáo, chuẩn bị demo hoặc trả lời câu hỏi bài tập. File audit phải nằm ở submit/ai-audit-report.md và không cần người dùng gọi lệnh kích hoạt.
 ---
 
 # HW04 AI Audit
 
 ## Mục đích
 
-Ghi lại mọi tương tác AI bắt buộc cho HW04 trong `submit/skill/ai-audit-report.md`. Đề bài yêu cầu mỗi interaction có tên AI tool, ngày giờ, prompt của sinh viên và output của AI.
+Ghi lại mọi tương tác AI bắt buộc cho HW04 trong `submit/ai-audit-report.md`. Đề bài yêu cầu mỗi interaction có tên AI tool, ngày giờ, prompt của sinh viên và output của AI.
 
 Xem skill này như luôn bật trong repo HW04. Cuối mỗi response, append một entry audit trừ khi người dùng yêu cầu rõ là không ghi file.
 
@@ -37,7 +37,7 @@ python3 submit/skill/scripts/append_ai_audit.py \
   --human-review "Chờ sinh viên review."
 ```
 
-4. Nếu `submit/skill/ai-audit-report.md` chưa tồn tại, để script tự tạo với phần khai báo bắt buộc.
+4. Nếu `submit/ai-audit-report.md` chưa tồn tại, để script tự tạo với phần khai báo bắt buộc.
 5. Nếu có chỉnh file, nêu rõ file đã chỉnh trong phần tóm tắt output.
 6. Không bịa bằng chứng. Với test report, video, screenshot, GitHub issue, output lệnh hoặc kết quả pass/fail, chỉ ghi những gì thật sự đã xảy ra.
 
@@ -52,10 +52,10 @@ Dùng nội dung ngắn gọn nhưng đủ hữu ích:
 
 ## Vị trí output
 
-Luôn ghi audit vào file trong folder skill:
+Luôn ghi audit vào file submit chính:
 
 ```text
-submit/skill/ai-audit-report.md
+submit/ai-audit-report.md
 ```
 
-Folder `submit/skill/` chứa cả skill và report audit để đưa thẳng vào gói nộp HW04.
+Folder `submit/skill/` chỉ chứa skill và script hỗ trợ; file report audit nằm trực tiếp trong `submit/` để khớp cấu trúc nộp HW04.
