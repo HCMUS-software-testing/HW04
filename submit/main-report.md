@@ -10,7 +10,7 @@
 - Trình duyệt: Chromium, Firefox, WebKit
 - Lần chạy được ghi nhận gần nhất: 2026-08-20T15:45:31Z
 - Báo cáo HTML: `submit/playwright-report/index.html`
-- Video demo: `TBD - bổ sung link YouTube unlisted sau khi quay`
+- Video demo Agent Skill: https://youtu.be/BncsesiBxOA
 
 Bài làm tự động hóa 3 tính năng được chọn từ thiết kế kiểm thử HW02 và chạy trên 3 trình duyệt. Bộ test kết hợp luồng UI trên trình duyệt, gọi API trực tiếp và helper chuẩn bị/dọn dữ liệu trong database.
 

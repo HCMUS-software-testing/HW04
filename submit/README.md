@@ -8,7 +8,7 @@
 - SUT: `eshop-sut`
 - Công cụ kiểm thử tự động: Playwright
 - Trình duyệt kiểm thử: Chromium, Firefox, WebKit
-- Video demo: `TBD - bổ sung link YouTube unlisted sau khi quay`
+- Video demo Agent Skill: https://youtu.be/BncsesiBxOA
 
 ## Cách Chạy
 
@@ -73,8 +73,8 @@ SUT cần được khởi động trước khi chạy test:
 | 1 | Nhiệm vụ 1 - Tính năng A: FR-02 Login lockout | 25 | 21 |
 | 2 | Nhiệm vụ 1 - Tính năng B: FR-09 Coupon checkout | 25 | 21 |
 | 3 | Nhiệm vụ 1 - Tính năng C: FR-17 Admin coupon CRUD | 25 | 21 |
-| 4 | Nhiệm vụ 2 - Video demo | 15 | 0 |
+| 4 | Nhiệm vụ 2 - Video demo | 15 | 15 |
 | 5 | Agent Skills | 10 | 8 |
-| | Tổng cộng | 100 | 71 |
+| | Tổng cộng | 100 | 86 |
 
-Ghi chú: Điểm video demo đang để `0` cho đến khi có link YouTube unlisted thật.
+Ghi chú: Link video demo Agent Skill đã được bổ sung ở phần thông tin sinh viên.
