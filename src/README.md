@@ -35,9 +35,9 @@ Useful commands:
 
 ```bash
 npm run test:headed     # Run with a visible browser
-npm run test:feature-a  # Run FR-01 only
-npm run test:feature-b  # Run FR-07 only
-npm run test:feature-c  # Run FR-18 only
+npm run test:fr01       # Run FR-01 only
+npm run test:fr07       # Run FR-07 only
+npm run test:fr18       # Run FR-18 only
 npm run report          # Open the latest HTML report
 ```
 

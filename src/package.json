@@ -5,9 +5,9 @@
   "scripts": {
     "test": "playwright test",
     "test:headed": "playwright test --headed",
-    "test:feature-a": "playwright test test/specs/feature-a.spec.ts",
-    "test:feature-b": "playwright test test/specs/feature-b.spec.ts",
-    "test:feature-c": "playwright test test/specs/feature-c.spec.ts",
+    "test:fr01": "playwright test test/specs/fr01.spec.ts",
+    "test:fr07": "playwright test test/specs/fr07.spec.ts",
+    "test:fr18": "playwright test test/specs/fr18.spec.ts",
     "report": "playwright show-report"
   },
   "devDependencies": {
