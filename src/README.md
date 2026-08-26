@@ -51,7 +51,7 @@ npm run test:fr18       # Run FR-18 only (uses ADMIN_BASE_URL, default 5174)
 npm run report          # Open the latest HTML report
 ```
 
-The full suite is configured for Chromium, Firefox, and WebKit. Test outputs are written to `playwright-report/` and `test-results/`; do not claim results until the tests have actually run against the EShop SUT.
+The full suite is configured for Chrome, Edge, and Firefox. Test outputs are written to `playwright-report/` and `test-results/`; do not claim results until the tests have actually run against the EShop SUT.
 
 ## Submission Checklist
 
