@@ -1,0 +1,4 @@
+interface:
+  display_name: "Automation Testing"
+  short_description: "Build portable data-driven Playwright evidence"
+  default_prompt: "Use $automation-testing to turn this project's feature specification into external test data, cross-browser Playwright tests, findings, and an evidence-based bug report."

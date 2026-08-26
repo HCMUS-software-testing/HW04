@@ -29,3 +29,20 @@ bài hiện tại; trước khi nộp, copy toàn bộ thư mục này và đổ
 2. Hoàn thiện audit, critique, bug report và các link evidence.
 3. Quay video, export PDF, cập nhật self-assessment.
 4. Copy `src/` thành thư mục nộp, đổi tên đúng quy định và kiểm tra ZIP cuối cùng trước khi nộp Moodle.
+
+## Sử dụng bộ skill automation-testing
+
+Bộ skill portable nằm trong [`automation-testing/`](automation-testing/). Skill
+điều phối được tách thành ba subskill theo quy trình: tạo test data từ spec,
+dựng/chạy Playwright, và phân tích findings thành bug report.
+
+Để tái sử dụng cho project khác, copy thư mục `automation-testing/` vào thư
+mục skills mà agent hỗ trợ (ví dụ `.agents/skills/`), sau đó gọi:
+
+```text
+Use $automation-testing for PROJECT_ROOT=..., SPEC_PATH=..., APP_URL=...
+```
+
+Ở mỗi project cần cung cấp thêm thư mục test data, đường dẫn spec, browser
+projects, lệnh reset/seed nếu có, `STUDENT_ID`, và `FINDINGS_DIR`. Skill không
+giả định framework, route, ngôn ngữ giao diện, database hay cấu trúc EShop.
