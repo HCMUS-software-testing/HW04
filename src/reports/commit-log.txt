@@ -1,0 +1,14 @@
+0bd46cc test: isolate FR-18 order fixtures and locators
+ed2ef26 test: isolate FR-18 admin order cases
+bbda20c test: align FR-18 admin tests with actual DOM
+39de71a test: align FR-07 product locators and test data
+60c4a8f test: finalize FR-07 cart assertions
+bba0e1c test: preserve FR-07 cart state across navigation
+3a551df test: complete FR-01 cross-browser review
+82be241 fix fr01 script - locator fixed
+d88077b test: run FR-18 against admin frontend
+871bee1 test: add FR-18 orders management admin
+557fc47 test: add FR-07 shopping cart
+7cc519d test: add FR-01 registration automation
+
+[TODO: regenerate with `git log --oneline --all -- src/test/specs` if history changes.]

@@ -63,6 +63,66 @@ npm run report          # Open the latest HTML report
 
 The full suite is configured for Chrome, Edge, and Firefox. Test outputs are written to the configured findings folder; do not claim results until the tests have actually run against the EShop SUT.
 
+## Final Evidence Run (9 HTML Reports)
+
+Run these commands from `src/` while the backend and both frontends are running. Each command creates a separate HTML report under `findings/<name>/playwright-report/`.
+
+```bash
+# FR-01 — user frontend
+FINDINGS_DIR=findings/fr01-final-chrome STUDENT_ID=23127075 BASE_URL=http://localhost:5173 npm run test:fr01 -- --project=chrome --workers=1
+FINDINGS_DIR=findings/fr01-final-edge STUDENT_ID=23127075 BASE_URL=http://localhost:5173 npm run test:fr01 -- --project=edge --workers=1
+FINDINGS_DIR=findings/fr01-final-firefox STUDENT_ID=23127075 BASE_URL=http://localhost:5173 npm run test:fr01 -- --project=firefox --workers=1
+
+# FR-07 — user frontend
+FINDINGS_DIR=findings/fr07-final-chrome STUDENT_ID=23127075 BASE_URL=http://localhost:5173 npm run test:fr07 -- --project=chrome --workers=1
+FINDINGS_DIR=findings/fr07-final-edge STUDENT_ID=23127075 BASE_URL=http://localhost:5173 npm run test:fr07 -- --project=edge --workers=1
+FINDINGS_DIR=findings/fr07-final-firefox STUDENT_ID=23127075 BASE_URL=http://localhost:5173 npm run test:fr07 -- --project=firefox --workers=1
+```
+
+For FR-18, reseed before each browser because mutation cases change order status:
+
+```bash
+cd ../eshop-sut/backend && npm run seed:fr18
+cd ../../src && FINDINGS_DIR=findings/fr18-final-chrome STUDENT_ID=23127075 ADMIN_BASE_URL=http://localhost:5174 npm run test:fr18 -- --project=chrome --workers=1
+
+cd ../eshop-sut/backend && npm run seed:fr18
+cd ../../src && FINDINGS_DIR=findings/fr18-final-edge STUDENT_ID=23127075 ADMIN_BASE_URL=http://localhost:5174 npm run test:fr18 -- --project=edge --workers=1
+
+cd ../eshop-sut/backend && npm run seed:fr18
+cd ../../src && FINDINGS_DIR=findings/fr18-final-firefox STUDENT_ID=23127075 ADMIN_BASE_URL=http://localhost:5174 npm run test:fr18 -- --project=firefox --workers=1
+```
+
+Open a report with `npx playwright show-report findings/fr01-final-chrome/playwright-report`.
+
 ## Submission Checklist
 
 Before packaging this folder, confirm that all three feature specs, real multi-browser reports, the main report, AI critique, completed AI audit, bug report, commit log, and demo video link are present. Do not fabricate screenshots, timestamps, reports, or bug evidence.
+
+## Test Summary and Self-Assessment
+
+| Item | Current value |
+| --- | --- |
+| Features automated | 3: FR-01, FR-07, FR-18 |
+| Automated test cases | 43 data-driven cases (14 + 14 + 15) |
+| Browser runs | 9 final runs (3 features × Chrome, Edge, Firefox) |
+| Executed / passed / failed / skipped | `[TODO: copy exact totals from final HTML reports]` |
+| Confirmed product bugs | 8 entries in [reports/bug-report.md](reports/bug-report.md) |
+| Public GitHub repository | `[TODO: add URL]` |
+| Demo video | `[TODO: add unlisted YouTube URL]` |
+
+| Criteria | Self-assessed grade |
+| --- | ---: |
+| Task 1 — Feature A (FR-01) | `[TODO]` |
+| Task 1 — Feature B (FR-07) | `[TODO]` |
+| Task 1 — Feature C (FR-18) | `[TODO]` |
+| Task 2 — Demo video | `[TODO]` |
+| Agent Skills | `[TODO]` |
+| Total | `[TODO]` |
+
+## Submission Documents
+
+- [Main report](reports/main-report.md) — export to PDF before submission.
+- [AI critique](reports/ai-critique.md) — export to PDF before submission.
+- [Bug report](reports/bug-report.md).
+- [AI audit](reports/ai-audit-report.md) — export to PDF before submission.
+- [Commit log](reports/commit-log.txt).
