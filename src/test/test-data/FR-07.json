@@ -22,14 +22,14 @@
       "action": "add_product",
       "input": {
         "productId": 1,
-        "productName": "Sản phẩm A",
-        "price": 100000,
+        "productName": "iPhone 15 Pro Max",
+        "price": 30000000,
         "quantity": 1
       },
       "expected": {
         "itemCount": 1,
-        "subtotal": 100000,
-        "totalAmount": 100000,
+        "subtotal": 30000000,
+        "totalAmount": 30000000,
         "totalLabel": "Tổng cộng"
       }
     },
@@ -40,15 +40,15 @@
       "action": "add_same_product_twice",
       "input": {
         "productId": 1,
-        "productName": "Sản phẩm A",
-        "price": 100000,
+        "productName": "iPhone 15 Pro Max",
+        "price": 30000000,
         "addQuantity": 1
       },
       "expected": {
         "rowCount": 1,
         "quantity": 2,
-        "subtotal": 200000,
-        "totalAmount": 200000
+        "subtotal": 60000000,
+        "totalAmount": 60000000
       }
     },
     {
@@ -58,13 +58,13 @@
       "action": "add_multiple_products",
       "input": {
         "items": [
-          { "productId": 1, "productName": "Sản phẩm A", "price": 100000, "quantity": 2 },
-          { "productId": 2, "productName": "Sản phẩm B", "price": 150000, "quantity": 1 }
+          { "productId": 1, "productName": "iPhone 15 Pro Max", "price": 30000000, "quantity": 2 },
+          { "productId": 2, "productName": "Samsung Galaxy S24 Ultra", "price": 28000000, "quantity": 1 }
         ]
       },
       "expected": {
         "rowCount": 2,
-        "totalAmount": 350000,
+        "totalAmount": 88000000,
         "totalLabel": "Tổng cộng"
       }
     },
@@ -80,8 +80,8 @@
       },
       "expected": {
         "newQuantity": 2,
-        "subtotal": 200000,
-        "totalAmount": 200000
+        "subtotal": 60000000,
+        "totalAmount": 60000000
       }
     },
     {
@@ -96,8 +96,8 @@
       },
       "expected": {
         "newQuantity": 2,
-        "subtotal": 200000,
-        "totalAmount": 200000
+        "subtotal": 60000000,
+        "totalAmount": 60000000
       }
     },
     {
@@ -108,12 +108,12 @@
       "input": {
         "productId": 1,
         "newQuantity": 5,
-        "price": 100000
+        "price": 30000000
       },
       "expected": {
         "newQuantity": 5,
-        "subtotal": 500000,
-        "totalAmount": 500000
+        "subtotal": 150000000,
+        "totalAmount": 150000000
       }
     },
     {

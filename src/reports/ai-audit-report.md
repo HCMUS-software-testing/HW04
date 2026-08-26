@@ -23,6 +23,10 @@
 | 10 | Time: `2026-08-26 13:58 +07`<br>Tool: `Codex / GPT-5`<br>Prompt:<br>[@superpowers](plugin://superpowers@openai-api-curated)\\n\\nSửa src/test/specs/fr01.spec.ts dựa trên findings tại\\nsrc/findings/fr01-registration-locator-failure/.\\n\\nKết quả:\\n- Chrome, Edge và Firefox đều fail REG_001.\\n- Lỗi: locator.fill timeout khi dùng getByLabel(/họ tên/i).\\n- DOM của SUT có label Họ Tên, Email, Mật khẩu nhưng label không liên kết với input.\\n- SUT không render trường Confirm Password.\\n\\nYêu cầu:\\n- Kiểm tra Register.jsx để xác nhận DOM thực tế.\\n- Thay getByLabel() bằng locator ổn định phù hợp với DOM, ưu tiên role và thứ tự input.\\n- Không sửa source code của EShop SUT.\\n- Không dùng evaluate để xóa required.\\n- Xử lý đúng việc Confirm Password không tồn tại.\\n- Giữ Data-Driven Testing từ FR-01.json.\\n- Giữ URL, Visible Text và Control State assertions.\\n- Chạy lại trên Chrome, Edge và Firefox.\\n- Báo cáo pass/fail chính xác theo từng browser. | [Manual by user] |
 | 11 | Time: `2026-08-26 14:17 +07`<br>Tool: `Codex / GPT-5`<br>Prompt:<br>[@superpowers](plugin://superpowers@openai-api-curated)<br><br>Dựa trên findings tại src/findings/fr01-02-fix-locator-fixed/, hãy cải thiện<br>src/test/specs/fr01.spec.ts mà không sửa source code của EShop SUT.<br><br>Kết quả:<br>- Locator đã được sửa và hoạt động trên Chrome, Edge, Firefox.<br>- REG_001 fail trên cả 3 browser vì URL vẫn là /register thay vì /login.<br>- Password Password123! bị SUT từ chối.<br>- Register.jsx dùng regex yêu cầu whitespace thay vì ký tự đặc biệt.<br>- Suite đang serial nên 13 case còn lại không chạy.<br><br>Yêu cầu:<br>- Giữ nguyên expected behavior theo FR-01.json, không hạ thấp assertion để che giấu bug SUT.<br>- Ghi nhận lỗi password validation như một product bug rõ ràng.<br>- Giữ URL, Visible Text và Control State assertions.<br>- Xử lý test case Confirm Password không tồn tại một cách trung thực.<br>- Cân nhắc bỏ serial để các test độc lập vẫn được chạy và findings đầy đủ.<br>- Không sửa source code EShop SUT.<br>- Chạy lại trên Chrome, Edge và Firefox.<br>- Báo cáo chính xác pass/fail/skip và nguyên nhân. | [Manual by user] |
 | 12 | Time: `2026-08-26 14:33 +07`<br>Tool: `Codex / GPT-5`<br>Prompt:<br>có, nhưng lệnh này làm gì npx playwright test test/specs/fr07.spec.ts --workers=1 tôi tưởng npm run kia là được rồi | [Manual by user] |
+| 13 | Time: `2026-08-26 14:55 +07`<br>Tool: `Codex / GPT-5`<br>Prompt:<br>Dựa trên findings tại src/findings/fr07-03-shopping-cart-state/, hãy hoàn thiện src/test/specs/fr07.spec.ts mà không sửa source code EShop SUT.<br><br>Kết quả hiện tại:<br>- 9 passed, 9 failed, 24 skipped trên Chrome, Edge và Firefox.<br>- CART_001, CART_008 và CART_014 đã pass.<br>- Cart state đã được giữ đúng khi chuyển route.<br>- CART_002 fail vì SUT hiển thị “Tổng tạm tính” thay vì expected “Tổng cộng”.<br>- CART_003 và CART_004 fail do getByText tên sản phẩm bị strict mode vì tên xuất hiện ở nhiều cart rows.<br>- 24 case được skip vì SUT không có quantity controls, quantity validation hoặc confirmation dialog.<br><br>Yêu cầu:<br>- Sửa assertion tên sản phẩm để giới hạn trong tbody/cart row hoặc dùng getByRole('cell').<br>- Giữ assertion row count riêng biệt cho CART_003 và CART_004.<br>- Assert quantity, subtotal và total amount đúng theo dữ liệu FR-07.json khi các giá trị có thể kiểm chứng.<br>- Không hạ thấp assertion và không sửa source code SUT.<br>- Giữ CART_002 là failure/product bug nếu label thực tế vẫn là “Tổng tạm tính”.<br>- Giữ các case không có control tương ứng ở trạng thái skip với lý do rõ ràng.<br>- Chạy lại toàn bộ 42 lượt trên Chrome, Edge và Firefox bằng --workers=1.<br>- Lưu kết quả vào src/findings/fr07-04-shopping-cart-final/.<br>- Báo cáo chính xác pass/fail/skip và phân biệt lỗi test script với product bug.<br>- Vì bạn đã nắm được web hiện có những sản phẩm nào nên có thể sửa src/test/test-data/FR-07.json nếu cần thiết. | [Manual by user] |
+| 14 | Time: `2026-08-26 15:08 +07`<br>Tool: `Codex / GPT-5`<br>Prompt:<br>Sửa Json test data của fr07 để có thể test phù hợp với seed data sản phẩm của eshop. Sau đó kiểm tra lại flow của test script của fr07 hiện tại. | [Manual by user] |
+| 15 | Time: `2026-08-26 15:10 +07`<br>Tool: `Codex / GPT-5`<br>Prompt:<br>Dựa trên src/test/test-data/FR-07.json đã được cập nhật theo seed data thật của EShop SUT, hãy tiếp tục cải thiện src/test/specs/fr07.spec.ts mà không sửa source code trong eshop-sut.<br><br>Yêu cầu:<br><br>- Giữ Data-Driven Testing bằng toàn bộ mảng testCases trong src/test/test-data/FR-07.json.<br>- Sử dụng đúng productId, productName, price, quantity và subtotal từ JSON; không hardcode sản phẩm hoặc giá trong file .spec.ts.<br>- Với CART_002, bổ sung assertion:<br>  - Đúng tên sản phẩm trong cart row.<br>  - Đúng quantity.<br>  - Đúng subtotal.<br>  - Đúng total amount.<br>  - Đúng số lượng cart row.<br>- Với CART_003:<br>  - Giữ assertion row count riêng biệt.<br>  - Kiểm tra quantity, subtotal và total amount theo JSON.<br>  - Không sửa assertion để che giấu lỗi SUT khi cùng sản phẩm tạo nhiều row.<br>- Với CART_004:<br>  - Kiểm tra đúng hai cart rows.<br>  - Kiểm tra tên từng sản phẩm bằng getByRole('cell') trong đúng row.<br>  - Kiểm tra quantity và subtotal của từng sản phẩm.<br>  - Kiểm tra tổng tiền 88.000.000 theo JSON.<br>- Với CART_005–CART_007 và CART_009–CART_012:<br>  - Giữ trạng thái skip nếu SUT thực tế không có quantity controls, quantity validation hoặc confirmation dialog.<br>  - Ghi lý do skip rõ ràng và phân biệt đây là thiếu chức năng của SUT.<br>- Với CART_001:<br>  - Assert empty message.<br>  - Nếu JSON yêu cầu hasIllustration: true thì kiểm tra illustration thực tế.<br>  - Nếu SUT không render illustration, giữ test fail trung thực hoặc ghi nhận product bug; không bỏ assertion.<br>- Với cart có sản phẩm:<br>  - Assert nút “Tiến hành thanh toán” tồn tại và trạng thái control phù hợp.<br>- Giữ URL assertion cho /cart, visible text assertion và control-state assertion.<br>- Tiếp tục dùng locator ổn định: role, label, text, data-testid hoặc phạm vi tbody/tr/td; tránh CSS class dễ thay đổi.<br>- Không dùng evaluate để can thiệp state hoặc bỏ required.<br>- Không sửa source code EShop SUT.<br>- Không thay đổi expected result chỉ để làm test pass.<br>- Kiểm tra flow addProduct để bảo đảm không dùng page.goto('/cart') sau khi thêm sản phẩm và không làm mất React cart state.<br>- Chạy toàn bộ FR-07 trên Chrome, Edge và Firefox bằng --workers=1.<br>- Lưu kết quả vào:<br>  src/findings/fr07-05-cart-data-aligned/<br>- Báo cáo chính xác pass/fail/skip theo từng browser.<br>- Phân loại rõ lỗi test script, lỗi dữ liệu test và product bug của SUT. | [Manual by user] |
+| 16 | Time: `2026-08-26 15:15 +07`<br>Tool: `Codex / GPT-5`<br>Prompt:<br>Dựa trên src/test/specs/fr07.spec.ts hiện tại, hãy sửa helper productCard để tìm product card bằng productName đọc từ src/test/test-data/FR-07.json thay vì dựa vào thứ tự heading với nth(productId - 1). | [Manual by user] |
 
 ### 2.2. Chi tiết audit
 
@@ -289,6 +293,134 @@ Prompt:
 có, nhưng lệnh này làm gì npx playwright test test/specs/fr07.spec.ts --workers=1 tôi tưởng npm run kia là được rồi
 
 **AI Output:** Đã ghi nhận lượt cải thiện FR-07; giải thích npm run test:fr07 là alias của Playwright spec, còn npx playwright test ... --workers=1 chạy trực tiếp với một worker để ổn định khi debug.
+
+**Verdict:** [Manual by user]
+
+**Reasoning:** [Manual by user]
+
+**Student Fix:** [Manual by user]
+
+### 2.2.13 Entry 13
+
+**Prompt + Tool:**
+
+Time: `2026-08-26 14:55 +07`
+Tool: `Codex / GPT-5`
+Prompt:
+Dựa trên findings tại src/findings/fr07-03-shopping-cart-state/, hãy hoàn thiện src/test/specs/fr07.spec.ts mà không sửa source code EShop SUT.
+
+Kết quả hiện tại:
+- 9 passed, 9 failed, 24 skipped trên Chrome, Edge và Firefox.
+- CART_001, CART_008 và CART_014 đã pass.
+- Cart state đã được giữ đúng khi chuyển route.
+- CART_002 fail vì SUT hiển thị “Tổng tạm tính” thay vì expected “Tổng cộng”.
+- CART_003 và CART_004 fail do getByText tên sản phẩm bị strict mode vì tên xuất hiện ở nhiều cart rows.
+- 24 case được skip vì SUT không có quantity controls, quantity validation hoặc confirmation dialog.
+
+Yêu cầu:
+- Sửa assertion tên sản phẩm để giới hạn trong tbody/cart row hoặc dùng getByRole('cell').
+- Giữ assertion row count riêng biệt cho CART_003 và CART_004.
+- Assert quantity, subtotal và total amount đúng theo dữ liệu FR-07.json khi các giá trị có thể kiểm chứng.
+- Không hạ thấp assertion và không sửa source code SUT.
+- Giữ CART_002 là failure/product bug nếu label thực tế vẫn là “Tổng tạm tính”.
+- Giữ các case không có control tương ứng ở trạng thái skip với lý do rõ ràng.
+- Chạy lại toàn bộ 42 lượt trên Chrome, Edge và Firefox bằng --workers=1.
+- Lưu kết quả vào src/findings/fr07-04-shopping-cart-final/.
+- Báo cáo chính xác pass/fail/skip và phân biệt lỗi test script với product bug.
+- Vì bạn đã nắm được web hiện có những sản phẩm nào nên có thể sửa src/test/test-data/FR-07.json nếu cần thiết.
+
+**AI Output:** Đã cập nhật src/test/specs/fr07.spec.ts để giới hạn locator trong cart row, bổ sung assertion quantity/subtotal, giữ nguyên expected label và không sửa SUT. Đã chạy 42 lượt trên Chrome, Edge, Firefox với --workers=1:...
+
+**Verdict:** [Manual by user]
+
+**Reasoning:** [Manual by user]
+
+**Student Fix:** [Manual by user]
+
+### 2.2.14 Entry 14
+
+**Prompt + Tool:**
+
+Time: `2026-08-26 15:08 +07`
+Tool: `Codex / GPT-5`
+Prompt:
+Sửa Json test data của fr07 để có thể test phù hợp với seed data sản phẩm của eshop. Sau đó kiểm tra lại flow của test script của fr07 hiện tại.
+
+**AI Output:** Đã cập nhật src/test/test-data/FR-07.json theo seed data thật: iPhone 15 Pro Max 30.000.000 và Samsung Galaxy S24 Ultra 28.000.000, đồng thời cập nhật các subtotal/total. Đã kiểm tra JSON hợp lệ và chạy FR-07 trên Chr...
+
+**Verdict:** [Manual by user]
+
+**Reasoning:** [Manual by user]
+
+**Student Fix:** [Manual by user]
+
+### 2.2.15 Entry 15
+
+**Prompt + Tool:**
+
+Time: `2026-08-26 15:10 +07`
+Tool: `Codex / GPT-5`
+Prompt:
+Dựa trên src/test/test-data/FR-07.json đã được cập nhật theo seed data thật của EShop SUT, hãy tiếp tục cải thiện src/test/specs/fr07.spec.ts mà không sửa source code trong eshop-sut.
+
+Yêu cầu:
+
+- Giữ Data-Driven Testing bằng toàn bộ mảng testCases trong src/test/test-data/FR-07.json.
+- Sử dụng đúng productId, productName, price, quantity và subtotal từ JSON; không hardcode sản phẩm hoặc giá trong file .spec.ts.
+- Với CART_002, bổ sung assertion:
+  - Đúng tên sản phẩm trong cart row.
+  - Đúng quantity.
+  - Đúng subtotal.
+  - Đúng total amount.
+  - Đúng số lượng cart row.
+- Với CART_003:
+  - Giữ assertion row count riêng biệt.
+  - Kiểm tra quantity, subtotal và total amount theo JSON.
+  - Không sửa assertion để che giấu lỗi SUT khi cùng sản phẩm tạo nhiều row.
+- Với CART_004:
+  - Kiểm tra đúng hai cart rows.
+  - Kiểm tra tên từng sản phẩm bằng getByRole('cell') trong đúng row.
+  - Kiểm tra quantity và subtotal của từng sản phẩm.
+  - Kiểm tra tổng tiền 88.000.000 theo JSON.
+- Với CART_005–CART_007 và CART_009–CART_012:
+  - Giữ trạng thái skip nếu SUT thực tế không có quantity controls, quantity validation hoặc confirmation dialog.
+  - Ghi lý do skip rõ ràng và phân biệt đây là thiếu chức năng của SUT.
+- Với CART_001:
+  - Assert empty message.
+  - Nếu JSON yêu cầu hasIllustration: true thì kiểm tra illustration thực tế.
+  - Nếu SUT không render illustration, giữ test fail trung thực hoặc ghi nhận product bug; không bỏ assertion.
+- Với cart có sản phẩm:
+  - Assert nút “Tiến hành thanh toán” tồn tại và trạng thái control phù hợp.
+- Giữ URL assertion cho /cart, visible text assertion và control-state assertion.
+- Tiếp tục dùng locator ổn định: role, label, text, data-testid hoặc phạm vi tbody/tr/td; tránh CSS class dễ thay đổi.
+- Không dùng evaluate để can thiệp state hoặc bỏ required.
+- Không sửa source code EShop SUT.
+- Không thay đổi expected result chỉ để làm test pass.
+- Kiểm tra flow addProduct để bảo đảm không dùng page.goto('/cart') sau khi thêm sản phẩm và không làm mất React cart state.
+- Chạy toàn bộ FR-07 trên Chrome, Edge và Firefox bằng --workers=1.
+- Lưu kết quả vào:
+  src/findings/fr07-05-cart-data-aligned/
+- Báo cáo chính xác pass/fail/skip theo từng browser.
+- Phân loại rõ lỗi test script, lỗi dữ liệu test và product bug của SUT.
+
+**AI Output:** Đã cải thiện src/test/specs/fr07.spec.ts để dùng dữ liệu sản phẩm và expected values từ FR-07.json, bổ sung assertion tên sản phẩm, quantity, subtotal, total, illustration và checkout control; giữ các case unsupported...
+
+**Verdict:** [Manual by user]
+
+**Reasoning:** [Manual by user]
+
+**Student Fix:** [Manual by user]
+
+### 2.2.16 Entry 16
+
+**Prompt + Tool:**
+
+Time: `2026-08-26 15:15 +07`
+Tool: `Codex / GPT-5`
+Prompt:
+Dựa trên src/test/specs/fr07.spec.ts hiện tại, hãy sửa helper productCard để tìm product card bằng productName đọc từ src/test/test-data/FR-07.json thay vì dựa vào thứ tự heading với nth(productId - 1).
+
+**AI Output:** Đã sửa productCard và addProduct để dùng productName từ FR-07.json, thêm helper tra tên theo productId cho các case cần thiết, giữ nguyên assertions và không sửa SUT. Đã chạy 42 lượt trên Chrome, Edge và Firefox: tổng...
 
 **Verdict:** [Manual by user]
 

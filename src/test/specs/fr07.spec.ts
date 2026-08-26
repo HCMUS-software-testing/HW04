@@ -9,20 +9,30 @@ async function openCart(page: Page) {
   await expect(page).toHaveURL(/\/cart/i);
 }
 
-function productCard(page: Page, productId: number) {
-  // Home.jsx renders each product as an h2 inside its card. Product names are
-  // data-dependent, so select the card by the stable product ordering/ID.
-  return page.getByRole('heading', { level: 2 }).nth(productId - 1).locator('..');
+function productNameForId(productId: number) {
+  for (const testCase of cartCases) {
+    const input = testCase.input as Record<string, any>;
+    if (input.productId === productId && typeof input.productName === 'string') return input.productName;
+    if (Array.isArray(input.items)) {
+      const item = input.items.find((candidate: Record<string, any>) => candidate.productId === productId);
+      if (item?.productName) return item.productName;
+    }
+  }
+  throw new Error(`No productName found in FR-07.json for productId ${productId}`);
 }
 
-async function addProduct(page: Page, productId: number, quantity = 1) {
+function productCard(page: Page, productName: string) {
+  return page.getByRole('heading', { level: 2, name: productName, exact: true }).locator('..');
+}
+
+async function addProduct(page: Page, productId: number, quantity = 1, expectedName = productNameForId(productId)) {
   // Keep the same React tree alive. A full page goto('/cart') remounts
   // CartProvider and clears its in-memory cart state.
   if (page.url() === 'about:blank') await page.goto('/');
   else if (!/\/$/.test(new URL(page.url()).pathname)) {
     await page.getByRole('link', { name: 'EShop', exact: true }).click();
   }
-  const card = productCard(page, productId);
+  const card = productCard(page, expectedName);
   await expect(card).toBeVisible();
   const productName = (await card.getByRole('heading', { level: 2 }).innerText()).trim();
   const addButton = card.getByRole('button', { name: /thêm vào giỏ|add to cart/i });
@@ -70,6 +80,9 @@ async function assertCartSummary(page: Page, expected: Record<string, unknown>) 
   if (typeof expected.rowCount === 'number') {
     await expect(cartRows(page)).toHaveCount(expected.rowCount);
   }
+  const checkoutButton = page.getByRole('button', { name: /tiến hành thanh toán|checkout/i });
+  await expect(checkoutButton).toBeVisible();
+  await expect(checkoutButton).toBeEnabled();
   if (await quantityInput(page).count() > 0) await expect(quantityInput(page)).toBeEditable();
 }
 
@@ -81,19 +94,29 @@ async function runCartCase(page: Page, testCase: CartCase) {
     case 'view_empty_cart':
       await openCart(page);
       await expect(page.getByText(expected.emptyMessage, { exact: true })).toBeVisible();
+      if (expected.hasIllustration === true) await expect(page.getByRole('img')).toHaveCount(1);
       break;
     case 'add_product':
-      await addProduct(page, input.productId, input.quantity);
+      const addedName = await addProduct(page, input.productId, input.quantity, input.productName);
+      await expect(cartRow(page, addedName).getByRole('cell').first()).toHaveText(input.productName);
+      await assertCartItem(page, input.productName, expected);
       await assertCartSummary(page, expected);
       break;
     case 'add_same_product_twice':
-      const duplicateName = await addProduct(page, input.productId, 2);
+      const duplicateName = await addProduct(page, input.productId, 2, input.productName);
       await expect(cartRows(page).filter({ has: page.getByRole('cell', { name: duplicateName, exact: true }) })).toHaveCount(expected.rowCount);
       await assertCartItem(page, duplicateName, expected);
       await assertCartSummary(page, expected);
       break;
     case 'add_multiple_products':
-      for (const item of input.items) await addProduct(page, item.productId, item.quantity);
+      for (const item of input.items) {
+        const addedItemName = await addProduct(page, item.productId, item.quantity, item.productName);
+        await expect(cartRow(page, addedItemName).getByRole('cell').first()).toHaveText(item.productName);
+        await assertCartItem(page, item.productName, {
+          quantity: item.quantity,
+          subtotal: item.price * item.quantity,
+        });
+      }
       await assertCartSummary(page, expected);
       break;
     case 'increase_quantity_button':
