@@ -22,6 +22,7 @@
 | 9 | Time: `2026-08-26 13:47 +07`<br>Tool: `Codex / GPT-5`<br>Prompt:<br>[@superpowers](plugin://superpowers@openai-api-curated) \\n\\nHãy sửa script để kết quả của lượt chạy có thể set đường dẫn như sau:\\nsrc/findings/\\n├── frXX-run-name/\\n│   ├── test-results/\\n│   └── playwright-report/\\n└── bug-report.md. | [Manual by user] |
 | 10 | Time: `2026-08-26 13:58 +07`<br>Tool: `Codex / GPT-5`<br>Prompt:<br>[@superpowers](plugin://superpowers@openai-api-curated)\\n\\nSửa src/test/specs/fr01.spec.ts dựa trên findings tại\\nsrc/findings/fr01-registration-locator-failure/.\\n\\nKết quả:\\n- Chrome, Edge và Firefox đều fail REG_001.\\n- Lỗi: locator.fill timeout khi dùng getByLabel(/họ tên/i).\\n- DOM của SUT có label Họ Tên, Email, Mật khẩu nhưng label không liên kết với input.\\n- SUT không render trường Confirm Password.\\n\\nYêu cầu:\\n- Kiểm tra Register.jsx để xác nhận DOM thực tế.\\n- Thay getByLabel() bằng locator ổn định phù hợp với DOM, ưu tiên role và thứ tự input.\\n- Không sửa source code của EShop SUT.\\n- Không dùng evaluate để xóa required.\\n- Xử lý đúng việc Confirm Password không tồn tại.\\n- Giữ Data-Driven Testing từ FR-01.json.\\n- Giữ URL, Visible Text và Control State assertions.\\n- Chạy lại trên Chrome, Edge và Firefox.\\n- Báo cáo pass/fail chính xác theo từng browser. | [Manual by user] |
 | 11 | Time: `2026-08-26 14:17 +07`<br>Tool: `Codex / GPT-5`<br>Prompt:<br>[@superpowers](plugin://superpowers@openai-api-curated)<br><br>Dựa trên findings tại src/findings/fr01-02-fix-locator-fixed/, hãy cải thiện<br>src/test/specs/fr01.spec.ts mà không sửa source code của EShop SUT.<br><br>Kết quả:<br>- Locator đã được sửa và hoạt động trên Chrome, Edge, Firefox.<br>- REG_001 fail trên cả 3 browser vì URL vẫn là /register thay vì /login.<br>- Password Password123! bị SUT từ chối.<br>- Register.jsx dùng regex yêu cầu whitespace thay vì ký tự đặc biệt.<br>- Suite đang serial nên 13 case còn lại không chạy.<br><br>Yêu cầu:<br>- Giữ nguyên expected behavior theo FR-01.json, không hạ thấp assertion để che giấu bug SUT.<br>- Ghi nhận lỗi password validation như một product bug rõ ràng.<br>- Giữ URL, Visible Text và Control State assertions.<br>- Xử lý test case Confirm Password không tồn tại một cách trung thực.<br>- Cân nhắc bỏ serial để các test độc lập vẫn được chạy và findings đầy đủ.<br>- Không sửa source code EShop SUT.<br>- Chạy lại trên Chrome, Edge và Firefox.<br>- Báo cáo chính xác pass/fail/skip và nguyên nhân. | [Manual by user] |
+| 12 | Time: `2026-08-26 14:33 +07`<br>Tool: `Codex / GPT-5`<br>Prompt:<br>có, nhưng lệnh này làm gì npx playwright test test/specs/fr07.spec.ts --workers=1 tôi tưởng npm run kia là được rồi | [Manual by user] |
 
 ### 2.2. Chi tiết audit
 
@@ -271,6 +272,23 @@ Yêu cầu:
 - Báo cáo chính xác pass/fail/skip và nguyên nhân.
 
 **AI Output:** Đã bỏ serial trong fr01.spec.ts, skip trung thực REG_012 vì SUT thiếu Confirm Password, giữ nguyên các assertion kỳ vọng và chạy lại 42 lượt trên Chrome, Edge, Firefox. Kết quả: 39 failed, 3 skipped; findings lưu tại...
+
+**Verdict:** [Manual by user]
+
+**Reasoning:** [Manual by user]
+
+**Student Fix:** [Manual by user]
+
+### 2.2.12 Entry 12
+
+**Prompt + Tool:**
+
+Time: `2026-08-26 14:33 +07`
+Tool: `Codex / GPT-5`
+Prompt:
+có, nhưng lệnh này làm gì npx playwright test test/specs/fr07.spec.ts --workers=1 tôi tưởng npm run kia là được rồi
+
+**AI Output:** Đã ghi nhận lượt cải thiện FR-07; giải thích npm run test:fr07 là alias của Playwright spec, còn npx playwright test ... --workers=1 chạy trực tiếp với một worker để ổn định khi debug.
 
 **Verdict:** [Manual by user]
 
