@@ -30,12 +30,27 @@ async function addProduct(page: Page, productId: number, quantity = 1) {
   for (let index = 0; index < quantity; index += 1) await addButton.click();
   await page.getByRole('link', { name: /giỏ hàng/i }).click();
   await expect(page).toHaveURL(/\/cart/i);
-  await expect(page.getByText(productName, { exact: true })).toBeVisible();
+  await expect(page.locator('tbody tr').filter({ has: page.getByRole('cell', { name: productName, exact: true }) }).first()).toBeVisible();
   return productName;
 }
 
 function quantityInput(page: Page) {
   return page.locator('input[type="number"]').first();
+}
+
+function cartRows(page: Page) {
+  return page.locator('tbody tr');
+}
+
+function cartRow(page: Page, productName: string) {
+  return cartRows(page).filter({ has: page.getByRole('cell', { name: productName, exact: true }) }).first();
+}
+
+async function assertCartItem(page: Page, productName: string, expected: Record<string, unknown>) {
+  const row = cartRow(page, productName);
+  await expect(row).toBeVisible();
+  if (typeof expected.quantity === 'number') await expect(row.getByRole('cell').nth(2)).toHaveText(String(expected.quantity));
+  if (typeof expected.subtotal === 'number') await expect(row.getByRole('cell').nth(3)).toContainText(expected.subtotal.toLocaleString());
 }
 
 async function assertCartSummary(page: Page, expected: Record<string, unknown>) {
@@ -50,10 +65,10 @@ async function assertCartSummary(page: Page, expected: Record<string, unknown>) 
     await expect(page.locator('body')).toContainText(expected.totalAmount.toLocaleString());
   }
   if (typeof expected.itemCount === 'number') {
-    await expect(page.locator('tbody tr')).toHaveCount(expected.itemCount);
+    await expect(cartRows(page)).toHaveCount(expected.itemCount);
   }
   if (typeof expected.rowCount === 'number') {
-    await expect(page.locator('tbody tr')).toHaveCount(expected.rowCount);
+    await expect(cartRows(page)).toHaveCount(expected.rowCount);
   }
   if (await quantityInput(page).count() > 0) await expect(quantityInput(page)).toBeEditable();
 }
@@ -73,7 +88,8 @@ async function runCartCase(page: Page, testCase: CartCase) {
       break;
     case 'add_same_product_twice':
       const duplicateName = await addProduct(page, input.productId, 2);
-      await expect(page.getByText(duplicateName, { exact: true })).toHaveCount(expected.rowCount);
+      await expect(cartRows(page).filter({ has: page.getByRole('cell', { name: duplicateName, exact: true }) })).toHaveCount(expected.rowCount);
+      await assertCartItem(page, duplicateName, expected);
       await assertCartSummary(page, expected);
       break;
     case 'add_multiple_products':
@@ -114,8 +130,8 @@ async function runCartCase(page: Page, testCase: CartCase) {
       });
       await expect(confirmation).toBeEnabled();
       await confirmation.click();
-      if (input.confirmDelete) await expect(page.getByText(removedName, { exact: true })).toHaveCount(0);
-      else await expect(page.getByText(removedName, { exact: true })).toBeVisible();
+      if (input.confirmDelete) await expect(cartRow(page, removedName)).toHaveCount(0);
+      else await expect(cartRow(page, removedName)).toBeVisible();
       break;
     }
     case 'decrease_below_min':
