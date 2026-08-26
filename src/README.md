@@ -41,6 +41,16 @@ STUDENT_ID=23127075 BASE_URL=http://localhost:5173 npm run test:fr07
 STUDENT_ID=23127075 ADMIN_BASE_URL=http://localhost:5174 npm run test:fr18
 ``` 
 
+To store a run under a named findings folder, set `FINDINGS_DIR` relative to `src/`:
+
+```bash
+FINDINGS_DIR=findings/fr01-run-name \
+STUDENT_ID=23127075 BASE_URL=http://localhost:5173 npm run test:fr01
+```
+
+This creates `findings/fr01-run-name/test-results/` and
+`findings/fr01-run-name/playwright-report/`. The default is `findings/latest/`.
+
 Useful commands:
 
 ```bash
@@ -51,7 +61,7 @@ npm run test:fr18       # Run FR-18 only (uses ADMIN_BASE_URL, default 5174)
 npm run report          # Open the latest HTML report
 ```
 
-The full suite is configured for Chrome, Edge, and Firefox. Test outputs are written to `playwright-report/` and `test-results/`; do not claim results until the tests have actually run against the EShop SUT.
+The full suite is configured for Chrome, Edge, and Firefox. Test outputs are written to the configured findings folder; do not claim results until the tests have actually run against the EShop SUT.
 
 ## Submission Checklist
 

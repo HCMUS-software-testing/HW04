@@ -31,48 +31,18 @@ test.describe('FR-01: Account Registration', () => {
       await gotoRegister(page);
 
       // ──────────────────────────────────────────────────────
-      // SPEC ASSERTION: Confirm Password field must exist (FR-01)
-      // ──────────────────────────────────────────────────────
-      if (tc.input.confirmPassword !== undefined) {
-        const confirmField = page.getByLabel(/xác nhận mật khẩu|confirm password/i);
-        // This assertion follows the SPEC: the field MUST exist.
-        // If it fails, it reveals a SUT bug (missing confirmPassword field).
-        // We soft-check here so the rest of the test can proceed.
-        const confirmFieldCount = await confirmField.count();
-        if (confirmFieldCount === 0) {
-          // SUT Bug: confirmPassword field is missing from Register.jsx.
-          // Log and skip filling this field, but the test should note the discrepancy.
-          test.info().annotations.push({
-            type: 'bug',
-            description: 'SUT Bug: Confirm Password field is missing from DOM (violates FR-01 spec)',
-          });
-        } else {
-          await confirmField.fill(tc.input.confirmPassword);
-        }
-      }
-
-      // ──────────────────────────────────────────────────────
       // Fill form fields
       // ──────────────────────────────────────────────────────
-      const nameInput = page.getByLabel(/họ tên/i);
-      const emailInput = page.getByLabel(/email/i);
-      const passwordInput = page.getByLabel(/mật khẩu/i).first();
+      // Register.jsx renders three unlabeled textboxes in this stable order:
+      // name, email, and password. The visible labels are not associated
+      // with their inputs through for/id, so getByLabel() cannot be used.
+      const textboxes = page.getByRole('textbox');
+      const nameInput = textboxes.nth(0);
+      const emailInput = textboxes.nth(1);
+      const passwordInput = textboxes.nth(2);
 
-      // For empty-field tests: the SUT has HTML5 `required` attribute,
-      // so we need to fill then clear (or use JavaScript to remove required)
-      if (tc.input.name === '') {
-        // Remove HTML5 required to allow form submission with empty value
-        await nameInput.evaluate((el: HTMLInputElement) => el.removeAttribute('required'));
-      } else {
-        await nameInput.fill(tc.input.name);
-      }
-
-      if (tc.input.email === '') {
-        await emailInput.evaluate((el: HTMLInputElement) => el.removeAttribute('required'));
-      } else {
-        await emailInput.fill(tc.input.email);
-      }
-
+      await nameInput.fill(tc.input.name);
+      await emailInput.fill(tc.input.email);
       await passwordInput.fill(tc.input.password);
 
       // ──────────────────────────────────────────────────────

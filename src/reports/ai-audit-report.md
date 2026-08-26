@@ -19,6 +19,8 @@
 | 6 | Time: `2026-08-25 22:32 +07`<br>Tool: `Codex / GPT-5`<br>Prompt:<br>[@superpowers](plugin://superpowers@openai-api-curated)<br><br>Đổi tên src/test/specs/feature-a.spec.ts thành src/test/specs/fr01.spec.ts<br><br>Viết file test script /src/test/specs/fr07.spec.ts:<br><br>- Thực thi Data-Driven Testing cho FR-07: Shopping Cart bằng cách đọc dữ liệu từ src/test/test-data/FR-07.json.<br>- Tạo test case tự động từ toàn bộ mảng testCases trong file JSON.<br>- Áp dụng ít nhất 3 dạng assertion patterns phù hợp:<br>  - URL assertion để kiểm tra điều hướng đến trang giỏ hàng.<br>  - Visible Text assertion để kiểm tra trạng thái giỏ hàng, tên sản phẩm, tổng tiền và thông báo.<br>  - Control State assertion để kiểm tra quantity input, nút tăng/giảm, nút xóa và trạng thái nút checkout.<br>- Sử dụng các locator ổn định như role, label, text hoặc data-testid; tránh locator phụ thuộc vào CSS class thay đổi thường xuyên.<br>- Tách các thao tác dùng chung thành helper functions nếu cần.<br>- Cấu trúc script rõ ràng, dễ bảo trì, mô tả đúng action và expected result của từng test case.<br>- Không hardcode danh sách test case trong file .spec.ts; dữ liệu phải lấy từ FR-07.json. | [Manual by user] |
 | 7 | Time: `2026-08-25 22:42 +07`<br>Tool: `Codex / GPT-5`<br>Prompt:<br>[@superpowers](plugin://superpowers@openai-api-curated)<br><br>Viết file test script đầu tiên src/test/specs/fr18.spec.ts:<br><br>- Thực thi Data-Driven Testing cho FR-18: Admin Order Management bằng cách đọc dữ liệu từ src/test/test-data/FR-18.json.<br>- Tạo test case tự động từ toàn bộ mảng testCases trong file JSON.<br>- Áp dụng ít nhất 3 dạng assertion patterns phù hợp:<br>  - URL assertion để kiểm tra truy cập đúng trang quản lý đơn hàng và các trang liên quan.<br>  - Visible Text assertion để kiểm tra danh sách đơn hàng, tiêu đề cột, trạng thái đơn hàng, thông báo lỗi và thông báo thành công.<br>  - Control State assertion để kiểm tra bộ lọc trạng thái, nút thao tác, form cập nhật trạng thái và quyền truy cập của admin.<br>- Bao phủ các hành vi được mô tả trong dữ liệu FR-18, gồm xem danh sách, lọc trạng thái, chuyển trạng thái, trạng thái cuối, kiểm tra XSS và access control.<br>- Sử dụng các locator ổn định như role, label, text hoặc data-testid; tránh locator phụ thuộc vào CSS class thay đổi thường xuyên.<br>- Tách thao tác đăng nhập admin, điều hướng và cập nhật trạng thái thành helper functions nếu cần.<br>- Cấu trúc script rõ ràng, dễ bảo trì và không hardcode danh sách test case trong .spec.ts. | [Manual by user] |
 | 8 | Time: `2026-08-26 12:01 +07`<br>Tool: `Codex / GPT-5`<br>Prompt:<br>[@superpowers](plugin://superpowers@openai-api-curated) FR-18 cần dùng http://localhost:5174 chứ không phải /admin trong user frontend. Hãy kiểm tra rồi sửa lại cho đúng. | [Manual by user] |
+| 9 | Time: `2026-08-26 13:47 +07`<br>Tool: `Codex / GPT-5`<br>Prompt:<br>[@superpowers](plugin://superpowers@openai-api-curated) \\n\\nHãy sửa script để kết quả của lượt chạy có thể set đường dẫn như sau:\\nsrc/findings/\\n├── frXX-run-name/\\n│   ├── test-results/\\n│   └── playwright-report/\\n└── bug-report.md. | [Manual by user] |
+| 10 | Time: `2026-08-26 13:58 +07`<br>Tool: `Codex / GPT-5`<br>Prompt:<br>[@superpowers](plugin://superpowers@openai-api-curated)\\n\\nSửa src/test/specs/fr01.spec.ts dựa trên findings tại\\nsrc/findings/fr01-registration-locator-failure/.\\n\\nKết quả:\\n- Chrome, Edge và Firefox đều fail REG_001.\\n- Lỗi: locator.fill timeout khi dùng getByLabel(/họ tên/i).\\n- DOM của SUT có label Họ Tên, Email, Mật khẩu nhưng label không liên kết với input.\\n- SUT không render trường Confirm Password.\\n\\nYêu cầu:\\n- Kiểm tra Register.jsx để xác nhận DOM thực tế.\\n- Thay getByLabel() bằng locator ổn định phù hợp với DOM, ưu tiên role và thứ tự input.\\n- Không sửa source code của EShop SUT.\\n- Không dùng evaluate để xóa required.\\n- Xử lý đúng việc Confirm Password không tồn tại.\\n- Giữ Data-Driven Testing từ FR-01.json.\\n- Giữ URL, Visible Text và Control State assertions.\\n- Chạy lại trên Chrome, Edge và Firefox.\\n- Báo cáo pass/fail chính xác theo từng browser. | [Manual by user] |
 
 ### 2.2. Chi tiết audit
 
@@ -197,6 +199,40 @@ Prompt:
 [@superpowers](plugin://superpowers@openai-api-curated) FR-18 cần dùng http://localhost:5174 chứ không phải /admin trong user frontend. Hãy kiểm tra rồi sửa lại cho đúng.
 
 **AI Output:** Đã cập nhật src/test/specs/fr18.spec.ts để dùng ADMIN_BASE_URL mặc định http://localhost:5174, đăng nhập tại admin SPA và chọn tab Đơn hàng; cập nhật src/README.md; Playwright discover thành công 45 tests (15 test cas...
+
+**Verdict:** [Manual by user]
+
+**Reasoning:** [Manual by user]
+
+**Student Fix:** [Manual by user]
+
+### 2.2.9 Entry 9
+
+**Prompt + Tool:**
+
+Time: `2026-08-26 13:47 +07`
+Tool: `Codex / GPT-5`
+Prompt:
+[@superpowers](plugin://superpowers@openai-api-curated) \n\nHãy sửa script để kết quả của lượt chạy có thể set đường dẫn như sau:\nsrc/findings/\n├── frXX-run-name/\n│   ├── test-results/\n│   └── playwright-report/\n└── bug-report.md.
+
+**AI Output:** Đã cập nhật src/playwright.config.ts để nhận FINDINGS_DIR, ghi test results và HTML report vào cùng thư mục findings; cập nhật README; xác nhận discovery 42 tests trên Chrome, Edge và Firefox.
+
+**Verdict:** [Manual by user]
+
+**Reasoning:** [Manual by user]
+
+**Student Fix:** [Manual by user]
+
+### 2.2.10 Entry 10
+
+**Prompt + Tool:**
+
+Time: `2026-08-26 13:58 +07`
+Tool: `Codex / GPT-5`
+Prompt:
+[@superpowers](plugin://superpowers@openai-api-curated)\n\nSửa src/test/specs/fr01.spec.ts dựa trên findings tại\nsrc/findings/fr01-registration-locator-failure/.\n\nKết quả:\n- Chrome, Edge và Firefox đều fail REG_001.\n- Lỗi: locator.fill timeout khi dùng getByLabel(/họ tên/i).\n- DOM của SUT có label Họ Tên, Email, Mật khẩu nhưng label không liên kết với input.\n- SUT không render trường Confirm Password.\n\nYêu cầu:\n- Kiểm tra Register.jsx để xác nhận DOM thực tế.\n- Thay getByLabel() bằng locator ổn định phù hợp với DOM, ưu tiên role và thứ tự input.\n- Không sửa source code của EShop SUT.\n- Không dùng evaluate để xóa required.\n- Xử lý đúng việc Confirm Password không tồn tại.\n- Giữ Data-Driven Testing từ FR-01.json.\n- Giữ URL, Visible Text và Control State assertions.\n- Chạy lại trên Chrome, Edge và Firefox.\n- Báo cáo pass/fail chính xác theo từng browser.
+
+**AI Output:** Đã sửa src/test/specs/fr01.spec.ts dùng role textbox theo thứ tự, bỏ Confirm Password không tồn tại và bỏ evaluate xóa required. Lần chạy tạo findings/fr01-locator-fixed; Chrome/Edge gặp SIGTRAP khi khởi động, Firefox...
 
 **Verdict:** [Manual by user]
 

@@ -2,6 +2,7 @@ import { defineConfig, devices } from '@playwright/test';
 
 const studentId = process.env.STUDENT_ID ?? '23127075';
 const timestamp = new Date().toISOString();
+const findingsDir = process.env.FINDINGS_DIR ?? 'findings/latest';
 
 export default defineConfig({
   testDir: './test/specs',
@@ -9,11 +10,12 @@ export default defineConfig({
   expect: {
     timeout: 5_000,
   },
+  outputDir: `${findingsDir}/test-results`,
   fullyParallel: false,
   retries: 0,
   reporter: [
     ['html', {
-      outputFolder: 'playwright-report',
+      outputFolder: `${findingsDir}/playwright-report`,
       open: 'never',
       title: `HW04 Automation Testing - Run by: ${studentId} - ${timestamp}`,
     }],
