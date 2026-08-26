@@ -8,6 +8,7 @@
   "orders": [
     {
       "fixtureKey": "fr18-pending",
+      "orderId": 1,
       "userEmail": "test@eshop.com",
       "totalAmount": 30000000,
       "status": "pending",
@@ -15,6 +16,7 @@
     },
     {
       "fixtureKey": "fr18-confirmed",
+      "orderId": 2,
       "userEmail": "test@eshop.com",
       "totalAmount": 28000000,
       "status": "confirmed",
@@ -22,6 +24,7 @@
     },
     {
       "fixtureKey": "fr18-shipping",
+      "orderId": 3,
       "userEmail": "test@eshop.com",
       "totalAmount": 45000000,
       "status": "shipping",
@@ -29,6 +32,7 @@
     },
     {
       "fixtureKey": "fr18-delivered",
+      "orderId": 4,
       "userEmail": "test@eshop.com",
       "totalAmount": 6000000,
       "status": "delivered",
@@ -36,10 +40,35 @@
     },
     {
       "fixtureKey": "fr18-canceled-xss",
+      "orderId": 5,
       "userEmail": "test@eshop.com",
       "totalAmount": 4000000,
       "status": "canceled",
       "shippingAddress": "<script>alert('XSS')</script> 123 Le Loi"
+    },
+    {
+      "fixtureKey": "fr18-update-pending-confirmed", "orderId": 6, "userEmail": "test@eshop.com", "totalAmount": 31000000, "status": "pending", "shippingAddress": "20 Hai Ba Trung, Ho Chi Minh City"
+    },
+    {
+      "fixtureKey": "fr18-update-confirmed-shipping", "orderId": 7, "userEmail": "test@eshop.com", "totalAmount": 32000000, "status": "confirmed", "shippingAddress": "21 Hai Ba Trung, Ho Chi Minh City"
+    },
+    {
+      "fixtureKey": "fr18-update-shipping-delivered", "orderId": 8, "userEmail": "test@eshop.com", "totalAmount": 33000000, "status": "shipping", "shippingAddress": "22 Hai Ba Trung, Ho Chi Minh City"
+    },
+    {
+      "fixtureKey": "fr18-cancel-pending", "orderId": 9, "userEmail": "test@eshop.com", "totalAmount": 34000000, "status": "pending", "shippingAddress": "23 Hai Ba Trung, Ho Chi Minh City"
+    },
+    {
+      "fixtureKey": "fr18-cancel-confirmed", "orderId": 10, "userEmail": "test@eshop.com", "totalAmount": 35000000, "status": "confirmed", "shippingAddress": "24 Hai Ba Trung, Ho Chi Minh City"
+    },
+    {
+      "fixtureKey": "fr18-invalid-delivered", "orderId": 11, "userEmail": "test@eshop.com", "totalAmount": 36000000, "status": "delivered", "shippingAddress": "25 Hai Ba Trung, Ho Chi Minh City"
+    },
+    {
+      "fixtureKey": "fr18-invalid-canceled", "orderId": 12, "userEmail": "test@eshop.com", "totalAmount": 37000000, "status": "canceled", "shippingAddress": "26 Hai Ba Trung, Ho Chi Minh City"
+    },
+    {
+      "fixtureKey": "fr18-xss", "orderId": 13, "userEmail": "test@eshop.com", "totalAmount": 38000000, "status": "pending", "shippingAddress": "<script>alert('XSS')</script> 123 Le Loi"
     }
   ]
 }

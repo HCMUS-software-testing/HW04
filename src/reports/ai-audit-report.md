@@ -28,6 +28,8 @@
 | 15 | Time: `2026-08-26 15:10 +07`<br>Tool: `Codex / GPT-5`<br>Prompt:<br>Dựa trên src/test/test-data/FR-07.json đã được cập nhật theo seed data thật của EShop SUT, hãy tiếp tục cải thiện src/test/specs/fr07.spec.ts mà không sửa source code trong eshop-sut.<br><br>Yêu cầu:<br><br>- Giữ Data-Driven Testing bằng toàn bộ mảng testCases trong src/test/test-data/FR-07.json.<br>- Sử dụng đúng productId, productName, price, quantity và subtotal từ JSON; không hardcode sản phẩm hoặc giá trong file .spec.ts.<br>- Với CART_002, bổ sung assertion:<br>  - Đúng tên sản phẩm trong cart row.<br>  - Đúng quantity.<br>  - Đúng subtotal.<br>  - Đúng total amount.<br>  - Đúng số lượng cart row.<br>- Với CART_003:<br>  - Giữ assertion row count riêng biệt.<br>  - Kiểm tra quantity, subtotal và total amount theo JSON.<br>  - Không sửa assertion để che giấu lỗi SUT khi cùng sản phẩm tạo nhiều row.<br>- Với CART_004:<br>  - Kiểm tra đúng hai cart rows.<br>  - Kiểm tra tên từng sản phẩm bằng getByRole('cell') trong đúng row.<br>  - Kiểm tra quantity và subtotal của từng sản phẩm.<br>  - Kiểm tra tổng tiền 88.000.000 theo JSON.<br>- Với CART_005–CART_007 và CART_009–CART_012:<br>  - Giữ trạng thái skip nếu SUT thực tế không có quantity controls, quantity validation hoặc confirmation dialog.<br>  - Ghi lý do skip rõ ràng và phân biệt đây là thiếu chức năng của SUT.<br>- Với CART_001:<br>  - Assert empty message.<br>  - Nếu JSON yêu cầu hasIllustration: true thì kiểm tra illustration thực tế.<br>  - Nếu SUT không render illustration, giữ test fail trung thực hoặc ghi nhận product bug; không bỏ assertion.<br>- Với cart có sản phẩm:<br>  - Assert nút “Tiến hành thanh toán” tồn tại và trạng thái control phù hợp.<br>- Giữ URL assertion cho /cart, visible text assertion và control-state assertion.<br>- Tiếp tục dùng locator ổn định: role, label, text, data-testid hoặc phạm vi tbody/tr/td; tránh CSS class dễ thay đổi.<br>- Không dùng evaluate để can thiệp state hoặc bỏ required.<br>- Không sửa source code EShop SUT.<br>- Không thay đổi expected result chỉ để làm test pass.<br>- Kiểm tra flow addProduct để bảo đảm không dùng page.goto('/cart') sau khi thêm sản phẩm và không làm mất React cart state.<br>- Chạy toàn bộ FR-07 trên Chrome, Edge và Firefox bằng --workers=1.<br>- Lưu kết quả vào:<br>  src/findings/fr07-05-cart-data-aligned/<br>- Báo cáo chính xác pass/fail/skip theo từng browser.<br>- Phân loại rõ lỗi test script, lỗi dữ liệu test và product bug của SUT. | [Manual by user] |
 | 16 | Time: `2026-08-26 15:15 +07`<br>Tool: `Codex / GPT-5`<br>Prompt:<br>Dựa trên src/test/specs/fr07.spec.ts hiện tại, hãy sửa helper productCard để tìm product card bằng productName đọc từ src/test/test-data/FR-07.json thay vì dựa vào thứ tự heading với nth(productId - 1). | [Manual by user] |
 | 17 | Time: `2026-08-26 15:28 +07`<br>Tool: `Codex / GPT-5`<br>Prompt:<br>Dựa trên findings tại src/findings/fr18-01/, hãy cải thiện src/test/specs/fr18.spec.ts mà không sửa source code trong eshop-sut. Kiểm tra DOM, seed dữ liệu đủ coverage FR-18, cập nhật locator theo các nút hành động thực tế, giữ data-driven testing, assertions và chạy trên Chrome Edge Firefox; lưu findings fr18-02 và báo cáo chính xác. | [Manual by user] |
+| 18 | Time: `2026-08-26 16:56 +07`<br>Tool: `Codex / GPT-5`<br>Prompt:<br>Dựa trên findings tại src/findings/fr18-03-admin-order-isolated-rerun/, hãy khắc phục state isolation cho FR-18.\\n\\n- Không sửa source code frontend/backend trong eshop-sut.\\n- Tạo fixture order riêng cho từng test mutation trong seed-data/fr18-orders.json.\\n- Mỗi case update/cancel/final-state phải có orderId riêng và không được dùng lại order của case khác.\\n- Cập nhật src/test/test-data/FR-18.json theo các orderId mới.\\n- Nếu cần, cập nhật seed script để xóa và tạo lại toàn bộ fixture với ID ổn định.\\n- Bảo đảm seed được thực hiện sau khi server khởi động và trước mỗi browser run.\\n- Không để test mutation ảnh hưởng đến test khác.\\n- Giữ locator theo orderId, Data-Driven Testing, URL/visible-text/control-state assertions.\\n- Kiểm tra final-state delivered/canceled một cách trung thực; nếu SUT vẫn hiển thị action hoặc cho phép cập nhật, giữ failure và phân loại product bug.\\n- Kiểm tra XSS đúng order fixture.\\n- Chạy Chrome, Edge và Firefox với --workers=1.\\n- Lưu kết quả vào src/findings/fr18-04-admin-order-isolated-final/.\\n- Báo cáo pass/fail/skip và phân loại lỗi script, fixture, môi trường, product bug. | [Manual by user] |
+| 19 | Time: `2026-08-26 17:24 +07`<br>Tool: `Codex / GPT-5`<br>Prompt:<br>Dựa trên findings tại src/findings/fr18-04-admin-order-isolated-final-rerun-2/ và kết quả API đã xác nhận backend trả đầy đủ order ID 1–13, hãy sửa src/test/specs/fr18.spec.ts mà không sửa source code trong eshop-sut. Cập nhật orderRow theo DOM thực tế, giữ data-driven testing, assertions, fixture isolation, chạy Chrome Edge Firefox, lưu findings fr18-05-admin-order-locator-fixed và báo cáo phân loại lỗi. | [Manual by user] |
 
 ### 2.2. Chi tiết audit
 
@@ -439,6 +441,40 @@ Prompt:
 Dựa trên findings tại src/findings/fr18-01/, hãy cải thiện src/test/specs/fr18.spec.ts mà không sửa source code trong eshop-sut. Kiểm tra DOM, seed dữ liệu đủ coverage FR-18, cập nhật locator theo các nút hành động thực tế, giữ data-driven testing, assertions và chạy trên Chrome Edge Firefox; lưu findings fr18-02 và báo cáo chính xác.
 
 **AI Output:** Đã cập nhật fr18.spec.ts theo DOM admin thực tế, status tiếng Việt và action buttons; các filter không tồn tại được skip trung thực. Playwright --list xác nhận 45 test trên Chrome, Edge và Firefox; chưa chạy full vì c...
+
+**Verdict:** [Manual by user]
+
+**Reasoning:** [Manual by user]
+
+**Student Fix:** [Manual by user]
+
+### 2.2.18 Entry 18
+
+**Prompt + Tool:**
+
+Time: `2026-08-26 16:56 +07`
+Tool: `Codex / GPT-5`
+Prompt:
+Dựa trên findings tại src/findings/fr18-03-admin-order-isolated-rerun/, hãy khắc phục state isolation cho FR-18.\n\n- Không sửa source code frontend/backend trong eshop-sut.\n- Tạo fixture order riêng cho từng test mutation trong seed-data/fr18-orders.json.\n- Mỗi case update/cancel/final-state phải có orderId riêng và không được dùng lại order của case khác.\n- Cập nhật src/test/test-data/FR-18.json theo các orderId mới.\n- Nếu cần, cập nhật seed script để xóa và tạo lại toàn bộ fixture với ID ổn định.\n- Bảo đảm seed được thực hiện sau khi server khởi động và trước mỗi browser run.\n- Không để test mutation ảnh hưởng đến test khác.\n- Giữ locator theo orderId, Data-Driven Testing, URL/visible-text/control-state assertions.\n- Kiểm tra final-state delivered/canceled một cách trung thực; nếu SUT vẫn hiển thị action hoặc cho phép cập nhật, giữ failure và phân loại product bug.\n- Kiểm tra XSS đúng order fixture.\n- Chạy Chrome, Edge và Firefox với --workers=1.\n- Lưu kết quả vào src/findings/fr18-04-admin-order-isolated-final/.\n- Báo cáo pass/fail/skip và phân loại lỗi script, fixture, môi trường, product bug.
+
+**AI Output:** Đã mở rộng fixture thành 13 order độc lập, cập nhật FR-18.json để mỗi mutation/final-state/XSS dùng orderId riêng, bổ sung reset sqlite_sequence và kiểm tra ID trong seed script. Seed thành công với order ID 1–13 đúng trạng thái. Lượt Playwright tạo artifacts nhưng không có kết quả hợp lệ vì môi trường/browser không truy cập được localhost:5174 và phát sinh SIGTRAP, Target page has been closed và NS_ERROR_OUT_OF_MEMORY.
+
+**Verdict:** [Manual by user]
+
+**Reasoning:** [Manual by user]
+
+**Student Fix:** [Manual by user]
+
+### 2.2.19 Entry 19
+
+**Prompt + Tool:**
+
+Time: `2026-08-26 17:24 +07`
+Tool: `Codex / GPT-5`
+Prompt:
+Dựa trên findings tại src/findings/fr18-04-admin-order-isolated-final-rerun-2/ và kết quả API đã xác nhận backend trả đầy đủ order ID 1–13, hãy sửa src/test/specs/fr18.spec.ts mà không sửa source code trong eshop-sut. Cập nhật orderRow theo DOM thực tế, giữ data-driven testing, assertions, fixture isolation, chạy Chrome Edge Firefox, lưu findings fr18-05-admin-order-locator-fixed và báo cáo phân loại lỗi.
+
+**AI Output:** Đã kiểm tra Admin App.jsx: cột ID thực tế render dạng # o.id. Đã sửa orderRow để tìm cell ID theo regex ^#?orderId$, tránh bắt nhầm số tiền/địa chỉ. Seed/fixture không thay đổi. TypeScript không chạy được vì repository không có tsconfig.json. Playwright probe Chrome vẫn bị môi trường đóng browser với SIGTRAP trước khi vào DOM, nên chưa có báo cáo pass/fail hợp lệ cho lượt fr18-05.
 
 **Verdict:** [Manual by user]
 

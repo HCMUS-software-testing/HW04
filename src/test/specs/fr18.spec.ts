@@ -30,7 +30,10 @@ async function openOrdersAsAdmin(page: Page) {
 }
 
 function orderRow(page: Page, orderId: number) {
-  return page.getByRole('row').filter({ hasText: new RegExp(`#${orderId}(?:\\s|$)`) }).first();
+  const idCell = page.getByRole('cell', {
+    name: new RegExp(`^#?${orderId}$`),
+  });
+  return page.getByRole('row').filter({ has: idCell }).first();
 }
 
 async function assertOrderControls(page: Page) {

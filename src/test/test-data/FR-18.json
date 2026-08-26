@@ -90,7 +90,7 @@
       "input": {
         "currentStatus": "pending",
         "targetStatus": "confirmed",
-        "orderId": 1
+        "orderId": 6
       },
       "expected": {
         "success": true,
@@ -106,7 +106,7 @@
       "input": {
         "currentStatus": "confirmed",
         "targetStatus": "shipping",
-        "orderId": 2
+        "orderId": 7
       },
       "expected": {
         "success": true,
@@ -122,7 +122,7 @@
       "input": {
         "currentStatus": "shipping",
         "targetStatus": "delivered",
-        "orderId": 3
+        "orderId": 8
       },
       "expected": {
         "success": true,
@@ -139,7 +139,7 @@
       "input": {
         "currentStatus": "pending",
         "targetStatus": "canceled",
-        "orderId": 1
+        "orderId": 9
       },
       "expected": {
         "success": true,
@@ -155,7 +155,7 @@
       "input": {
         "currentStatus": "confirmed",
         "targetStatus": "canceled",
-        "orderId": 2
+        "orderId": 10
       },
       "expected": {
         "success": true,
@@ -171,7 +171,7 @@
       "input": {
         "currentStatus": "delivered",
         "targetStatus": "shipping",
-        "orderId": 4
+        "orderId": 11
       },
       "expected": {
         "success": false,
@@ -186,7 +186,7 @@
       "input": {
         "currentStatus": "canceled",
         "targetStatus": "confirmed",
-        "orderId": 5
+        "orderId": 12
       },
       "expected": {
         "success": false,
@@ -200,7 +200,7 @@
       "action": "check_xss_escaping",
       "input": {
         "shippingAddress": "<script>alert('XSS')</script> 123 Le Loi",
-        "orderId": 5
+        "orderId": 13
       },
       "expected": {
         "rawHtmlExecuted": false,
