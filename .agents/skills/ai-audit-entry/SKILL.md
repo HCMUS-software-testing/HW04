@@ -76,7 +76,7 @@ Do not create or maintain legacy sections such as `AI Tool Usage Summary`, `Prom
 
 Use Vietnamese with full accents for new audit metadata that the AI writes itself, such as `Purpose`, brief factual notes, or non-verbatim summaries, unless the user explicitly requests another language.
 
-For each audit entry, keep prompts and output summaries in their original language. Do not remove accents, add accents, or correct character encoding. The prompt is always copied in full. For `--output`, the script escapes Markdown table pipes, converts line breaks to `<br>`, and shortens long output text so ordinary entries remain concise. For `--output-file`, the script preserves the UTF-8 file content verbatim in the `2.2` detail entry and wraps it in a fenced code block.
+For each audit entry, keep prompts and output summaries in their original language. Do not remove accents, add accents, or correct character encoding. The prompt is always copied in full. For `--output`, provide a meaningful concise summary yourself; the script escapes Markdown table pipes and converts line breaks to `<br>`, but never silently truncates text or appends `...`. For `--output-file`, the script preserves the UTF-8 file content verbatim in the `2.2` detail entry and wraps it in a fenced code block.
 
 Write and read the audit report as UTF-8. If using `--output-file`, the script copies that file as UTF-8 verbatim into the `Output` field.
 
@@ -86,7 +86,7 @@ Use concise, factual text. Do not include private chain-of-thought, hidden polic
 
 `Prompt + Tool` must include the user's full prompt for that session. Do not translate, summarize, truncate, normalize spelling, add missing accents, or correct typos.
 
-`AI Output` should be short and factual for ordinary sessions. Mention the changed files, generated artifacts, or conclusion rather than pasting a full report/code block into the report unless the AI output is one contiguous generated artifact. If the artifact is continuous and available as a single file, include the full content with `--output-file`.
+`AI Output` should be a short, factual, complete summary for ordinary sessions. Mention changed files, generated artifacts, results, and important limitations; do not pass a long transcript and rely on the script to shorten it. Never leave a truncated fragment or trailing `...`. If the artifact is continuous and available as a single file, include the full content with `--output-file`.
 
 Always record the clearest available tool and model/version in `Tool/Model`. Use `--tool-model` when known, for example `GPT-5.4`, `GPT-5.5`, or `Claude Sonnet`. If the exact version is not visible, use the tool family plus the most specific known model name instead of a generic value.
 

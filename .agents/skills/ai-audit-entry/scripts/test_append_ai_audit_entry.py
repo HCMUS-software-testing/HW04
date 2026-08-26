@@ -458,7 +458,7 @@ def test_deleted_summary_row_removes_matching_detail_entry(tmp_path: Path) -> No
     assert "### 2.2.3 Entry 3" in audit_text
 
 
-def test_long_output_is_summarized_for_table(tmp_path: Path) -> None:
+def test_output_is_not_silently_truncated(tmp_path: Path) -> None:
     tmp_path.mkdir(parents=True, exist_ok=True)
     audit_file = tmp_path / "audit.md"
     long_output = " ".join(["generated-content"] * 40)
@@ -486,10 +486,11 @@ def test_long_output_is_summarized_for_table(tmp_path: Path) -> None:
     assert result.returncode == 0, result.stderr
     audit_text = audit_file.read_text(encoding="utf-8")
     summary_row = next(line for line in audit_text.splitlines() if line.startswith("| 1 |"))
-    assert len(summary_row) < 500
+    assert len(summary_row) > 500
     detail_line = next(line for line in audit_text.splitlines() if line.startswith("**AI Output:**"))
-    assert len(detail_line) < 300
-    assert "..." in detail_line
+    assert len(detail_line) > 300
+    assert "..." not in detail_line
+    assert long_output in audit_text
 
 
 def test_table_cells_escape_pipes_and_newlines(tmp_path: Path) -> None:

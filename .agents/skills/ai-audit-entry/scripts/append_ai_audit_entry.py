@@ -61,8 +61,8 @@ def table_cell(value: str) -> str:
 
 
 def detail_value(value: str) -> str:
-    """Keep detail fields readable and single-line for predictable parsing."""
-    return table_cell(summarize_cell(value)).strip()
+    """Keep detail fields readable without silently cutting the AI output."""
+    return table_cell(value).strip()
 
 
 def detail_block(value: str) -> str:
@@ -109,12 +109,10 @@ def prompt_tool_value(timestamp: str, tool_model: str, prompt: str) -> str:
     return f"Time: `{timestamp}`\nTool: `{tool_model}`\nPrompt:\n{prompt.strip()}"
 
 
-def summarize_cell(value: str, max_chars: int = 220) -> str:
-    """Keep audit fields concise while preserving readable evidence."""
+def summarize_cell(value: str) -> str:
+    """Normalize whitespace; callers must provide a meaningful concise summary."""
     normalized = re.sub(r"\s+", " ", value.strip())
-    if len(normalized) <= max_chars:
-        return normalized
-    return normalized[: max_chars - 3].rstrip() + "..."
+    return normalized
 
 
 def split_markdown_row(line: str) -> list[str]:
