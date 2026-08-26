@@ -1,17 +1,23 @@
 import { expect, Page, test } from '@playwright/test';
-import { loginAsAdmin } from '../helpers/eshop';
 import testData from '../test-data/FR-18.json';
 
 type OrderCase = (typeof testData.testCases)[number];
 const orderCases = testData.testCases as OrderCase[];
+const adminBaseUrl = process.env.ADMIN_BASE_URL ?? 'http://localhost:5174';
 
 async function openAdminOrders(page: Page) {
-  await page.goto('/admin/orders');
-  await expect(page).toHaveURL(/\/admin\/orders|\/orders/i);
+  await page.goto(adminBaseUrl);
+  await expect(page).toHaveURL(`${adminBaseUrl}/`);
+  await page.getByText('Đơn hàng', { exact: true }).click();
+  await expect(page.getByRole('heading', { name: /quản lý đơn hàng/i })).toBeVisible();
 }
 
 async function openOrdersAsAdmin(page: Page) {
-  await loginAsAdmin(page);
+  await page.goto(adminBaseUrl);
+  await page.getByPlaceholder('Email').fill('admin@eshop.com');
+  await page.getByPlaceholder('Password').fill('Admin123!');
+  await page.getByRole('button', { name: 'Login', exact: true }).click();
+  await expect(page.getByText('EShop Admin', { exact: true })).toBeVisible();
   await openAdminOrders(page);
 }
 
@@ -105,10 +111,10 @@ async function runOrderCase(page: Page, orderCase: OrderCase) {
     }
 
     case 'unauthorized_access':
-      await page.goto('/admin/orders');
-      await expect(page).toHaveURL(new RegExp(expected.redirectUrl));
-      await expect(page.getByText(expected.errorMessage, { exact: true })).toBeVisible();
-      await expect(page.getByRole('button', { name: /đăng nhập|login/i })).toBeEnabled();
+      await page.goto(adminBaseUrl);
+      await expect(page).toHaveURL(`${adminBaseUrl}/`);
+      await expect(page.getByRole('heading', { name: 'Admin Login' })).toBeVisible();
+      await expect(page.getByRole('button', { name: 'Login', exact: true })).toBeEnabled();
       break;
 
     default:

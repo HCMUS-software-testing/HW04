@@ -25,11 +25,21 @@ npm install
 npx playwright install
 ```
 
-Set the EShop URL and student ID before running the suite:
+Start all three EShop services in separate terminals. The user frontend is `5173`, while the admin frontend is `5174`; both use the backend on `3000`:
 
 ```bash
-STUDENT_ID=23127075 BASE_URL=<eshop-url> npm test
+cd eshop-sut/backend && node server.js
+cd eshop-sut/frontend-web && npm run dev
+cd eshop-sut/frontend-admin && npm run dev
 ```
+
+Run FR-01 and FR-07 against the user frontend, and FR-18 against the separate admin frontend:
+
+```bash
+STUDENT_ID=23127075 BASE_URL=http://localhost:5173 npm run test:fr01
+STUDENT_ID=23127075 BASE_URL=http://localhost:5173 npm run test:fr07
+STUDENT_ID=23127075 ADMIN_BASE_URL=http://localhost:5174 npm run test:fr18
+``` 
 
 Useful commands:
 
@@ -37,7 +47,7 @@ Useful commands:
 npm run test:headed     # Run with a visible browser
 npm run test:fr01       # Run FR-01 only
 npm run test:fr07       # Run FR-07 only
-npm run test:fr18       # Run FR-18 only
+npm run test:fr18       # Run FR-18 only (uses ADMIN_BASE_URL, default 5174)
 npm run report          # Open the latest HTML report
 ```
 
