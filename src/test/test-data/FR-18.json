@@ -14,7 +14,7 @@
       "expected": {
         "success": true,
         "ordersVisible": true,
-        "columns": ["Mã đơn", "Khách hàng", "Ngày đặt", "Tổng tiền", "Trạng thái", "Thao tác"]
+        "columns": ["ID", "Người đặt", "Tổng tiền", "Địa chỉ", "Trạng thái", "Hành động"]
       }
     },
     {
@@ -89,7 +89,8 @@
       "action": "update_status",
       "input": {
         "currentStatus": "pending",
-        "targetStatus": "confirmed"
+        "targetStatus": "confirmed",
+        "orderId": 1
       },
       "expected": {
         "success": true,
@@ -104,7 +105,8 @@
       "action": "update_status",
       "input": {
         "currentStatus": "confirmed",
-        "targetStatus": "shipping"
+        "targetStatus": "shipping",
+        "orderId": 2
       },
       "expected": {
         "success": true,
@@ -119,7 +121,8 @@
       "action": "update_status",
       "input": {
         "currentStatus": "shipping",
-        "targetStatus": "delivered"
+        "targetStatus": "delivered",
+        "orderId": 3
       },
       "expected": {
         "success": true,
@@ -135,7 +138,8 @@
       "action": "cancel_order",
       "input": {
         "currentStatus": "pending",
-        "targetStatus": "canceled"
+        "targetStatus": "canceled",
+        "orderId": 1
       },
       "expected": {
         "success": true,
@@ -150,7 +154,8 @@
       "action": "cancel_order",
       "input": {
         "currentStatus": "confirmed",
-        "targetStatus": "canceled"
+        "targetStatus": "canceled",
+        "orderId": 2
       },
       "expected": {
         "success": true,
@@ -165,7 +170,8 @@
       "action": "invalid_transition_from_delivered",
       "input": {
         "currentStatus": "delivered",
-        "targetStatus": "shipping"
+        "targetStatus": "shipping",
+        "orderId": 4
       },
       "expected": {
         "success": false,
@@ -179,7 +185,8 @@
       "action": "invalid_transition_from_canceled",
       "input": {
         "currentStatus": "canceled",
-        "targetStatus": "confirmed"
+        "targetStatus": "confirmed",
+        "orderId": 5
       },
       "expected": {
         "success": false,
@@ -192,7 +199,8 @@
       "category": "edge",
       "action": "check_xss_escaping",
       "input": {
-        "shippingAddress": "<script>alert('XSS')</script> 123 Le Loi"
+        "shippingAddress": "<script>alert('XSS')</script> 123 Le Loi",
+        "orderId": 5
       },
       "expected": {
         "rawHtmlExecuted": false,

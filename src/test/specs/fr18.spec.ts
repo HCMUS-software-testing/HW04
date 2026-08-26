@@ -29,8 +29,8 @@ async function openOrdersAsAdmin(page: Page) {
   await openAdminOrders(page);
 }
 
-function orderRow(page: Page, status: string) {
-  return page.getByRole('row').filter({ hasText: statusLabels[status] ?? status }).first();
+function orderRow(page: Page, orderId: number) {
+  return page.getByRole('row').filter({ hasText: new RegExp(`#${orderId}(?:\\s|$)`) }).first();
 }
 
 async function assertOrderControls(page: Page) {
@@ -45,9 +45,10 @@ async function filterOrders(page: Page, status: string) {
   test.skip(true, 'SUT không có bộ lọc trạng thái (product gap); chỉ hiển thị toàn bộ order list.');
 }
 
-async function updateOrderStatus(page: Page, currentStatus: string, targetStatus: string) {
-  const row = orderRow(page, currentStatus);
+async function updateOrderStatus(page: Page, orderId: number, currentStatus: string, targetStatus: string) {
+  const row = orderRow(page, orderId);
   await expect(row).toBeVisible();
+  await expect(row).toContainText(statusLabels[currentStatus] ?? currentStatus);
 
   const actionNames: Record<string, string> = {
     'pending:confirmed': 'Xác nhận',
@@ -56,6 +57,7 @@ async function updateOrderStatus(page: Page, currentStatus: string, targetStatus
     'confirmed:canceled': 'Hủy',
     'shipping:delivered': 'Hoàn thành',
     'canceled:delivered': 'Đánh dấu Đã giao',
+    'canceled:confirmed': 'Đánh dấu Đã giao',
   };
   const actionName = actionNames[`${currentStatus}:${targetStatus}`];
   if (!actionName) {
@@ -93,16 +95,16 @@ async function runOrderCase(page: Page, orderCase: OrderCase) {
     case 'update_status':
     case 'cancel_order':
       await openOrdersAsAdmin(page);
-      await updateOrderStatus(page, input.currentStatus, input.targetStatus);
+      await updateOrderStatus(page, input.orderId, input.currentStatus, input.targetStatus);
       await assertExpectedMessage(page, expected.message);
-      await expect(page.getByText(statusLabels[expected.updatedStatus] ?? expected.updatedStatus, { exact: true })).toBeVisible();
+      await expect(orderRow(page, input.orderId)).toContainText(statusLabels[expected.updatedStatus] ?? expected.updatedStatus);
       await assertOrderControls(page);
       break;
 
     case 'invalid_transition_from_delivered':
     case 'invalid_transition_from_canceled':
       await openOrdersAsAdmin(page);
-      await updateOrderStatus(page, input.currentStatus, input.targetStatus);
+      await updateOrderStatus(page, input.orderId, input.currentStatus, input.targetStatus);
       await assertExpectedMessage(page, expected.errorMessage);
       break;
 
@@ -113,7 +115,9 @@ async function runOrderCase(page: Page, orderCase: OrderCase) {
         dialogOpened = true;
         await dialog.dismiss();
       });
-      const addressCell = page.getByRole('cell').filter({ hasText: /123 Le Loi|Chưa cập nhật/i });
+      const row = orderRow(page, input.orderId);
+      await expect(row).toBeVisible();
+      const addressCell = row.getByRole('cell').filter({ hasText: /123 Le Loi/i });
       await expect(addressCell.first()).toBeVisible();
       await expect(addressCell).not.toContainText('<script>');
       await expect(addressCell).not.toContainText("alert('XSS')");
