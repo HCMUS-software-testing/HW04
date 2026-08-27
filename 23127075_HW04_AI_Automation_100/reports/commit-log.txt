@@ -11,4 +11,4 @@ d88077b test: run FR-18 against admin frontend
 557fc47 test: add FR-07 shopping cart
 7cc519d test: add FR-01 registration automation
 
-[TODO: regenerate with `git log --oneline --all -- src/test/specs` if history changes.]
+The log above records the test-script commits included in this submission package.

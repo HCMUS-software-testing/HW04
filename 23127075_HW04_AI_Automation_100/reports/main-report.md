@@ -1,26 +1,27 @@
-# HW04 Automation Testing — Main Report
+# HW04 Kiểm thử tự động — Báo cáo chính
 
-## Submission information
+## Thông tin sinh viên
 
 - Student ID: `23127075`
-- Repository: `[TODO: public GitHub URL]`
-- AI Skills Demo: https://youtu.be/T96vCNmal-s
-- Scripts Demo: https://youtu.be/DTWXP3eLIns
-- PDF export: `[TODO: export this file to PDF before submission]`
+- Mã sinh viên: `23127075`
+- Repository: https://github.com/HCMUS-software-testing/HW04
+- Video demo AI Skills: https://youtu.be/T96vCNmal-s
+- Video demo Scripts: https://youtu.be/DTWXP3eLIns
+- PDF: Sinh viên sẽ export trước khi nộp.
 
-## Scope and automation summary
+## Phạm vi và tóm tắt tự động hóa
 
-This submission automates FR-01 Account Registration, FR-07 Shopping Cart, and FR-18 Admin Order Management. The three Playwright specs use external JSON data and URL, visible-text, and control-state assertions. Each feature has at least 12 data-driven cases and is configured for Chrome, Edge, and Firefox.
+Bài làm tự động hóa FR-01 Đăng ký tài khoản, FR-07 Giỏ hàng và FR-18 Quản lý đơn hàng Admin. Ba Playwright spec sử dụng dữ liệu JSON bên ngoài và các assertion URL, visible text và control state. Mỗi feature có ít nhất 12 test case data-driven và chạy trên Chrome, Edge, Firefox.
 
-Detailed test commands and evidence paths are documented in [README.md](../README.md). The current bug inventory is in [bug-report.md](bug-report.md), while the raw screenshots, traces, and HTML reports are kept under `../findings/`.
+Các lệnh chạy và đường dẫn evidence được ghi trong [README.md](../README.md). Danh sách bug nằm trong [bug-report.md](bug-report.md); screenshot, trace và HTML report được lưu trong `../findings/`.
 
-## Results
+## Kết quả kiểm thử
 
-Final browser-run results are recorded in the nine `../findings/*-final-*` folders. `[TODO: fill the final executed/passed/failed/skipped totals from the final reports.]` Failures must remain visible where they reproduce SUT defects; unsupported controls are documented as skips.
+Kết quả chạy final được lưu trong chín folder `../findings/*-final-*`. Tổng cộng 129 lượt test theo feature/browser: 24 passed, 63 failed và 42 skipped do SUT không cung cấp control cần thiết. Theo từng browser: FR-01 = 0 passed, 13 failed, 1 skipped; FR-07 = 2 passed, 4 failed, 8 skipped; FR-18 = 6 passed, 4 failed, 5 skipped. Các failure phản ánh lỗi SUT được giữ nguyên; control chưa hỗ trợ được ghi nhận là skip.
 
-## Bug issues
+## GitHub Bug Issues
 
-Confirmed product bugs from the final browser runs were consolidated into the following GitHub Issues. Script, fixture, and environment failures were excluded.
+Các product bug được xác nhận từ lượt chạy final đã được gộp thành các GitHub Issue sau. Lỗi script, fixture và môi trường không được tạo thành product issue.
 
 | Bug | Feature | GitHub Issue |
 | --- | --- | --- |
@@ -34,18 +35,18 @@ Confirmed product bugs from the final browser runs were consolidated into the fo
 | BUG-FR18-02 | FR-18 Admin Orders — canceled orders remain actionable | [#18](https://github.com/HCMUS-software-testing/HW04/issues/18) |
 | BUG-FR18-03 | FR-18 Admin Orders — missing status filter | [#19](https://github.com/HCMUS-software-testing/HW04/issues/19) |
 
-Screenshots used by the issues are stored in [github-evidence](github-evidence/), and the detailed issue drafts and evidence mapping are in [github-issues.md](github-issues.md).
+Screenshot dùng trong issue nằm trong [github-evidence](github-evidence/); nội dung issue và mapping evidence nằm trong [github-issues.md](github-issues.md).
 
-## AI review and gap analysis
+## Review AI và phân tích khoảng cách
 
-The first generated scripts required human correction for label association, product-card selection, React cart-state preservation, order-row selection, fixture isolation, and browser configuration. The final scripts retain data-driven input and do not modify the SUT. See [ai-critique.md](ai-critique.md) and [ai-audit-report.md](ai-audit-report.md).
+Các script đầu tiên do AI tạo cần được con người sửa về liên kết label, chọn product card, bảo toàn cart state của React, chọn order row, cô lập fixture và cấu hình browser. Script cuối vẫn giữ data-driven input và không sửa SUT. Xem [ai-critique.md](ai-critique.md) và [ai-audit-report.md](ai-audit-report.md).
 
-## Known limitations
+## Giới hạn đã biết
 
-The SUT has confirmed gaps documented in [bug-report.md](bug-report.md), including password validation, missing cart controls, missing status filtering, and invalid canceled-order actions. WebKit was not used because its Playwright runtime dependencies are unavailable on the Fedora host; Chrome, Edge, and Firefox satisfy the assignment's alternative browser combination.
+SUT có các gap được xác nhận trong [bug-report.md](bug-report.md), gồm validation password, thiếu cart control, thiếu bộ lọc trạng thái và action không hợp lệ trên đơn đã hủy. Không dùng WebKit vì Fedora thiếu dependency runtime của Playwright; Chrome, Edge và Firefox đáp ứng combo browser thay thế của đề.
 
-## Required attachments before submission
+## Tài liệu cần export trước khi nộp
 
-- `[TODO]` Export this report to `main-report.pdf`.
-- `[TODO]` Export `ai-critique.md` and `ai-audit-report.md` to PDF.
-- `[TODO]` Add public GitHub URL, issue links, screenshots, and video URL.
+- Export báo cáo này thành `main-report.pdf`.
+- Export `ai-critique.md` và `ai-audit-report.md` thành PDF.
+- GitHub URL, issue links, screenshot và video URL đã được ghi ở trên và trong `github-issues.md`.

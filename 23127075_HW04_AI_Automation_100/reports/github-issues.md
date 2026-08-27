@@ -1,6 +1,6 @@
 # GitHub Issue Drafts — EShop SUT
 
-> Prepared from `src/reports/bug-report.md` and the nine final browser runs. GitHub issue creation is pending because the configured `gh` token is invalid and the GitHub API was unreachable. The screenshot links below are repository-relative and should be replaced with permanent GitHub blob links after this evidence is committed.
+> Được tổng hợp từ `reports/bug-report.md` và chín lượt chạy final. Các issue đã được tạo trên GitHub; screenshot evidence được commit trong repository và liên kết trực tiếp trong từng issue.
 
 ## BUG-FR01-01 — Valid registration does not redirect to `/login`
 
@@ -12,7 +12,7 @@
 - Expected: Registration succeeds and the browser navigates to `/login`.
 - Actual: The SUT rejects the valid special-character password with its generic weak-password message and remains on `/register`.
 - Reproducibility: Reproduced in all three final browser runs.
-- Evidence: `src/findings/fr01-final-chrome/`, `src/findings/fr01-final-edge/`, `src/findings/fr01-final-firefox/`; screenshot `src/reports/github-evidence/bug-fr01-registration.png`.
+- Evidence: `findings/fr01-final-chrome/`, `findings/fr01-final-edge/`, `findings/fr01-final-firefox/`; screenshot `reports/github-evidence/bug-fr01-registration.png`.
 - Suggested fix: Align password validation with the requirement and navigate to `/login` after successful registration.
 
 ## BUG-FR01-02 — Registration form has no Confirm Password control
@@ -25,7 +25,7 @@
 - Expected: A Confirm Password input is rendered and mismatch is validated.
 - Actual: `Register.jsx` renders no Confirm Password input, so the required scenario cannot be exercised.
 - Reproducibility: Confirmed during the FR-01 final runs and DOM review.
-- Evidence: `src/findings/fr01-final-chrome/`, `src/findings/fr01-final-edge/`, `src/findings/fr01-final-firefox/`; registration screenshot `src/reports/github-evidence/bug-fr01-registration.png`.
+- Evidence: `findings/fr01-final-chrome/`, `findings/fr01-final-edge/`, `findings/fr01-final-firefox/`; registration screenshot `reports/github-evidence/bug-fr01-registration.png`.
 - Suggested fix: Add a Confirm Password control and validate it before submitting.
 
 ## BUG-FR07-01 — Cart uses the wrong total label
@@ -37,7 +37,7 @@
 - Expected: The summary displays the required label `Tổng cộng`.
 - Actual: The SUT displays `Tổng tạm tính` instead.
 - Reproducibility: Reproduced in all three final browser runs.
-- Evidence: `src/findings/fr07-final-chrome/`, `src/findings/fr07-final-edge/`, `src/findings/fr07-final-firefox/`; `src/reports/github-evidence/bug-fr07-summary.png`.
+- Evidence: `findings/fr07-final-chrome/`, `findings/fr07-final-edge/`, `findings/fr07-final-firefox/`; `reports/github-evidence/bug-fr07-summary.png`.
 - Suggested fix: Use the specified total label consistently in the cart UI.
 
 ## BUG-FR07-02 — Cart lacks quantity and confirmation controls
@@ -48,7 +48,7 @@
 - Expected: Cart rows provide quantity input, increase/decrease controls, validation, delete confirmation, and the required checkout state.
 - Actual: The corresponding controls/dialog are not rendered; cases are explicit skips rather than false passes.
 - Reproducibility: Confirmed across the final browser runs.
-- Evidence: `src/findings/fr07-final-chrome/`, `src/findings/fr07-final-edge/`, `src/findings/fr07-final-firefox/`.
+- Evidence: `findings/fr07-final-chrome/`, `findings/fr07-final-edge/`, `findings/fr07-final-firefox/`.
 - Suggested fix: Implement the required cart quantity, validation, and confirmation interactions.
 
 ## BUG-FR07-03 — Empty cart does not render the required illustration
@@ -60,7 +60,7 @@
 - Expected: The empty-cart message and required illustration are visible.
 - Actual: The message is present, but no image/illustration is rendered.
 - Reproducibility: Reproduced in all three final browser runs.
-- Evidence: `src/findings/fr07-final-chrome/`, `src/findings/fr07-final-edge/`, `src/findings/fr07-final-firefox/`; `src/reports/github-evidence/bug-fr07-empty-illustration.png`.
+- Evidence: `findings/fr07-final-chrome/`, `findings/fr07-final-edge/`, `findings/fr07-final-firefox/`; `reports/github-evidence/bug-fr07-empty-illustration.png`.
 - Suggested fix: Render the specified empty-cart illustration with an accessible alternative.
 
 ## BUG-FR07-04 — Adding the same product creates duplicate cart rows
@@ -72,7 +72,7 @@
 - Expected: One row represents the product with the combined quantity and correct subtotal/total.
 - Actual: Two rows are created; quantity remains `1` and the calculated values do not match the data-driven expectation.
 - Reproducibility: Reproduced in all three final browser runs.
-- Evidence: `src/findings/fr07-final-chrome/`, `src/findings/fr07-final-edge/`, `src/findings/fr07-final-firefox/`; `src/reports/github-evidence/bug-fr07-duplicate-rows.png`.
+- Evidence: `findings/fr07-final-chrome/`, `findings/fr07-final-edge/`, `findings/fr07-final-firefox/`; `reports/github-evidence/bug-fr07-duplicate-rows.png`.
 - Suggested fix: Merge cart entries by product ID and recalculate quantity, subtotal, and total.
 
 ## BUG-FR18-01 — Admin status update shows the wrong success message
@@ -84,7 +84,7 @@
 - Expected: The specified Vietnamese success message `Cập nhật trạng thái đơn hàng thành công` is shown.
 - Actual: The SUT does not show the expected message; its observed message is English `Order status updated`.
 - Reproducibility: Reproduced in all three final browser runs.
-- Evidence: `src/findings/fr18-final-chrome/`, `src/findings/fr18-final-edge/`, `src/findings/fr18-final-firefox/`; `src/reports/github-evidence/bug-fr18-success-message.png`.
+- Evidence: `findings/fr18-final-chrome/`, `findings/fr18-final-edge/`, `findings/fr18-final-firefox/`; `reports/github-evidence/bug-fr18-success-message.png`.
 - Suggested fix: Use the required localized success message.
 
 ## BUG-FR18-02 — Canceled orders remain actionable
@@ -96,7 +96,7 @@
 - Expected: Canceled orders are final, expose no transition action, or show the required restriction message.
 - Actual: The SUT exposes `Đánh dấu Đã giao` for a canceled order and does not show the expected restriction message.
 - Reproducibility: Reproduced in all three final browser runs.
-- Evidence: `src/findings/fr18-final-chrome/`, `src/findings/fr18-final-edge/`, `src/findings/fr18-final-firefox/`; `src/reports/github-evidence/bug-fr18-canceled-final-state.png`.
+- Evidence: `findings/fr18-final-chrome/`, `findings/fr18-final-edge/`, `findings/fr18-final-firefox/`; `reports/github-evidence/bug-fr18-canceled-final-state.png`.
 - Suggested fix: Enforce final-state restrictions for canceled orders in both UI and API.
 
 ## BUG-FR18-03 — Admin order list has no status filter
@@ -107,7 +107,7 @@
 - Expected: Admin can filter the order list by status.
 - Actual: No status filter control is rendered; the related cases are explicit skips.
 - Reproducibility: Confirmed by DOM inspection and final runs.
-- Evidence: `src/findings/fr18-final-chrome/`, `src/findings/fr18-final-edge/`, `src/findings/fr18-final-firefox/`; no screenshot artifact was generated because skipped tests do not produce screenshots.
+- Evidence: `findings/fr18-final-chrome/`, `findings/fr18-final-edge/`, `findings/fr18-final-firefox/`; no screenshot artifact was generated because skipped tests do not produce screenshots.
 - Suggested fix: Add an accessible status filter and apply it to the order list.
 
 ## Created issues

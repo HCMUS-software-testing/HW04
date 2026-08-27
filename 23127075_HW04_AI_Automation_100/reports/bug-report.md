@@ -1,40 +1,40 @@
-# Bug Report — EShop SUT
+# Báo cáo bug — EShop SUT
 
-## Scope
+## Phạm vi
 
-This report consolidates reproducible findings from historical `src/findings/` and includes a separate final-run verification section below. Historical findings were deduplicated by root cause; final folders were initially excluded so the last script verification could be reviewed independently.
+Báo cáo tổng hợp các findings có thể tái hiện từ `findings/` và có phần xác minh riêng cho các lượt chạy final. Các findings lịch sử được gộp theo nguyên nhân gốc; các folder final được giữ riêng để kiểm tra độc lập script cuối.
 
-## Confirmed product bugs and gaps
+## Product bug và gap đã xác nhận
 
-| ID | Feature | Severity | Expected | Actual | Evidence |
+| ID | Feature | Mức độ | Kỳ vọng | Thực tế | Evidence |
 | --- | --- | --- | --- | --- | --- |
-| BUG-FR01-01 | FR-01 Registration | High | Successful registration with `Password123!` redirects to `/login`. | SUT rejects the password because validation expects whitespace and remains on `/register`. | `findings/fr01-02-fix-locator-fixed/`, `findings/fr01-03-independent-cases/` |
-| BUG-FR01-02 | FR-01 Registration | Medium | Registration form provides a Confirm Password control. | `Register.jsx` does not render Confirm Password. | `findings/fr01-01-locator-fixed/`, `findings/fr01-03-independent-cases/` |
-| BUG-FR07-01 | FR-07 Shopping Cart | Medium | Cart summary uses the required “Tổng cộng” label. | SUT renders “Tổng tạm tính”. | `findings/fr07-03-shopping-cart-state/` |
-| BUG-FR07-02 | FR-07 Shopping Cart | Medium | Users can change quantity and receive quantity validation/confirmation behavior. | SUT has no quantity input, increase/decrease controls, validation, or confirmation dialog. | `findings/fr07-02-shopping-cart-fixed-2/`, `findings/fr07-03-shopping-cart-state/` |
-| BUG-FR07-03 | FR-07 Shopping Cart | Medium | Empty cart renders the required empty-state illustration when specified. | The required illustration is not rendered by the SUT. | `findings/fr07-00-shopping-cart/`, `findings/fr07-01-shopping-cart-fixed/` |
-| BUG-FR18-01 | FR-18 Admin Orders | Medium | Successful status updates show the specified Vietnamese success message. | SUT returns/displays English “Order status updated”. | `findings/fr18-02-admin-order-dom-fixed/`, `findings/fr18-03-admin-order-isolated-rerun/` |
-| BUG-FR18-02 | FR-18 Admin Orders | High | Delivered and canceled orders are final and cannot be updated. | Canceled orders still expose “Đánh dấu Đã giao” and can be updated. | `findings/fr18-03-admin-order-isolated-rerun/`, `findings/fr18-04-admin-order-isolated-final-rerun-2/` |
-| BUG-FR18-03 | FR-18 Admin Orders | Medium | Admin can filter orders by status. | Admin UI has no status filter. | `findings/fr18-01/`, `findings/fr18-02-admin-order-dom-fixed/` |
+| BUG-FR01-01 | FR-01 Registration | Cao | Successful registration with `Password123!` redirects to `/login`. | SUT rejects the password because validation expects whitespace and remains on `/register`. | `findings/fr01-final-chrome/`, `findings/fr01-final-edge/`, `findings/fr01-final-firefox/` |
+| BUG-FR01-02 | FR-01 Registration | Medium | Registration form provides a Confirm Password control. | `Register.jsx` does not render Confirm Password. | `findings/fr01-final-chrome/`, `findings/fr01-final-edge/`, `findings/fr01-final-firefox/` |
+| BUG-FR07-01 | FR-07 Shopping Cart | Medium | Cart summary uses the required “Tổng cộng” label. | SUT renders “Tổng tạm tính”. | `findings/fr07-final-chrome/`, `findings/fr07-final-edge/`, `findings/fr07-final-firefox/` |
+| BUG-FR07-02 | FR-07 Shopping Cart | Medium | Users can change quantity and receive quantity validation/confirmation behavior. | SUT has no quantity input, increase/decrease controls, validation, or confirmation dialog. | `findings/fr07-final-chrome/`, `findings/fr07-final-edge/`, `findings/fr07-final-firefox/` |
+| BUG-FR07-03 | FR-07 Shopping Cart | Medium | Empty cart renders the required empty-state illustration when specified. | The required illustration is not rendered by the SUT. | `findings/fr07-final-chrome/`, `findings/fr07-final-edge/`, `findings/fr07-final-firefox/` |
+| BUG-FR18-01 | FR-18 Admin Orders | Medium | Successful status updates show the specified Vietnamese success message. | SUT returns/displays English “Order status updated”. | `findings/fr18-final-chrome/`, `findings/fr18-final-edge/`, `findings/fr18-final-firefox/` |
+| BUG-FR18-02 | FR-18 Admin Orders | High | Delivered and canceled orders are final and cannot be updated. | Canceled orders still expose “Đánh dấu Đã giao” and can be updated. | `findings/fr18-final-chrome/`, `findings/fr18-final-edge/`, `findings/fr18-final-firefox/` |
+| BUG-FR18-03 | FR-18 Admin Orders | Medium | Admin can filter orders by status. | Admin UI has no status filter. | `findings/fr18-final-chrome/`, `findings/fr18-final-edge/`, `findings/fr18-final-firefox/` |
 
-## Final-run verification
+## Xác minh từ lượt chạy final
 
-The final evidence folders contain one HTML report per feature/browser: FR-01 (`fr01-final-chrome`, `fr01-final-edge`, `fr01-final-firefox`), FR-07 (`fr07-final-chrome`, `fr07-final-edge`, `fr07-final-firefox`), and FR-18 (`fr18-final-chrome`, `fr18-final-edge`, `fr18-final-firefox`). The repeated failures below match the historical root causes and add two FR-07 details that were not explicit in the original table:
+Các folder evidence final có một HTML report cho mỗi feature/browser: FR-01 (`fr01-final-chrome`, `fr01-final-edge`, `fr01-final-firefox`), FR-07 (`fr07-final-chrome`, `fr07-final-edge`, `fr07-final-firefox`) và FR-18 (`fr18-final-chrome`, `fr18-final-edge`, `fr18-final-firefox`). Các failure lặp lại khớp với nguyên nhân lịch sử và bổ sung hai chi tiết FR-07 chưa có trong bảng ban đầu:
 
-- **FR-01:** all three browsers reproduce the registration oracle failures; Confirm Password remains unautomatable because the control is absent.
-- **FR-07:** all three browsers reproduce the missing illustration and cart-summary/product assertion failures. Final runs additionally show that adding the same product creates two rows instead of one, and that the resulting quantity/subtotal does not match the JSON expectation. The quantity and confirmation-control cases remain explicit skips.
-- **FR-18:** all three browsers reproduce the English update message and the invalid canceled-order action. Filter cases remain explicit skips because the filter is absent.
+- **FR-01:** cả ba browser tái hiện failure của oracle đăng ký; không thể tự động hóa Confirm Password vì control này không tồn tại.
+- **FR-07:** cả ba browser tái hiện lỗi thiếu illustration và lỗi assertion cart summary/product. Lượt final còn cho thấy thêm cùng một sản phẩm tạo hai row thay vì một row, quantity/subtotal không khớp JSON. Các case quantity và confirmation vẫn là skip rõ ràng.
+- **FR-18:** cả ba browser tái hiện thông báo cập nhật bằng tiếng Anh và action không hợp lệ trên đơn đã hủy. Các case filter vẫn là skip vì UI không có filter.
 
-The final folders are evidence of the current script/SUT combination and should be cited alongside the historical folders when submitting the report.
+Các folder final là evidence của phiên bản script/SUT hiện tại và nên được trích dẫn cùng findings lịch sử khi nộp báo cáo.
 
-## Cases not automatable against the current SUT
+## Case chưa thể tự động hóa trên SUT hiện tại
 
-The FR-07 quantity, quantity-boundary, and confirmation-dialog cases are kept as explicit skips because the corresponding controls do not exist. FR-18 status-filter cases are also explicit skips because no filter is rendered. These are documented product gaps, not silently passing tests.
+Các case quantity, boundary và confirmation dialog của FR-07 được giữ là skip vì control tương ứng không tồn tại. Các case filter status của FR-18 cũng là skip vì UI không render filter. Đây là product gap được ghi nhận, không phải test pass ngầm.
 
-## Script and environment findings
+## Finding về script và môi trường
 
-Several early failures were test-script or environment issues and are not product bugs: FR-01 initially used an unassociated `getByLabel()` locator; FR-07 initially inferred a card from heading order and later lost cart state during navigation; FR-18 initially searched for `#<orderId>` although the UI rendered the ID without `#`. These were corrected in subsequent specs. Fedora could not run WebKit because Playwright expected Ubuntu/ICU dependencies; the project therefore uses Chrome, Edge, and Firefox as permitted by the assignment. Database fixtures were later seeded with stable order IDs.
+Một số failure ban đầu thuộc script hoặc môi trường, không phải product bug: FR-01 dùng locator `getByLabel()` không liên kết; FR-07 suy luận card theo thứ tự heading rồi làm mất cart state khi điều hướng; FR-18 tìm `#<orderId>` trong khi UI hiển thị ID không có `#`. Các lỗi này đã được sửa ở các spec sau. Fedora không chạy được WebKit vì thiếu dependency Ubuntu/ICU của Playwright; project dùng Chrome, Edge và Firefox theo lựa chọn được đề cho phép. Fixture database sau đó được seed bằng order ID ổn định.
 
-## Follow-up
+## Việc tiếp theo
 
-Re-run the three final browser sets after the last script changes, then update this report with final counts and attach the corresponding screenshots or traces to the repository/GitHub Issues.
+Các lượt chạy final đã được lưu và được liên kết trong báo cáo chính cùng GitHub Issues.
