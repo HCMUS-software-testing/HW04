@@ -31,8 +31,8 @@ npm run test:webkit
 SUT cần được khởi động trước khi chạy test:
 
 - Backend API: `http://localhost:3000`
-- Customer web app: `http://localhost:3001`
-- Admin web app: `http://localhost:3002`
+- Customer web app: `http://localhost:5173`
+- Admin web app: `http://localhost:5174`
 
 ## Tóm Tắt Kiểm Thử
 
