@@ -9,6 +9,7 @@
 - Timestamp lần chạy được ghi nhận: 2026-08-20T15:45:31Z
 - Metadata lần chạy: `submit/playwright-report/run-metadata.md`
 - Báo cáo HTML: `submit/playwright-report/index.html`
+- Video demo Task 2: https://youtu.be/dzViL_yCqds
 
 ## Tóm Tắt Kết Quả Chạy
 
@@ -42,3 +43,4 @@ Bộ test tự động đáp ứng kích thước tối thiểu theo yêu cầu 
 - Trace/video/screenshot lỗi: `submit/playwright-report/data/`
 - Ảnh chụp màn hình đại diện: `submit/screenshots/`
 - Bằng chứng commit: `submit/git-commit-log.txt`
+- Video demo Task 2: https://youtu.be/dzViL_yCqds

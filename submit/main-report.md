@@ -10,6 +10,7 @@
 - Trình duyệt: Chromium, Firefox, WebKit
 - Lần chạy được ghi nhận gần nhất: 2026-08-20T15:45:31Z
 - Báo cáo HTML: `submit/playwright-report/index.html`
+- Video demo Task 2: https://youtu.be/dzViL_yCqds
 - Video demo Agent Skill: https://youtu.be/BncsesiBxOA
 
 Bài làm tự động hóa 3 tính năng được chọn từ thiết kế kiểm thử HW02 và chạy trên 3 trình duyệt. Bộ test kết hợp luồng UI trên trình duyệt, gọi API trực tiếp và helper chuẩn bị/dọn dữ liệu trong database.
@@ -97,3 +98,5 @@ AI hữu ích trong việc tạo cấu trúc Playwright ban đầu, tạo test c
 - Git commit log: `submit/git-commit-log.txt`
 - Báo cáo HTML: `submit/playwright-report/index.html`
 - Ảnh chụp màn hình đại diện: `submit/screenshots/`
+- Video demo Task 2: https://youtu.be/dzViL_yCqds
+- Video demo Agent Skill: https://youtu.be/BncsesiBxOA

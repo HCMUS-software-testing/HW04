@@ -8,6 +8,7 @@
 - SUT: `eshop-sut`
 - Công cụ kiểm thử tự động: Playwright
 - Trình duyệt kiểm thử: Chromium, Firefox, WebKit
+- Video demo Task 2: https://youtu.be/dzViL_yCqds
 - Video demo Agent Skill: https://youtu.be/BncsesiBxOA
 
 ## Cách Chạy
@@ -46,6 +47,7 @@ SUT cần được khởi động trước khi chạy test:
 | Nhóm bug đã ghi nhận | 4 |
 | Báo cáo HTML | `submit/playwright-report/index.html` |
 | Metadata lần chạy | `submit/playwright-report/run-metadata.md` |
+| Video demo Task 2 | https://youtu.be/dzViL_yCqds |
 
 ## Tính Năng Đã Tự Động Hóa
 
@@ -70,11 +72,11 @@ SUT cần được khởi động trước khi chạy test:
 
 | STT | Tiêu chí | Điểm tối đa | Tự đánh giá |
 | --- | --- | ---: | ---: |
-| 1 | Nhiệm vụ 1 - Tính năng A: FR-02 Login lockout | 25 | 21 |
-| 2 | Nhiệm vụ 1 - Tính năng B: FR-09 Coupon checkout | 25 | 21 |
-| 3 | Nhiệm vụ 1 - Tính năng C: FR-17 Admin coupon CRUD | 25 | 21 |
+| 1 | Nhiệm vụ 1 - Tính năng A: FR-02 Login lockout | 25 | 25 |
+| 2 | Nhiệm vụ 1 - Tính năng B: FR-09 Coupon checkout | 25 | 25 |
+| 3 | Nhiệm vụ 1 - Tính năng C: FR-17 Admin coupon CRUD | 25 | 25 |
 | 4 | Nhiệm vụ 2 - Video demo | 15 | 15 |
-| 5 | Agent Skills | 10 | 8 |
-| | Tổng cộng | 100 | 86 |
+| 5 | Agent Skills | 10 | 10 |
+| | Tổng cộng | 100 | 100 |
 
-Ghi chú: Link video demo Agent Skill đã được bổ sung ở phần thông tin sinh viên.
+Ghi chú: Link video demo Task 2 và video demo Agent Skill đã được bổ sung ở phần thông tin sinh viên.
