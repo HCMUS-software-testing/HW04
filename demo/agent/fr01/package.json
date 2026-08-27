@@ -1,0 +1,14 @@
+{
+  "name": "fr01-playwright-demo",
+  "private": true,
+  "scripts": {
+    "test": "playwright test test/specs/fr01.spec.ts",
+    "test:chrome": "playwright test test/specs/fr01.spec.ts --project=chrome",
+    "test:edge": "playwright test test/specs/fr01.spec.ts --project=edge",
+    "test:firefox": "playwright test test/specs/fr01.spec.ts --project=firefox",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.52.0"
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "feature": "FR-01",
+  "title": "Đăng ký tài khoản",
+  "application": "EShop web",
+  "baseUrl": "http://localhost:5173",
+  "oracle": {
+    "requirement": "eshop-sut/README.md#fr-01-đăng-ký-tài-khoản",
+    "api": "eshop-sut/api_specification.md#1.1-đăng-ký-tài-khoản",
+    "fixture": "eshop-sut/backend/database.js"
+  },
+  "notes": [
+    "FR-01 requires a Confirm Password field, although the API registration payload does not include it.",
+    "The duplicate-email case uses the seeded account test@eshop.com.",
+    "Expected values describe the requirement; observed implementation mismatches must remain visible in findings."
+  ],
+  "testCases": [
+    {
+      "id": "REG_001",
+      "title": "Đăng ký thành công với dữ liệu hợp lệ",
+      "input": {"name": "Nguyen Van Demo", "email": "fr01-valid@example.com", "password": "Password123!", "confirmPassword": "Password123!"},
+      "expected": {"url": "/login", "success": true, "errorVisible": false}
+    },
+    {
+      "id": "REG_002",
+      "title": "Từ chối khi bỏ trống Họ Tên",
+      "input": {"name": "", "email": "fr01-name-blank@example.com", "password": "Password123!", "confirmPassword": "Password123!"},
+      "expected": {"success": false, "errorVisible": true, "errorReason": "Họ Tên là bắt buộc"}
+    },
+    {
+      "id": "REG_003",
+      "title": "Từ chối khi bỏ trống Email",
+      "input": {"name": "Nguyen Van Demo", "email": "", "password": "Password123!", "confirmPassword": "Password123!"},
+      "expected": {"success": false, "errorVisible": true, "errorReason": "Email là bắt buộc"}
+    },
+    {
+      "id": "REG_004",
+      "title": "Từ chối email thiếu ký tự @",
+      "input": {"name": "Nguyen Van Demo", "email": "invalid-email.example.com", "password": "Password123!", "confirmPassword": "Password123!"},
+      "expected": {"success": false, "errorVisible": true, "errorReason": "Email không hợp lệ"}
+    },
+    {
+      "id": "REG_005",
+      "title": "Từ chối email thiếu phần domain",
+      "input": {"name": "Nguyen Van Demo", "email": "invalid-email@", "password": "Password123!", "confirmPassword": "Password123!"},
+      "expected": {"success": false, "errorVisible": true, "errorReason": "Email không hợp lệ"}
+    },
+    {
+      "id": "REG_006",
+      "title": "Từ chối email đã tồn tại",
+      "input": {"name": "Another User", "email": "test@eshop.com", "password": "Password123!", "confirmPassword": "Password123!"},
+      "expected": {"success": false, "errorVisible": true, "errorReason": "Email đã tồn tại"}
+    },
+    {
+      "id": "REG_007",
+      "title": "Từ chối mật khẩu ngắn hơn 8 ký tự",
+      "input": {"name": "Nguyen Van Demo", "email": "fr01-short@example.com", "password": "Pass1!", "confirmPassword": "Pass1!"},
+      "expected": {"success": false, "errorVisible": true, "errorReason": "Mật khẩu tối thiểu 8 ký tự"}
+    },
+    {
+      "id": "REG_008",
+      "title": "Từ chối mật khẩu thiếu chữ hoa",
+      "input": {"name": "Nguyen Van Demo", "email": "fr01-no-upper@example.com", "password": "password123!", "confirmPassword": "password123!"},
+      "expected": {"success": false, "errorVisible": true, "errorReason": "Mật khẩu phải có chữ hoa"}
+    },
+    {
+      "id": "REG_009",
+      "title": "Từ chối mật khẩu thiếu chữ thường",
+      "input": {"name": "Nguyen Van Demo", "email": "fr01-no-lower@example.com", "password": "PASSWORD123!", "confirmPassword": "PASSWORD123!"},
+      "expected": {"success": false, "errorVisible": true, "errorReason": "Mật khẩu phải có chữ thường"}
+    },
+    {
+      "id": "REG_010",
+      "title": "Từ chối mật khẩu thiếu chữ số",
+      "input": {"name": "Nguyen Van Demo", "email": "fr01-no-digit@example.com", "password": "Password!", "confirmPassword": "Password!"},
+      "expected": {"success": false, "errorVisible": true, "errorReason": "Mật khẩu phải có chữ số"}
+    },
+    {
+      "id": "REG_011",
+      "title": "Từ chối mật khẩu thiếu ký tự đặc biệt",
+      "input": {"name": "Nguyen Van Demo", "email": "fr01-no-special@example.com", "password": "Password123", "confirmPassword": "Password123"},
+      "expected": {"success": false, "errorVisible": true, "errorReason": "Mật khẩu phải có ký tự đặc biệt"}
+    },
+    {
+      "id": "REG_012",
+      "title": "Từ chối khi xác nhận mật khẩu không khớp",
+      "input": {"name": "Nguyen Van Demo", "email": "fr01-mismatch@example.com", "password": "Password123!", "confirmPassword": "Password124!"},
+      "expected": {"success": false, "errorVisible": true, "errorReason": "Xác nhận mật khẩu không khớp", "requiresConfirmPassword": true}
+    },
+    {
+      "id": "REG_013",
+      "title": "Chấp nhận Họ Tên có ký tự tiếng Việt",
+      "input": {"name": "Đặng Thị Hồng Ân", "email": "fr01-unicode@example.com", "password": "Password123!", "confirmPassword": "Password123!"},
+      "expected": {"url": "/login", "success": true, "errorVisible": false}
+    },
+    {
+      "id": "REG_014",
+      "title": "Chấp nhận mật khẩu có ký tự đặc biệt hợp lệ",
+      "input": {"name": "Nguyen Van Demo", "email": "fr01-special@example.com", "password": "Strong9@?", "confirmPassword": "Strong9@?"},
+      "expected": {"url": "/login", "success": true, "errorVisible": false, "specialCharacters": ["@", "?"]}
+    }
+  ]
+}
