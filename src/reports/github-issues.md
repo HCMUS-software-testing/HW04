@@ -110,10 +110,18 @@
 - Evidence: `src/findings/fr18-final-chrome/`, `src/findings/fr18-final-edge/`, `src/findings/fr18-final-firefox/`; no screenshot artifact was generated because skipped tests do not produce screenshots.
 - Suggested fix: Add an accessible status filter and apply it to the order list.
 
-## Creation checklist
+## Created issues
 
-- [ ] Re-authenticate with `gh auth login -h github.com`.
-- [ ] Commit `src/reports/github-evidence/` and this draft file.
-- [ ] Replace local evidence paths with permanent GitHub blob/permalink URLs.
-- [ ] Check for duplicates with `gh issue list`.
-- [ ] Create one GitHub issue per bug above; do not create issues for script, fixture, or environment findings.
+The evidence commit is `1620d0c3ba3be1bd8eea1e2e097f812744a1260a`.
+
+| Bug | GitHub issue |
+| --- | --- |
+| BUG-FR01-01 | https://github.com/HCMUS-software-testing/HW04/issues/11 |
+| BUG-FR01-02 | https://github.com/HCMUS-software-testing/HW04/issues/12 |
+| BUG-FR07-01 | https://github.com/HCMUS-software-testing/HW04/issues/13 |
+| BUG-FR07-02 | https://github.com/HCMUS-software-testing/HW04/issues/14 |
+| BUG-FR07-03 | https://github.com/HCMUS-software-testing/HW04/issues/15 |
+| BUG-FR07-04 | https://github.com/HCMUS-software-testing/HW04/issues/16 |
+| BUG-FR18-01 | https://github.com/HCMUS-software-testing/HW04/issues/17 |
+| BUG-FR18-02 | https://github.com/HCMUS-software-testing/HW04/issues/18 |
+| BUG-FR18-03 | https://github.com/HCMUS-software-testing/HW04/issues/19 |
