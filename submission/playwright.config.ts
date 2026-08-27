@@ -39,6 +39,9 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+
+    /* Capture screenshot after page failure */
+    screenshot: 'only-on-failure',
   },
   reporter: [
     ['html', { outputFolder: 'playwright-report', open: 'never' }]

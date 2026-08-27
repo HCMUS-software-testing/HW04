@@ -83,6 +83,13 @@ test.describe(`FR-14: Category Management (Pool C) | Run by: ${studentId} | Time
         const updatedCat = categories.find((c: any) => c.id === categoryId);
         expect(updatedCat?.name).toBe(tc.categoryName);
 
+        // Cleanup: xóa danh mục test TC3 để giữ DB sạch
+        if (categoryId) {
+          await request.delete(`${API_BASE}/categories/${categoryId}`, {
+            headers: { Authorization: `Bearer ${adminToken}` }
+          });
+        }
+
       } else if (tc.id === 'TC4') {
         // Positive Case: Admin deleting a category
         const adminToken = await getAuthToken(request, 'admin@eshop.com', 'Admin123!');

@@ -4,7 +4,7 @@
 
 - **MSSV:** `23127185`
 - **Họ tên:** `Mai Thị Kim Duyên`
-- **Ngày thực hiện:** `2026-08-22`
+- **Ngày thực hiện:** `18-27/08/2026`
 - **SUT:** EShop
 - **SUT repository:** <https://github.com/ttbhanh/eshop-sut>
 - **Automation repository:** `https://github.com/HCMUS-software-testing/HW04/tree/melyen`
@@ -206,12 +206,12 @@ I completed HW02 and reused the same three selected web features for HW04.
 
 | Bug ID | Feature | Summary | Severity | GitHub Issue | Screenshot |
 | --- | --- | --- | --- | --- | --- |
-| BUG-001 | FR-03 Quên & Đặt lại MK | Không thể đặt lại mật khẩu do SUT validate sai Password Policy và thiếu trường Xác nhận mật khẩu | High | https://github.com/ttbhanh/eshop-sut/issues/1 | `playwright-report/data/bug-001.png` |
-| BUG-002 | FR-03 Quên & Đặt lại MK | Hệ thống tạo mã OTP chỉ có 4 chữ số thay vì 6 chữ số theo chuẩn yêu cầu | Medium | https://github.com/ttbhanh/eshop-sut/issues/2 | `playwright-report/data/bug-002.png` |
-| BUG-003 | FR-10 Trạng thái Đơn hàng | Lỗi phân quyền API: Tài khoản User có thể trực tiếp gọi API Admin để thay đổi trạng thái đơn hàng | High | https://github.com/ttbhanh/eshop-sut/issues/3 | `playwright-report/data/bug-003.png` |
-| BUG-004 | FR-10 Trạng thái Đơn hàng | Cho phép User hủy đơn hàng khi đang trong quá trình giao hàng (shipping) | Medium | https://github.com/ttbhanh/eshop-sut/issues/4 | `playwright-report/data/bug-004.png` |
-| BUG-005 | FR-14 Quản lý Danh mục | Lỗi phân quyền API Quản lý Danh mục: Tài khoản User có thể Thêm, Sửa, Xóa danh mục sản phẩm trái phép | High | https://github.com/ttbhanh/eshop-sut/issues/5 | `playwright-report/data/bug-005.png` |
-| BUG-006 | FR-14 Quản lý Danh mục | Thiếu validation dữ liệu đầu vào: Cho phép tạo danh mục với tên là chuỗi rỗng | Medium | https://github.com/ttbhanh/eshop-sut/issues/6 | `playwright-report/data/bug-006.png` |
+| BUG-001 | FR-03 Quên & Đặt lại MK | Không thể đặt lại mật khẩu do SUT validate sai Password Policy và thiếu trường Xác nhận mật khẩu | High | https://github.com/HCMUS-software-testing/HW04/issues/5 | `playwright-report/data/bug-001.png` |
+| BUG-002 | FR-03 Quên & Đặt lại MK | Hệ thống tạo mã OTP chỉ có 4 chữ số thay vì 6 chữ số theo chuẩn yêu cầu | Medium | https://github.com/HCMUS-software-testing/HW04/issues/6 | `playwright-report/data/bug-002.png` |
+| BUG-003 | FR-10 Trạng thái Đơn hàng | Lỗi phân quyền API: Tài khoản User có thể trực tiếp gọi API Admin để thay đổi trạng thái đơn hàng | High | https://github.com/HCMUS-software-testing/HW04/issues/7 | `playwright-report/data/bug-003.png` |
+| BUG-004 | FR-10 Trạng thái Đơn hàng | Cho phép User hủy đơn hàng khi đang trong quá trình giao hàng (shipping) | Medium | https://github.com/HCMUS-software-testing/HW04/issues/8 | `playwright-report/data/bug-004.png` |
+| BUG-005 | FR-14 Quản lý Danh mục | Lỗi phân quyền API Quản lý Danh mục: Tài khoản User có thể Thêm, Sửa, Xóa danh mục sản phẩm trái phép | High | https://github.com/HCMUS-software-testing/HW04/issues/9 | `playwright-report/data/bug-005.png` |
+| BUG-006 | FR-14 Quản lý Danh mục | Thiếu validation dữ liệu đầu vào: Cho phép tạo danh mục với tên là chuỗi rỗng | Medium | https://github.com/HCMUS-software-testing/HW04/issues/10 | `playwright-report/data/bug-006.png` |
 
 ---
 

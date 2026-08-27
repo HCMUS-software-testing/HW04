@@ -13,7 +13,7 @@
 - **Data file:** `tests/data/poolB-fr10-order-status.json`
 - **HTML report:** `playwright-report`
 - **Run by:** `23127185`
-- **Run timestamp:** `2026-08-22T16:11:30.133+07:00`
+- **Run timestamp:** `2026-08-27T20:45:00.000+07:00`
 
 ## 2. Mục Tiêu Kiểm Thử
 

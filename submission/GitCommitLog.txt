@@ -1,3 +1,121 @@
+* commit d474996de7fa79ff6597b36c72d93e09580d0ad2
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Thu Aug 27 20:55:13 2026 +0700
+| 
+|     update link issue github
+| 
+|  GitCommitLog.txt                                  | 200 -----------------
+|  submission/.gitignore                             |   2 +-
+|  submission/23127185_HW04_AI_Automation_100.zip    | Bin 888588 -> 0 bytes
+|  submission/GitCommitLog.txt                       | 229 +++++++++++++++++++-
+|  submission/ai-audit-report.pdf                    | Bin 160200 -> 99646 bytes
+|  submission/ai-critique.pdf                        | Bin 67199 -> 45164 bytes
+|  submission/bug-report.md                          |  12 +-
+|  submission/links.md                               |  12 +-
+|  submission/main-report.md                         |  14 +-
+|  submission/main-report.pdf                        | Bin 521078 -> 168453 bytes
+|  submission/package-lock.json                      |  16 +-
+|  submission/package.json                           |   3 +-
+|  .../04153d37259fe5f04f4c14c060a73cdae57c9b43.png  | Bin 0 -> 40314 bytes
+|  .../06bb40cb4c1ca2f7d19f5e567386a2c1a1b9d470.png  | Bin 0 -> 31270 bytes
+|  .../117dacb5f7fc4bcaeada20a1f02d782f9308c09c.png  | Bin 0 -> 31461 bytes
+|  .../14737eba24bace04ea0eb62766f33618691b7dab.md   | 226 +++++++++++++++++++
+|  .../1a954f89a8e8595cbc951e80fab2be8acf69a501.png  | Bin 0 -> 31654 bytes
+|  .../1b44f36090ea86d6ce8dfa78dbc40fdbb542dcf8.md   | 170 +++++++++++++++
+|  .../1cd6b9b4eced3a4b270a035730b1e541957141fc.md   | 195 +++++++++++++++++
+|  .../2a595680700fe312a69b5ea8f3caf60a9d9c2751.png  | Bin 0 -> 30280 bytes
+|  .../2b2573764f3ba003875ebb2bbf2ac66d34f78e8e.md   | 170 +++++++++++++++
+|  .../2b3203db56cecbf86b6c6353fe146cbf9ef7ff54.md   | 170 +++++++++++++++
+|  .../2dd25e7db50e3fc47852bbe955b82d793e3e6a1b.png  | Bin 0 -> 30016 bytes
+|  .../2e11c694b76c4f71207d49585f57a488b17e92b0.md   | 170 +++++++++++++++
+|  .../2e69818e12bcf9f9bb72eefc9e814511c63cf12b.md   | 170 +++++++++++++++
+|  .../31cc0c02c99eb4f61edf2699578913340cc98e83.png  | Bin 0 -> 31488 bytes
+|  .../3598fd243de35a78919e7590ab90498c313e985f.md   | 170 +++++++++++++++
+|  .../37f79385dce1be068dd0b009098ebd864c47d7e9.png  | Bin 0 -> 31627 bytes
+|  .../38eb6a49937a78155f30d39fdd86e0b5d0faf92c.png  | Bin 0 -> 31662 bytes
+|  .../3ad4f26fa234e3a6c0f7cece0047ad7fb6d83d78.md   | 170 +++++++++++++++
+|  .../45cbbb9ee20172734e404c0f155869b815a9c444.md   | 170 +++++++++++++++
+|  .../45f256988d28bf9ccc5c21bcfc2f219815ba3781.png  | Bin 0 -> 31505 bytes
+|  .../466c39549c78b8a24fb208ef24c4718dd0a9655d.png  | Bin 0 -> 40354 bytes
+|  .../54754f79865fb8c1f4a6871eaf12c57db0ef67e4.md   | 170 +++++++++++++++
+|  .../5ea861fc622587b602388e458fa05def0f17a777.md   | 173 +++++++++++++++
+|  .../5f0ef4a4e037a47a730501754fd96f66ccd3fae0.md   | 179 +++++++++++++++
+|  .../6132a6ef70271d91840e597ed8e0d3959d7df31e.md   | 170 +++++++++++++++
+|  .../637cb36c48b68055decfe3d02f4b7594bf4f5128.png  | Bin 0 -> 31384 bytes
+|  .../6471036b591756d34de1c3e67312ce9f5bc9c46a.png  | Bin 0 -> 40409 bytes
+|  .../6489ec2d3d8ddfa7ba171cf02e9c68d87f02e76d.png  | Bin 0 -> 31535 bytes
+|  .../65acecb4f936ada5531a35b52ecb7ff23ab1b3a6.md   | 170 +++++++++++++++
+|  .../6798bb9f7cc1bea179e85abd39b660197f854c48.md   | 173 +++++++++++++++
+|  .../6c4e230e51028807eb1fda99bb05d5bb55aa2e62.md   | 170 +++++++++++++++
+|  .../705d7a60b45fb20c2d307ffb571426568a8eb78f.md   | 170 +++++++++++++++
+|  .../72e2841a98bc29b5cd17730c6bffc3a57cf55b41.md   | 158 ++++++++++++++
+|  .../73768c3bd2f4d46816a56fce52e46dba304f66c1.png  | Bin 0 -> 40323 bytes
+|  .../78485ad26ab49de2007fe98b0854715a58aaf5b6.png  | Bin 0 -> 4254 bytes
+|  .../81afdb0039c6b0bb8cbc28b828132eabbff08bc7.png  | Bin 0 -> 40341 bytes
+|  .../8b0c6a8ad4f2e374dcfc6d7c71a2e095f27041c1.png  | Bin 0 -> 40030 bytes
+|  .../8b0e6a45457151223c7f01d672754df3afe2f429.md   | 170 +++++++++++++++
+|  .../900284d028a980b637321f4ab43459463dcd14ed.md   | 170 +++++++++++++++
+|  .../92b24aaf314e77e18411bd32ff85bc81b4144886.md   | 195 +++++++++++++++++
+|  .../9845f1da751a8f16563358711a3ceecb67eb6576.md   | 170 +++++++++++++++
+|  .../9b7ae57d1068aa8f17c9bc885a4fd6df389211cf.md   | 170 +++++++++++++++
+|  .../ab39de1c34ac80f316e48485bca6e7573e089abc.md   | 170 +++++++++++++++
+|  .../af75b61285f5600ba153a92c91ccfb766576caf4.png  | Bin 0 -> 30168 bytes
+|  .../b2c417ac23f0ee344cc6dcabb95e4348243b626f.png  | Bin 0 -> 31536 bytes
+|  .../b3bc7b1f1c6a3586fbf83b83d4313321f5464ad1.png  | Bin 0 -> 38737 bytes
+|  .../b48a148dad9b144dd35adbaa5ae77242177bc577.md   | 218 +++++++++++++++++++
+|  .../b76b6e5214b12d5e98d42badaa93bcfcc1bad492.md   | 170 +++++++++++++++
+|  submission/playwright-report/data/bug-001.png     | Bin 0 -> 30395 bytes
+|  submission/playwright-report/data/bug-002.png     | Bin 0 -> 30024 bytes
+|  submission/playwright-report/data/bug-003.png     | Bin 0 -> 142711 bytes
+|  submission/playwright-report/data/bug-004.png     | Bin 0 -> 157334 bytes
+|  submission/playwright-report/data/bug-005.png     | Bin 0 -> 132535 bytes
+|  submission/playwright-report/data/bug-006.png     | Bin 0 -> 140161 bytes
+|  .../c1315bfdddf5a42e72018d69751380831649f6d2.md   | 170 +++++++++++++++
+|  .../c23b724e8c7680a8b037cde6374a769a468ed563.png  | Bin 0 -> 38923 bytes
+|  .../c79e0b077a297b5e0e27fbd7f87c255bf3aab88f.md   | 170 +++++++++++++++
+|  .../c9f7282548886ad158fa7ee0c7ec2cc00e6e33a0.png  | Bin 0 -> 31476 bytes
+|  .../cd8b7934cbbafa2f2992a6e75f5f547ec5df507d.md   | 204 +++++++++++++++++
+|  .../d07cacf6bc88f9618b304d40c28c9898a879c6b1.md   | 195 +++++++++++++++++
+|  .../d1490d5184f0137230c0293a75943fbb4d0860dd.md   | 170 +++++++++++++++
+|  .../d7a5eed98f52b3a8ab83bfb6cda4263aac918b89.png  | Bin 0 -> 5212 bytes
+|  .../e22baac16f9da0ec56cbbfa1de5ddab97b02f8d9.png  | Bin 0 -> 31341 bytes
+|  .../e25e852f33f9f5479ce832099e2d30901eb6252e.png  | Bin 0 -> 31570 bytes
+|  .../ea65971ac270461175dbe9be1d007ec311d63f31.md   | 173 +++++++++++++++
+|  .../eb43ec8a798578d59ba6ccf73727960073c2b5f8.png  | Bin 0 -> 31608 bytes
+|  .../edac1b859184f6d65d2ea6e101a9f74ceb5b23c6.md   | 170 +++++++++++++++
+|  .../f4460dc9303d50ef9b5ff9f141832cfac7a5890e.png  | Bin 0 -> 40266 bytes
+|  .../f935f8ffef23d222d5af3ceacbd0623bd3caa158.png  | Bin 0 -> 31005 bytes
+|  .../fd2bd816eb6a287876853cac5578045b65755ee9.md   | 170 +++++++++++++++
+|  submission/playwright-report/index.html           |  49 +++++
+|  submission/playwright.config.ts                   |   3 +
+|  submission/poolA.md                               |   4 +-
+|  submission/poolB.md                               |   2 +-
+|  submission/poolC.md                               |   4 +-
+|  submission/tests/example.spec.ts                  |  18 --
+|  .../tests/poolA-fr03-forgot-password.spec.ts      |   5 +
+|  .../tests/poolC-fr14-category-management.spec.ts  |   7 +
+|  90 files changed, 6497 insertions(+), 252 deletions(-)
+| 
+* commit 5f0a193c49f6769a8973ac18b81904b7edee1f38
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Sat Aug 22 16:14:35 2026 +0700
+| 
+|     move git commit log into submission
+| 
+|  submission/23127185_HW04_AI_Automation_100.zip | Bin 0 -> 888588 bytes
+|  submission/GitCommitLog.txt                    |  14 ++++++++++++++
+|  submission/links.md                            |   2 +-
+|  3 files changed, 15 insertions(+), 1 deletion(-)
+| 
+* commit e4525794c7d280f04ca73cf83590e6ed388bb0cf
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Sat Aug 22 16:13:02 2026 +0700
+| 
+|     finish git commit log
+| 
+|  GitCommitLog.txt | 200 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+|  1 file changed, 200 insertions(+)
+| 
 * commit 913d7119beea3f70b1b17df30bb719cdf7a00b9c
 | Author: Melyenn <thiduyen310@gmail.com>
 | Date:   Sat Aug 22 16:12:36 2026 +0700
@@ -189,12 +307,21 @@
 |  6 files changed, 243 insertions(+)
 | 
 * commit f4df999876c39e7135eb477e9507d576e7d9bd15
-  Author: Melyenn <thiduyen310@gmail.com>
-  Date:   Sun Aug 16 20:27:48 2026 +0700
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Sun Aug 16 20:27:48 2026 +0700
+| 
+|     feat: add plan
+| 
+|  docs/HW04_ASSIGNMENT.md                           |  232 ++++
+|  docs/HW04_ASSIGNMENT_VI.md                        |  232 ++++
+|  .../plans/2026-08-16-hw04-automation-testing.md   | 1088 +++++++++++++++++++
+|  3 files changed, 1552 insertions(+)
+| 
+* commit a18ff12682959a58988b90230dca50754f3d5895
+  Author: TKin <letrungkienthd@gmail.com>
+  Date:   Sun Aug 16 15:46:29 2026 +0700
   
-      feat: add plan
+      first commit
   
-   docs/HW04_ASSIGNMENT.md                           |  232 ++++
-   docs/HW04_ASSIGNMENT_VI.md                        |  232 ++++
-   .../plans/2026-08-16-hw04-automation-testing.md   | 1088 +++++++++++++++++++
-   3 files changed, 1552 insertions(+)
+   README.md | 1 +
+   1 file changed, 1 insertion(+)

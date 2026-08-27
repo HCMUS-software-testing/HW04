@@ -13,7 +13,7 @@
 - **Data file:** `tests/data/poolA-fr03-forgot-password.json`
 - **HTML report:** `playwright-report`
 - **Run by:** `23127185`
-- **Run timestamp:** `2026-08-22T16:11:30.133Z`
+- **Run timestamp:** `2026-08-27T20:45:00.000+07:00`
 
 ## 2. Mục Tiêu Kiểm Thử
 
@@ -41,7 +41,7 @@ Các test case tập trung vào:
   - Cốc Cốc
 - HTML report phải hiển thị:
   - `Run by: 23127185`
-  - ISO timestamp: `2026-08-18T13:48:29.000Z`
+  - ISO timestamp: `2026-08-27T20:45:00.000+07:00`
 
 ## 4. Test Case Table
 

@@ -28,12 +28,12 @@
 
 | Bug ID | Summary | GitHub Issue URL | Screenshot Path |
 | --- | --- | --- | --- |
-| BUG-001 | FR-03: Mật khẩu không đặt lại được & thiếu Confirm Password | https://github.com/ttbhanh/eshop-sut/issues/1 | `playwright-report/data/bug-001.png` |
-| BUG-002 | FR-03: OTP sinh ra chỉ có 4 chữ số | https://github.com/ttbhanh/eshop-sut/issues/2 | `playwright-report/data/bug-002.png` |
-| BUG-003 | FR-10: RBAC Bypass thay đổi trạng thái đơn hàng | https://github.com/ttbhanh/eshop-sut/issues/3 | `playwright-report/data/bug-003.png` |
-| BUG-004 | FR-10: Hủy đơn hàng khi đang shipping | https://github.com/ttbhanh/eshop-sut/issues/4 | `playwright-report/data/bug-004.png` |
-| BUG-005 | FR-14: Category CRUD RBAC Bypass | https://github.com/ttbhanh/eshop-sut/issues/5 | `playwright-report/data/bug-005.png` |
-| BUG-006 | FR-14: Tạo danh mục với tên rỗng | https://github.com/ttbhanh/eshop-sut/issues/6 | `playwright-report/data/bug-006.png` |
+| BUG-001 | FR-03: Mật khẩu không đặt lại được & thiếu Confirm Password | https://github.com/HCMUS-software-testing/HW04/issues/5 | `playwright-report/data/bug-001.png` |
+| BUG-002 | FR-03: OTP sinh ra chỉ có 4 chữ số | https://github.com/HCMUS-software-testing/HW04/issues/6 | `playwright-report/data/bug-002.png` |
+| BUG-003 | FR-10: RBAC Bypass thay đổi trạng thái đơn hàng | https://github.com/HCMUS-software-testing/HW04/issues/7 | `playwright-report/data/bug-003.png` |
+| BUG-004 | FR-10: Hủy đơn hàng khi đang shipping | https://github.com/HCMUS-software-testing/HW04/issues/8 | `playwright-report/data/bug-004.png` |
+| BUG-005 | FR-14: Category CRUD RBAC Bypass | https://github.com/HCMUS-software-testing/HW04/issues/9 | `playwright-report/data/bug-005.png` |
+| BUG-006 | FR-14: Tạo danh mục với tên rỗng | https://github.com/HCMUS-software-testing/HW04/issues/10 | `playwright-report/data/bug-006.png` |
 
 ## Supporting Materials
 

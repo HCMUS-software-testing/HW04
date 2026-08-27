@@ -12,12 +12,12 @@
 
 | Bug ID | Feature | Severity | Summary | GitHub Issue | Screenshot | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| BUG-001 | FR-03 Quên & Đặt lại MK | High | Không thể đặt lại mật khẩu do SUT validate sai Password Policy và thiếu trường Xác nhận mật khẩu | https://github.com/ttbhanh/eshop-sut/issues/1 | playwright-report/data/bug-001.png | Open |
-| BUG-002 | FR-03 Quên & Đặt lại MK | Medium | Hệ thống tạo mã OTP chỉ có 4 chữ số thay vì 6 chữ số theo chuẩn yêu cầu | https://github.com/ttbhanh/eshop-sut/issues/2 | playwright-report/data/bug-002.png | Open |
-| BUG-003 | FR-10 Trạng thái Đơn hàng | High | Lỗi phân quyền API: Tài khoản User có thể trực tiếp gọi API Admin để thay đổi trạng thái đơn hàng | https://github.com/ttbhanh/eshop-sut/issues/3 | playwright-report/data/bug-003.png | Open |
-| BUG-004 | FR-10 Trạng thái Đơn hàng | Medium | Cho phép User hủy đơn hàng khi đang trong quá trình giao hàng (shipping) | https://github.com/ttbhanh/eshop-sut/issues/4 | playwright-report/data/bug-004.png | Open |
-| BUG-005 | FR-14 Quản lý Danh mục | High | Lỗi phân quyền API: Tài khoản User có thể thực hiện Thêm, Sửa, Xóa danh mục sản phẩm trái phép | https://github.com/ttbhanh/eshop-sut/issues/5 | playwright-report/data/bug-005.png | Open |
-| BUG-006 | FR-14 Quản lý Danh mục | Medium | Thiếu validation dữ liệu đầu vào: Cho phép tạo danh mục với tên là chuỗi rỗng | https://github.com/ttbhanh/eshop-sut/issues/6 | playwright-report/data/bug-006.png | Open |
+| BUG-001 | FR-03 Quên & Đặt lại MK | High | Không thể đặt lại mật khẩu do SUT validate sai Password Policy và thiếu trường Xác nhận mật khẩu | https://github.com/HCMUS-software-testing/HW04/issues/5 | playwright-report/data/bug-001.png | Open |
+| BUG-002 | FR-03 Quên & Đặt lại MK | Medium | Hệ thống tạo mã OTP chỉ có 4 chữ số thay vì 6 chữ số theo chuẩn yêu cầu | https://github.com/HCMUS-software-testing/HW04/issues/6 | playwright-report/data/bug-002.png | Open |
+| BUG-003 | FR-10 Trạng thái Đơn hàng | High | Lỗi phân quyền API: Tài khoản User có thể trực tiếp gọi API Admin để thay đổi trạng thái đơn hàng | https://github.com/HCMUS-software-testing/HW04/issues/7 | playwright-report/data/bug-003.png | Open |
+| BUG-004 | FR-10 Trạng thái Đơn hàng | Medium | Cho phép User hủy đơn hàng khi đang trong quá trình giao hàng (shipping) | https://github.com/HCMUS-software-testing/HW04/issues/8 | playwright-report/data/bug-004.png | Open |
+| BUG-005 | FR-14 Quản lý Danh mục | High | Lỗi phân quyền API: Tài khoản User có thể thực hiện Thêm, Sửa, Xóa danh mục sản phẩm trái phép | https://github.com/HCMUS-software-testing/HW04/issues/9 | playwright-report/data/bug-005.png | Open |
+| BUG-006 | FR-14 Quản lý Danh mục | Medium | Thiếu validation dữ liệu đầu vào: Cho phép tạo danh mục với tên là chuỗi rỗng | https://github.com/HCMUS-software-testing/HW04/issues/10 | playwright-report/data/bug-006.png | Open |
 
 ## Detailed Bug Template
 

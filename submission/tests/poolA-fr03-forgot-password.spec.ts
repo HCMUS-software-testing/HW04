@@ -32,6 +32,11 @@ test.describe(`FR-03: Forgot Password & Password Reset (Pool A) | Run by: ${stud
         const submitBtn = page.getByRole('button', { name: /lấy mã otp|yêu cầu otp|gửi|submit/i });
         await submitBtn.click();
 
+        if (tc.type === 'Negative') {
+          // Wait for API response and window.alert dialog to trigger
+          await page.waitForTimeout(1000);
+        }
+
         // Assertion Patterns used:
         if (tc.assertionPattern === 'validationMessage' || tc.id === 'TC3') {
           // 1. Form / Control State Assertion (HTML5 Validation or Input State)

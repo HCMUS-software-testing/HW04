@@ -13,7 +13,7 @@
 - **Data file:** `tests/data/poolC-fr14-category-management.json`
 - **HTML report:** `playwright-report`
 - **Run by:** `23127185`
-- **Run timestamp:** `2026-08-22T01:43:00.000Z`
+- **Run timestamp:** `2026-08-27T20:45:00.000+07:00`
 
 ## 2. Mục Tiêu Kiểm Thử
 
@@ -37,7 +37,7 @@ Kiểm thử toàn bộ các thao tác CRUD danh mục sản phẩm (FR-14) bao 
   - Cốc Cốc
 - HTML report hiển thị:
   - `Run by: 23127185`
-  - ISO timestamp: `2026-08-22T01:43:00.000Z`
+  - ISO timestamp: `2026-08-27T20:45:00.000+07:00`
 
 ## 4. Test Case Table
 
