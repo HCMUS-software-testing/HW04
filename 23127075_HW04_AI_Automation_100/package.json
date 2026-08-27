@@ -1,0 +1,20 @@
+{
+  "name": "hw04-automation-testing",
+  "version": "1.0.0",
+  "description": "HW04 Playwright Automation Testing for EShop SUT",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:fr01": "playwright test test/specs/fr01.spec.ts",
+    "test:fr07": "playwright test test/specs/fr07.spec.ts",
+    "test:fr18": "playwright test test/specs/fr18.spec.ts",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^26.3.0",
+    "typescript": "^5.8.0"
+  },
+  "author": "Le Trung Kien - 23127075",
+  "license": "ISC"
+}
