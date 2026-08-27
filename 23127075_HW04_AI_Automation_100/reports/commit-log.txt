@@ -1,14 +1,370 @@
-0bd46cc test: isolate FR-18 order fixtures and locators
-ed2ef26 test: isolate FR-18 admin order cases
-bbda20c test: align FR-18 admin tests with actual DOM
-39de71a test: align FR-07 product locators and test data
-60c4a8f test: finalize FR-07 cart assertions
-bba0e1c test: preserve FR-07 cart state across navigation
-3a551df test: complete FR-01 cross-browser review
-82be241 fix fr01 script - locator fixed
-d88077b test: run FR-18 against admin frontend
-871bee1 test: add FR-18 orders management admin
-557fc47 test: add FR-07 shopping cart
-7cc519d test: add FR-01 registration automation
-
-The log above records the test-script commits included in this submission package.
+* commit be4f69877c245f8681af06e85c4610fc452c9997
+| Author: TKin <letrungkienthd@gmail.com>
+| Date:   Thu Aug 27 21:20:53 2026 +0700
+| 
+|     add submission folder
+| 
+|  23127075_HW04_AI_Automation_100/README.md         | 128 +++++
+|  23127075_HW04_AI_Automation_100/package-lock.json | 112 ++++
+|  23127075_HW04_AI_Automation_100/package.json      |  20 +
+|  .../playwright.config.ts                          |  54 ++
+|  .../reports/ai-audit-report.md                    | 591 ++++++++++++++++++++
+|  .../reports/ai-critique.md                        |   9 +
+|  .../reports/bug-report.md                         |  40 ++
+|  .../reports/commit-log.txt                        |  14 +
+|  .../github-evidence/bug-fr01-registration.png     | Bin 0 -> 42855 bytes
+|  .../github-evidence/bug-fr07-duplicate-rows.png   | Bin 0 -> 40149 bytes
+|  .../bug-fr07-empty-illustration.png               | Bin 0 -> 23660 bytes
+|  .../reports/github-evidence/bug-fr07-summary.png  | Bin 0 -> 35316 bytes
+|  .../bug-fr18-canceled-final-state.png             | Bin 0 -> 90101 bytes
+|  .../github-evidence/bug-fr18-success-message.png  | Bin 0 -> 90202 bytes
+|  .../reports/github-issues.md                      | 127 +++++
+|  .../reports/main-report.md                        |  51 ++
+|  .../test/helpers/eshop.ts                         |  47 ++
+|  .../test/seed-data/FR-18-orders.json              |  74 +++
+|  .../test/specs/fr01.spec.ts                       | 105 ++++
+|  .../test/specs/fr07.spec.ts                       | 210 +++++++
+|  .../test/specs/fr18.spec.ts                       | 149 +++++
+|  .../test/test-data/FR-01.json                     | 220 ++++++++
+|  .../test/test-data/FR-07.json                     | 212 +++++++
+|  .../test/test-data/FR-18.json                     | 225 ++++++++
+|  src/reports/main-report.md                        |  21 +-
+|  25 files changed, 2408 insertions(+), 1 deletion(-)
+| 
+* commit bd00efdc219beb9234612b285f2cca2c4fc61d8a
+| Author: TKin <letrungkienthd@gmail.com>
+| Date:   Thu Aug 27 21:08:11 2026 +0700
+| 
+|     docs: record GitHub bug issue links
+| 
+|  src/reports/github-issues.md | 22 +++++++++++++++-------
+|  1 file changed, 15 insertions(+), 7 deletions(-)
+| 
+* commit 1620d0c3ba3be1bd8eea1e2e097f812744a1260a
+| Author: TKin <letrungkienthd@gmail.com>
+| Date:   Thu Aug 27 21:03:52 2026 +0700
+| 
+|     docs: prepare GitHub bug issue evidence
+| 
+|  .../github-evidence/bug-fr01-registration.png     | Bin 0 -> 42855 bytes
+|  .../github-evidence/bug-fr07-duplicate-rows.png   | Bin 0 -> 40149 bytes
+|  .../bug-fr07-empty-illustration.png               | Bin 0 -> 23660 bytes
+|  src/reports/github-evidence/bug-fr07-summary.png  | Bin 0 -> 35316 bytes
+|  .../bug-fr18-canceled-final-state.png             | Bin 0 -> 90101 bytes
+|  .../github-evidence/bug-fr18-success-message.png  | Bin 0 -> 90202 bytes
+|  src/reports/github-issues.md                      | 119 ++++++++++++++++++++
+|  7 files changed, 119 insertions(+)
+| 
+* commit 73eff4a8d14b7c53f1696c68831f582e1ad5d20f
+| Author: TKin <letrungkienthd@gmail.com>
+| Date:   Thu Aug 27 20:58:38 2026 +0700
+| 
+|     add demo
+| 
+|  DEMO.md                                 | 131 ++++++++++++++++++++++++++++++
+|  demo/agent/.gitkeep                     |   1 +
+|  demo/agent/fr01/bug-report.md           |  33 ++++++++
+|  demo/agent/fr01/package-lock.json       |  76 +++++++++++++++++
+|  demo/agent/fr01/package.json            |  14 ++++
+|  demo/agent/fr01/playwright.config.ts    |  41 ++++++++++
+|  demo/agent/fr01/test-data/FR-01.json    | 102 +++++++++++++++++++++++
+|  demo/agent/fr01/test/specs/fr01.spec.ts |  85 +++++++++++++++++++
+|  demo/scripts/.gitkeep                   |   1 +
+|  9 files changed, 484 insertions(+)
+| 
+* commit 6c6cedf6ab3dfbda36e94efee26efd48574ebe55
+| Author: TKin <letrungkienthd@gmail.com>
+| Date:   Wed Aug 26 21:16:09 2026 +0700
+| 
+|     add automation testing skill
+| 
+|  .agents/skills/automation-testing/SKILL.md        | 34 +++++++++
+|  .../skills/automation-testing/agents/openai.yaml  |  4 +
+|  .../subskills/findings-to-bug-report/SKILL.md     | 24 ++++++
+|  .../subskills/playwright-script-and-run/SKILL.md  | 29 +++++++
+|  .../subskills/spec-to-test-data/SKILL.md          | 29 +++++++
+|  README.md                                         | 17 +++++
+|  automation-testing/SKILL.md                       | 34 +++++++++
+|  automation-testing/agents/openai.yaml             |  4 +
+|  .../subskills/findings-to-bug-report/SKILL.md     | 24 ++++++
+|  .../subskills/playwright-script-and-run/SKILL.md  | 29 +++++++
+|  .../subskills/spec-to-test-data/SKILL.md          | 29 +++++++
+|  src/reports/ai-audit-report.md                    | 83 ++++++++++++---------
+|  12 files changed, 303 insertions(+), 37 deletions(-)
+| 
+* commit 312c8584a10e95ca1c1cada063a91deb7b62c17e
+| Author: TKin <letrungkienthd@gmail.com>
+| Date:   Wed Aug 26 21:00:31 2026 +0700
+| 
+|     fill ai audit report
+| 
+|  README.md                      |  31 +++++++
+|  src/reports/ai-audit-report.md | 177 ++++++++++++++++++++++-----------------
+|  2 files changed, 129 insertions(+), 79 deletions(-)
+| 
+* commit 512db0912e46b55ae36e3241fd0f560c65e5abbc
+| Author: TKin <letrungkienthd@gmail.com>
+| Date:   Wed Aug 26 20:34:30 2026 +0700
+| 
+|     run final tests and add required files
+| 
+|  src/README.md                  | 60 ++++++++++++++++++++++++++
+|  src/reports/ai-audit-report.md | 91 +++++++++++++++++++++++++++++++++++-----
+|  src/reports/ai-critique.md     |  9 ++++
+|  src/reports/bug-report.md      | 40 ++++++++++++++++++
+|  src/reports/commit-log.txt     | 14 +++++++
+|  src/reports/main-report.md     | 32 ++++++++++++++
+|  6 files changed, 235 insertions(+), 11 deletions(-)
+| 
+* commit 0bd46cc788bd8b2b770a46703dd3005a4a4ff977
+| Author: TKin <letrungkienthd@gmail.com>
+| Date:   Wed Aug 26 17:41:03 2026 +0700
+| 
+|     test: isolate FR-18 order fixtures and locators
+| 
+|  .../plans/2026-08-26-fr18-state-isolation.md      | 38 +++++++++++++++++++++
+|  src/reports/ai-audit-report.md                    | 36 +++++++++++++++++++
+|  src/test/seed-data/FR-18-orders.json              | 29 ++++++++++++++++
+|  src/test/specs/fr18.spec.ts                       |  5 ++-
+|  src/test/test-data/FR-18.json                     | 16 ++++-----
+|  5 files changed, 115 insertions(+), 9 deletions(-)
+| 
+* commit 50a45532e0c341a1ca4549974510f1d8dd4dded2
+| Author: TKin <letrungkienthd@gmail.com>
+| Date:   Wed Aug 26 16:40:38 2026 +0700
+| 
+|     fix ai audit skill
+| 
+|  .agents/skills/ai-audit-entry/SKILL.md               |  4 ++--
+|  .../ai-audit-entry/scripts/append_ai_audit_entry.py  | 12 +++++-------
+|  .../scripts/test_append_ai_audit_entry.py            |  9 +++++----
+|  src/reports/ai-audit-report.md                       | 18 ++++++++++++++++++
+|  4 files changed, 30 insertions(+), 13 deletions(-)
+| 
+* commit ed2ef2651aaa899a193a642ae908b7f462bdbb40
+| Author: TKin <letrungkienthd@gmail.com>
+| Date:   Wed Aug 26 16:34:54 2026 +0700
+| 
+|     test: isolate FR-18 admin order cases
+| 
+|  .../2026-08-26-fr18-admin-order-isolation.md      | 40 ++++++++++++++++++
+|  ...026-08-26-fr18-admin-order-isolation-design.md | 21 ++++++++++
+|  src/test/seed-data/FR-18-orders.json              | 45 +++++++++++++++++++++
+|  src/test/specs/fr18.spec.ts                       | 20 +++++----
+|  src/test/test-data/FR-18.json                     | 26 +++++++-----
+|  5 files changed, 135 insertions(+), 17 deletions(-)
+| 
+* commit bbda20c42a001e4a18f9d2804369fbf238f04381
+| Author: TKin <letrungkienthd@gmail.com>
+| Date:   Wed Aug 26 16:16:26 2026 +0700
+| 
+|     test: align FR-18 admin tests with actual DOM
+| 
+|  src/test/specs/fr18.spec.ts | 53 ++++++++++++++++++++++++++-----------------
+|  1 file changed, 32 insertions(+), 21 deletions(-)
+| 
+* commit 39de71aee81b6b84e534f563cfa2361dc2ea3dbb
+| Author: TKin <letrungkienthd@gmail.com>
+| Date:   Wed Aug 26 15:16:55 2026 +0700
+| 
+|     test: align FR-07 product locators and test data
+| 
+|  src/reports/ai-audit-report.md | 132 +++++++++++++++++++++++++++++++++++++++
+|  src/test/specs/fr07.spec.ts    |  41 +++++++++---
+|  src/test/test-data/FR-07.json  |  36 +++++------
+|  3 files changed, 182 insertions(+), 27 deletions(-)
+| 
+* commit 60c4a8fbe3fcf1deae450c95b2f9e18d1afcf877
+| Author: TKin <letrungkienthd@gmail.com>
+| Date:   Wed Aug 26 14:54:56 2026 +0700
+| 
+|     test: finalize FR-07 cart assertions
+| 
+|  src/test/specs/fr07.spec.ts | 28 ++++++++++++++++++++++------
+|  1 file changed, 22 insertions(+), 6 deletions(-)
+| 
+* commit bba0e1cc9b93a7c5d8a92eb1053794b4b8a05d89
+| Author: TKin <letrungkienthd@gmail.com>
+| Date:   Wed Aug 26 14:44:51 2026 +0700
+| 
+|     test: preserve FR-07 cart state across navigation
+| 
+|  src/reports/ai-audit-report.md | 18 ++++++++++
+|  src/test/specs/fr07.spec.ts    | 77 ++++++++++++++++++++++++++++------------
+|  2 files changed, 73 insertions(+), 22 deletions(-)
+| 
+* commit 3a551dfc268c7d765f2549fd6b836eaa4491dcda
+| Author: TKin <letrungkienthd@gmail.com>
+| Date:   Wed Aug 26 14:20:31 2026 +0700
+| 
+|     test: complete FR-01 cross-browser review
+| 
+|  src/reports/ai-audit-report.md | 38 ++++++++++++++++++++++++++++++++++++++
+|  src/test/specs/fr01.spec.ts    | 19 +++++++++++++++++--
+|  2 files changed, 55 insertions(+), 2 deletions(-)
+| 
+* commit 82be24165755a642f095f8e1fcac01d27e694df1
+| Author: TKin <letrungkienthd@gmail.com>
+| Date:   Wed Aug 26 14:00:41 2026 +0700
+| 
+|     fix fr01 script - locator fixed
+| 
+|  src/README.md                  | 12 +++++++++-
+|  src/package-lock.json          | 18 +++++++++++++++
+|  src/package.json               |  1 +
+|  src/playwright.config.ts       |  4 +++-
+|  src/reports/ai-audit-report.md | 36 ++++++++++++++++++++++++++++++
+|  src/test/specs/fr01.spec.ts    | 48 ++++++++--------------------------------
+|  6 files changed, 78 insertions(+), 41 deletions(-)
+| 
+* commit cb42171365760328c96d5fb382ce4c315a4cf9ec
+| Author: TKin <letrungkienthd@gmail.com>
+| Date:   Wed Aug 26 13:35:19 2026 +0700
+| 
+|     change combo browsers to chrome + edge + firefox
+| 
+|  src/README.md            |  2 +-
+|  src/playwright.config.ts | 18 ++++++++++++------
+|  2 files changed, 13 insertions(+), 7 deletions(-)
+| 
+* commit d88077b978b285d136fd21bdd3ecb204df74e847
+| Author: TKin <letrungkienthd@gmail.com>
+| Date:   Wed Aug 26 12:02:36 2026 +0700
+| 
+|     test: run FR-18 against admin frontend
+| 
+|  src/README.md                  | 16 +++++++++++++---
+|  src/reports/ai-audit-report.md | 20 +++++++++++++++++++-
+|  src/test/specs/fr18.spec.ts    | 22 ++++++++++++++--------
+|  3 files changed, 46 insertions(+), 12 deletions(-)
+| 
+* commit 871bee12d1d36e511fdd0152d14f357c3145a413
+| Author: TKin <letrungkienthd@gmail.com>
+| Date:   Tue Aug 25 23:01:41 2026 +0700
+| 
+|     test: add FR-18 orders management admin
+| 
+|  src/reports/ai-audit-report.md |  33 ++++++++++-
+|  src/test/specs/fr18.spec.ts    | 125 +++++++++++++++++++++++++++++++++++++++
+|  2 files changed, 157 insertions(+), 1 deletion(-)
+| 
+* commit 557fc479e73c6a7544229257765ff644d6594b21
+| Author: TKin <letrungkienthd@gmail.com>
+| Date:   Tue Aug 25 22:37:43 2026 +0700
+| 
+|     test: add FR-07 shopping cart
+| 
+|  src/README.md                                     |   6 +-
+|  src/package.json                                  |   6 +-
+|  src/reports/ai-audit-report.md                    |  51 ++++++--
+|  .../specs/{feature-a.spec.ts => fr01.spec.ts}     |   0
+|  src/test/specs/fr07.spec.ts                       | 138 ++++++++++++++++++++
+|  5 files changed, 184 insertions(+), 17 deletions(-)
+| 
+* commit 7cc519d3d3e840d2185ba5a496e12b9c0cb11985
+| Author: TKin <letrungkienthd@gmail.com>
+| Date:   Tue Aug 25 22:21:58 2026 +0700
+| 
+|     test: add FR-01 registration automation
+| 
+|  .gitignore                       |  26 +++++++-
+|  AGENTS.md                        |  39 +++++-------
+|  README.md                        |   1 -
+|  src/README.md                    |  48 +++++++++++++++
+|  src/package-lock.json            |  94 +++++++++++++++++++++++++++++
+|  src/package.json                 |  19 ++++++
+|  src/playwright.config.ts         |  46 ++++++++++++++
+|  src/reports/ai-audit-report.md   |  28 +++++++++
+|  src/test/helpers/eshop.ts        |  47 +++++++++++++++
+|  src/test/specs/feature-a.spec.ts | 120 +++++++++++++++++++++++++++++++++++++
+|  10 files changed, 441 insertions(+), 27 deletions(-)
+| 
+* commit 6c892a914b6eab0a938839b346878083e5ed267b
+| Author: TKin <letrungkienthd@gmail.com>
+| Date:   Mon Aug 24 22:54:07 2026 +0700
+| 
+|     add test data based on specifications
+| 
+|  src/reports/ai-audit-report.md |  18 ++++
+|  src/test/test-data/FR-01.json  | 220 +++++++++++++++++++++++++++++++++++++++
+|  src/test/test-data/FR-07.json  | 212 +++++++++++++++++++++++++++++++++++++
+|  src/test/test-data/FR-18.json  | 217 ++++++++++++++++++++++++++++++++++++++
+|  4 files changed, 667 insertions(+)
+| 
+* commit b0e46f09a633d3b32e49d8d69e34ef4fca0ee85f
+| Author: TKin <letrungkienthd@gmail.com>
+| Date:   Fri Aug 21 00:02:08 2026 +0700
+| 
+|     convert slide from pdf to markdowns
+| 
+|  .gitignore                      |   1 +
+|  docs/HW04_ASSIGNMENT.md         | 232 -------------------
+|  docs/HW04_ASSIGNMENT_VI.md      | 232 -------------------
+|  ref/10_Automation Testing.pdf   | Bin 0 -> 816505 bytes
+|  ref/10_Automation Testing_En.md | 470 ++++++++++++++++++++++++++++++++++++++
+|  ref/10_Automation Testing_Vi.md | 470 ++++++++++++++++++++++++++++++++++++++
+|  src/reports/ai-audit-report.md  |  18 ++
+|  7 files changed, 959 insertions(+), 464 deletions(-)
+| 
+* commit 1228db1c021f8494adf0505791c549fe66689dd7
+| Author: TKin <letrungkienthd@gmail.com>
+| Date:   Wed Aug 19 23:59:01 2026 +0700
+| 
+|     add rule for AI to read markdowns instead of pdf
+| 
+|  AGENTS.md                      |  6 +++---
+|  ai-reasoning/AGENTS.md         |  5 +++--
+|  req/AGENTS.md                  |  5 +++++
+|  src/reports/ai-audit-report.md | 43 ++++++++++++++++++++++++++++++----------
+|  4 files changed, 44 insertions(+), 15 deletions(-)
+| 
+* commit a50a29961b75187cbc19a72c1a4f05991be2af19
+| Author: TKin <letrungkienthd@gmail.com>
+| Date:   Wed Aug 19 23:46:20 2026 +0700
+| 
+|     convert req to markdown and modify ai audit skill
+| 
+|  .agents/skills/ai-audit-entry/SKILL.md            |  10 +-
+|  .../scripts/append_ai_audit_entry.py              |   2 +-
+|  .../scripts/test_append_ai_audit_entry.py         |  12 +-
+|  AGENTS.md                                         |  46 +++++
+|  req/2026.HW04.Automation Testing_En.md            | 186 ++++++++++++++++++++
+|  req/2026.HW04.Automation Testing_Vi.md            | 186 ++++++++++++++++++++
+|  src/reports/ai-audit-report.md                    |  51 ++++++
+|  7 files changed, 486 insertions(+), 7 deletions(-)
+| 
+* commit e5c48980297ed11c59753d115247e44d3f8a57f2
+| Author: TKin <letrungkienthd@gmail.com>
+| Date:   Wed Aug 19 22:47:21 2026 +0700
+| 
+|     add ai audit skill, ISTQB, pdf req
+| 
+|  .agents/skills/ai-audit-entry/SKILL.md            |   91 +
+|  .agents/skills/ai-audit-entry/agents/openai.yaml  |    4 +
+|  .../scripts/append_ai_audit_entry.py              |  459 +++++
+|  .../scripts/test_append_ai_audit_entry.py         |  534 ++++++
+|  ai-reasoning/AGENTS.md                            |    4 +
+|  ai-reasoning/ISTQB_CT-AI_Syllabus_v1.0.md         | 1750 +++++++++++++++++++
+|  ai-reasoning/ISTQB_CT-AI_Syllabus_v1.0.pdf        |  Bin 0 -> 1712829 bytes
+|  req/2026.HW04.Automation Testing_En.pdf           |  Bin 0 -> 463412 bytes
+|  8 files changed, 2842 insertions(+)
+| 
+* commit f4df999876c39e7135eb477e9507d576e7d9bd15
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Sun Aug 16 20:27:48 2026 +0700
+| 
+|     feat: add plan
+| 
+|  docs/HW04_ASSIGNMENT.md                           |  232 ++++
+|  docs/HW04_ASSIGNMENT_VI.md                        |  232 ++++
+|  .../plans/2026-08-16-hw04-automation-testing.md   | 1088 +++++++++++++++++++
+|  3 files changed, 1552 insertions(+)
+| 
+* commit a18ff12682959a58988b90230dca50754f3d5895
+  Author: TKin <letrungkienthd@gmail.com>
+  Date:   Sun Aug 16 15:46:29 2026 +0700
+  
+      first commit
+  
+   README.md | 1 +
+   1 file changed, 1 insertion(+)

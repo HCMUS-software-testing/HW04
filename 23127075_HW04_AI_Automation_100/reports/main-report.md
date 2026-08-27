@@ -2,12 +2,35 @@
 
 ## Thông tin sinh viên
 
-- Student ID: `23127075`
 - Mã sinh viên: `23127075`
 - Repository: https://github.com/HCMUS-software-testing/HW04
 - Video demo AI Skills: https://youtu.be/T96vCNmal-s
 - Video demo Scripts: https://youtu.be/DTWXP3eLIns
 - PDF: Sinh viên sẽ export trước khi nộp.
+
+## Cấu trúc folder nộp
+
+Folder này là package độc lập; mọi đường dẫn bên dưới đều tính từ root của `23127075_HW04_AI_Automation_100/`.
+
+```text
+23127075_HW04_AI_Automation_100/
+├── test/specs/             # Script Playwright cho FR-01, FR-07, FR-18
+├── test/test-data/         # Dữ liệu kiểm thử JSON data-driven
+├── test/helpers/            # Hàm trợ giúp dùng chung
+├── test/seed-data/          # Fixture seed cho FR-18
+├── findings/               # 9 HTML report final và test artifact
+│   ├── fr01-final-*/
+│   ├── fr07-final-*/
+│   └── fr18-final-*/
+├── reports/                # Báo cáo chính, bug report, AI audit/critique
+│   └── github-evidence/    # Screenshot dùng cho GitHub Issue
+├── .agents/                # Skill automation-testing và các subskill
+├── playwright.config.ts    # Cấu hình browser và thư mục output
+├── package.json            # Các lệnh npm chạy test
+└── README.md               # Hướng dẫn cài đặt, chạy và tự đánh giá
+```
+
+SUT EShop không nằm trong package nộp; các test kết nối tới user frontend `http://localhost:5173`, admin frontend `http://localhost:5174` và backend theo hướng dẫn trong `README.md`. Khi chạy test, `FINDINGS_DIR` được đặt tương đối với root folder này.
 
 ## Phạm vi và tóm tắt tự động hóa
 
@@ -25,15 +48,15 @@ Các product bug được xác nhận từ lượt chạy final đã được g�
 
 | Bug | Feature | GitHub Issue |
 | --- | --- | --- |
-| BUG-FR01-01 | FR-01 Registration — redirect/password validation | [#11](https://github.com/HCMUS-software-testing/HW04/issues/11) |
-| BUG-FR01-02 | FR-01 Registration — missing Confirm Password | [#12](https://github.com/HCMUS-software-testing/HW04/issues/12) |
-| BUG-FR07-01 | FR-07 Shopping Cart — wrong total label | [#13](https://github.com/HCMUS-software-testing/HW04/issues/13) |
-| BUG-FR07-02 | FR-07 Shopping Cart — missing quantity/confirmation controls | [#14](https://github.com/HCMUS-software-testing/HW04/issues/14) |
-| BUG-FR07-03 | FR-07 Shopping Cart — missing empty-cart illustration | [#15](https://github.com/HCMUS-software-testing/HW04/issues/15) |
-| BUG-FR07-04 | FR-07 Shopping Cart — duplicate rows for the same product | [#16](https://github.com/HCMUS-software-testing/HW04/issues/16) |
-| BUG-FR18-01 | FR-18 Admin Orders — wrong success message | [#17](https://github.com/HCMUS-software-testing/HW04/issues/17) |
-| BUG-FR18-02 | FR-18 Admin Orders — canceled orders remain actionable | [#18](https://github.com/HCMUS-software-testing/HW04/issues/18) |
-| BUG-FR18-03 | FR-18 Admin Orders — missing status filter | [#19](https://github.com/HCMUS-software-testing/HW04/issues/19) |
+| BUG-FR01-01 | FR-01 Đăng ký — redirect/password validation | [#11](https://github.com/HCMUS-software-testing/HW04/issues/11) |
+| BUG-FR01-02 | FR-01 Đăng ký — thiếu Confirm Password | [#12](https://github.com/HCMUS-software-testing/HW04/issues/12) |
+| BUG-FR07-01 | FR-07 Giỏ hàng — sai nhãn tổng tiền | [#13](https://github.com/HCMUS-software-testing/HW04/issues/13) |
+| BUG-FR07-02 | FR-07 Giỏ hàng — thiếu control quantity/confirmation | [#14](https://github.com/HCMUS-software-testing/HW04/issues/14) |
+| BUG-FR07-03 | FR-07 Giỏ hàng — thiếu illustration khi rỗng | [#15](https://github.com/HCMUS-software-testing/HW04/issues/15) |
+| BUG-FR07-04 | FR-07 Giỏ hàng — trùng row cùng sản phẩm | [#16](https://github.com/HCMUS-software-testing/HW04/issues/16) |
+| BUG-FR18-01 | FR-18 Đơn hàng Admin — sai success message | [#17](https://github.com/HCMUS-software-testing/HW04/issues/17) |
+| BUG-FR18-02 | FR-18 Đơn hàng Admin — đơn hủy vẫn có action | [#18](https://github.com/HCMUS-software-testing/HW04/issues/18) |
+| BUG-FR18-03 | FR-18 Đơn hàng Admin — thiếu bộ lọc trạng thái | [#19](https://github.com/HCMUS-software-testing/HW04/issues/19) |
 
 Screenshot dùng trong issue nằm trong [github-evidence](github-evidence/); nội dung issue và mapping evidence nằm trong [github-issues.md](github-issues.md).
 
@@ -45,8 +68,6 @@ Các script đầu tiên do AI tạo cần được con người sửa về liê
 
 SUT có các gap được xác nhận trong [bug-report.md](bug-report.md), gồm validation password, thiếu cart control, thiếu bộ lọc trạng thái và action không hợp lệ trên đơn đã hủy. Không dùng WebKit vì Fedora thiếu dependency runtime của Playwright; Chrome, Edge và Firefox đáp ứng combo browser thay thế của đề.
 
-## Tài liệu cần export trước khi nộp
+## Định dạng tài liệu nộp
 
-- Export báo cáo này thành `main-report.pdf`.
-- Export `ai-critique.md` và `ai-audit-report.md` thành PDF.
-- GitHub URL, issue links, screenshot và video URL đã được ghi ở trên và trong `github-issues.md`.
+Các bản PDF tương ứng có tên `main-report.pdf`, `ai-critique.pdf` và `ai-audit-report.pdf`, đặt cùng thư mục `reports/` sau khi sinh viên export. GitHub URL, issue links, screenshot và video URL đã được ghi ở trên và trong `github-issues.md`.

@@ -94,9 +94,9 @@ FINDINGS_DIR=findings/fr18-final-firefox STUDENT_ID=23127075 ADMIN_BASE_URL=http
 
 Open a report with `npx playwright show-report findings/fr01-final-chrome/playwright-report`.
 
-## Submission Checklist
+## Tài liệu trong package
 
-Before packaging this folder, confirm that all three feature specs, real multi-browser reports, the main report, AI critique, completed AI audit, bug report, commit log, and demo video link are present. Do not fabricate screenshots, timestamps, reports, or bug evidence.
+Package bao gồm các feature spec, test data, findings multi-browser, main report, AI critique, AI audit, bug report, commit log, GitHub Issues và liên kết video. Các PDF được tạo từ ba report Markdown tương ứng và đặt trong `reports/`.
 
 ## Test Summary and Self-Assessment
 
@@ -121,8 +121,8 @@ Before packaging this folder, confirm that all three feature specs, real multi-b
 
 ## Submission Documents
 
-- [Main report](reports/main-report.md) — export to PDF before submission.
-- [AI critique](reports/ai-critique.md) — export to PDF before submission.
+- [Main report](reports/main-report.md) — bản Markdown của báo cáo chính.
+- [AI critique](reports/ai-critique.md) — bản Markdown nhận xét output AI.
 - [Bug report](reports/bug-report.md).
-- [AI audit](reports/ai-audit-report.md) — export to PDF before submission.
+- [AI audit](reports/ai-audit-report.md) — bản Markdown nhật ký audit AI.
 - [Commit log](reports/commit-log.txt).
